@@ -1,0 +1,48 @@
+{
+  "menu": [
+    {
+        "url": "/",
+        "name": "Home",
+        "icon": "menu-icon tf-icons ti ti-smart-home",
+        "slug": "dashboard"
+      },
+    {
+      "name": "Administracion",
+      "icon": "menu-icon tf-icons ti ti-user",
+      "slug": "user.index",
+      "badge": [
+        "primary",
+        "2"
+      ],
+      "submenu": [
+        {
+          "url": "/user/index",
+          "name": "Usuarios",
+          "slug": "user.index"
+          },
+        {
+          "url": "/user/roles/index",
+          "name": "Roles",
+          "slug": "user.roles.index"
+        },
+        {
+          "url": "/user/permissions/index",
+          "name": "Permisos",
+          "slug": "user.permission.index"
+        }
+      ]
+    },
+    {
+        "url": "/company/index",
+        "name": "Empresas",
+        "icon": "menu-icon tf-icons ti ti-id-badge",
+        "slug": "company.index"
+      },
+    {
+        "url": "/client/index",
+        "name": "Clientes",
+        "icon": "menu-icon tf-icons ti ti-user",
+        "slug": "client.index"
+      }
+  ]
+}

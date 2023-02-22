@@ -1,0 +1,2360 @@
+[
+  {
+    "id": 1,
+    "code": "01",
+    "name": "AHUACHAPÁN",
+    "district": "Ahuachapán",
+    "title": "Ciudad",
+    "department_id": "01",
+    "zipcode": "CP 2101"
+  },
+  {
+    "id": 2,
+    "code": "02",
+    "name": "APANECA",
+    "district": "Ahuachapán",
+    "title": "Villa",
+    "department_id": "01",
+    "zipcode": "CP 2102"
+  },
+  {
+    "id": 3,
+    "code": "03",
+    "name": "ATIQUIZAYA",
+    "district": "Atiquizaya",
+    "title": "Ciudad",
+    "department_id": "01",
+    "zipcode": "CP 2103"
+  },
+  {
+    "id": 4,
+    "code": "04",
+    "name": "CONCEPCIÓN DE ATACO",
+    "district": "Ahuachapán",
+    "title": "Ciudad",
+    "department_id": "01",
+    "zipcode": "CP 2106"
+  },
+  {
+    "id": 5,
+    "code": "05",
+    "name": "EL REFUGIO",
+    "district": "Atiquizaya",
+    "title": "Pueblo",
+    "department_id": "01",
+    "zipcode": "CP 2107"
+  },
+  {
+    "id": 6,
+    "code": "06",
+    "name": "GUAYMANGO",
+    "district": "Ahuachapán",
+    "title": "Pueblo",
+    "department_id": "01",
+    "zipcode": "CP 2108"
+  },
+  {
+    "id": 7,
+    "code": "07",
+    "name": "JUJUTLA",
+    "district": "Ahuachapán",
+    "title": "Villa",
+    "department_id": "01",
+    "zipcode": "CP 2109"
+  },
+  {
+    "id": 8,
+    "code": "08",
+    "name": "SAN FRANCISCO MENÉNDEZ",
+    "district": "Ahuachapán",
+    "title": "Pueblo",
+    "department_id": "01",
+    "zipcode": "CP 2113"
+  },
+  {
+    "id": 9,
+    "code": "09",
+    "name": "SAN LORENZO",
+    "district": "Atiquizaya",
+    "title": "Pueblo",
+    "department_id": "01",
+    "zipcode": "CP 2115"
+  },
+  {
+    "id": 10,
+    "code": 10,
+    "name": "SAN PEDRO PUXTLA",
+    "district": "Ahuachapán",
+    "title": "Villa",
+    "department_id": "01",
+    "zipcode": "CP 2116"
+  },
+  {
+    "id": 11,
+    "code": 11,
+    "name": "TACUBA",
+    "district": "Ahuachapán",
+    "title": "Ciudad",
+    "department_id": "01",
+    "zipcode": "CP 2117"
+  },
+  {
+    "id": 12,
+    "code": 12,
+    "name": "TURÍN",
+    "district": "Atiquizaya",
+    "title": "Pueblo",
+    "department_id": "01",
+    "zipcode": "CP 2118"
+  },
+  {
+    "id": 13,
+    "code": "01",
+    "name": "CANDELARIA DE LA FRONTERA",
+    "district": "Chalchuapa",
+    "title": "Villa",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 14,
+    "code": "02",
+    "name": "COATEPEQUE",
+    "district": "Santa Ana",
+    "title": "Ciudad",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 15,
+    "code": "03",
+    "name": "CHALCHUAPA",
+    "district": "Chalchuapa",
+    "title": "Ciudad",
+    "department_id": "02",
+    "zipcode": "CP 2205"
+  },
+  {
+    "id": 16,
+    "code": "04",
+    "name": "EL CONGO",
+    "district": "Santa Ana",
+    "title": "Villa",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 17,
+    "code": "05",
+    "name": "EL PORVENIR",
+    "district": "Chalchuapa",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 18,
+    "code": "06",
+    "name": "MASAHUAT",
+    "district": "Metapán",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 19,
+    "code": "07",
+    "name": "METAPÁN",
+    "district": "Metapán",
+    "title": "Ciudad",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 20,
+    "code": "08",
+    "name": "SAN ANTONIO PAJONAL",
+    "district": "Chalchuapa",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 21,
+    "code": "09",
+    "name": "SAN SEBASTIÁN SALITRILLO",
+    "district": "Chalchuapa",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": "CP 2215"
+  },
+  {
+    "id": 22,
+    "code": 10,
+    "name": "SANTA ANA",
+    "district": "Santa Ana",
+    "title": "Ciudad",
+    "department_id": "02",
+    "zipcode": "CP 2201"
+  },
+  {
+    "id": 23,
+    "code": 11,
+    "name": "SANTA ROSA GUACHIPILÍN",
+    "district": "Metapán",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 24,
+    "code": 12,
+    "name": "SANTIAGO DE LA FRONTERA",
+    "district": "Metapán",
+    "title": "Pueblo",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 25,
+    "code": 13,
+    "name": "TEXISTEPEQUE",
+    "district": "Santa Ana",
+    "title": "Ciudad",
+    "department_id": "02",
+    "zipcode": ""
+  },
+  {
+    "id": 26,
+    "code": "01",
+    "name": "ACAJUTLA",
+    "district": "Sonsonate",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 27,
+    "code": "02",
+    "name": "ARMENIA",
+    "district": "Izalco",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 28,
+    "code": "03",
+    "name": "CALUCO",
+    "district": "Izalco",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 29,
+    "code": "04",
+    "name": "CUISNAHUAT",
+    "district": "Izalco",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 30,
+    "code": "05",
+    "name": "SANTA ISABEL ISHUATÁN",
+    "district": "Izalco",
+    "title": "Villa",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 31,
+    "code": "06",
+    "name": "IZALCO",
+    "district": "Izalco",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 32,
+    "code": "07",
+    "name": "JUAYÚA",
+    "district": "Juayúa",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": "CP 2307"
+  },
+  {
+    "id": 33,
+    "code": "08",
+    "name": "NAHUIZALCO",
+    "district": "Sonsonate",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 34,
+    "code": "09",
+    "name": "NAHULINGO",
+    "district": "Sonsonate",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 35,
+    "code": 10,
+    "name": "SALCOATITÁN",
+    "district": "Juayúa",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 36,
+    "code": 11,
+    "name": "SAN ANTONIO DEL MONTE",
+    "district": "Sonsonate",
+    "title": "Villa",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 37,
+    "code": 12,
+    "name": "SAN JULIÁN",
+    "district": "Izalco",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 38,
+    "code": 13,
+    "name": "SANTA CATARINA MASAHUAT",
+    "district": "Juayúa",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 39,
+    "code": 14,
+    "name": "SANTO DOMINGO DE GUZMÁN",
+    "district": "Sonsonate",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": ""
+  },
+  {
+    "id": 40,
+    "code": 15,
+    "name": "SONSONATE",
+    "district": "Sonsonate",
+    "title": "Ciudad",
+    "department_id": "03",
+    "zipcode": "CP 2301"
+  },
+  {
+    "id": 41,
+    "code": 16,
+    "name": "SONZACATE",
+    "district": "Sonsonate",
+    "title": "Pueblo",
+    "department_id": "03",
+    "zipcode": "CP 2320"
+  },
+  {
+    "id": 42,
+    "code": "01",
+    "name": "AGUA CALIENTE",
+    "district": "Tejutla",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 43,
+    "code": "02",
+    "name": "ARCATAO",
+    "district": "Chalatenango",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 44,
+    "code": "03",
+    "name": "AZACUALPA",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 45,
+    "code": "04",
+    "name": "CITALÁ",
+    "district": "Tejutla",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 46,
+    "code": "05",
+    "name": "COMALAPA",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 47,
+    "code": "06",
+    "name": "CONCEPCIÓN QUEZALTEPEQUE",
+    "district": "Chalatenango",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 48,
+    "code": "07",
+    "name": "CHALATENANGO",
+    "district": "Chalatenango",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": "CP 1301"
+  },
+  {
+    "id": 49,
+    "code": "08",
+    "name": "DULCE NOMBRE DE MARÍA",
+    "district": "Dulce Nombre de María",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 50,
+    "code": "09",
+    "name": "EL CARRIZAL",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 51,
+    "code": 10,
+    "name": "EL PARAÍSO",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 52,
+    "code": 11,
+    "name": "LA LAGUNA",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 53,
+    "code": 12,
+    "name": "LA PALMA",
+    "district": "Tejutla",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 54,
+    "code": 13,
+    "name": "LA REINA",
+    "district": "Tejutla",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 55,
+    "code": 14,
+    "name": "LAS VUELTAS",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 56,
+    "code": 15,
+    "name": "NOMBRE DE JESÚS",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 57,
+    "code": 16,
+    "name": "NUEVA CONCEPCIÓN",
+    "district": "Tejutla",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 58,
+    "code": 17,
+    "name": "NUEVA TRINIDAD",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 59,
+    "code": 18,
+    "name": "OJOS DE AGUA",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 60,
+    "code": 19,
+    "name": "POTONICO",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 61,
+    "code": 20,
+    "name": "SAN ANTONIO DE LA CRUZ",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 62,
+    "code": 21,
+    "name": "SAN ANTONIO LOS RANCHOS",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 63,
+    "code": 22,
+    "name": "SAN FERNANDO",
+    "district": "Dulce Nombre de María",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 64,
+    "code": 23,
+    "name": "SAN FRANCISCO LEMPA",
+    "district": "Chalatenango",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 65,
+    "code": 24,
+    "name": "SAN FRANCISCO MORAZÁN",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 66,
+    "code": 25,
+    "name": "SAN IGNACIO",
+    "district": "Tejutla",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 67,
+    "code": 26,
+    "name": "SAN ISIDRO LABRADOR",
+    "district": "Chalatenango",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": "CP 1330"
+  },
+  {
+    "id": 68,
+    "code": 27,
+    "name": "SAN JOSÉ CANCASQUE / CANCASQUE",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 69,
+    "code": 28,
+    "name": "SAN JOSÉ LAS FLORES / LAS FLORES",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 70,
+    "code": 29,
+    "name": "SAN LUIS DEL CARMEN",
+    "district": "Chalatenango",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 71,
+    "code": 30,
+    "name": "SAN MIGUEL DE MERCEDES",
+    "district": "Chalatenango",
+    "title": "Villa",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 72,
+    "code": 31,
+    "name": "SAN RAFAEL",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 73,
+    "code": 32,
+    "name": "SANTA RITA",
+    "district": "Dulce Nombre de María",
+    "title": "Pueblo",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 74,
+    "code": 33,
+    "name": "TEJUTLA",
+    "district": "Tejutla",
+    "title": "Ciudad",
+    "department_id": "04",
+    "zipcode": ""
+  },
+  {
+    "id": 75,
+    "code": "01",
+    "name": "ANTIGUO CUSCATLÁN",
+    "district": "Santa Tecla",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": "CP 1502"
+  },
+  {
+    "id": 76,
+    "code": "02",
+    "name": "CIUDAD ARCE",
+    "district": "San Juan Opico",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 77,
+    "code": "03",
+    "name": "COLÓN",
+    "district": "Santa Tecla",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": "CP 1512"
+  },
+  {
+    "id": 78,
+    "code": "04",
+    "name": "COMASAGUA",
+    "district": "Santa Tecla",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 79,
+    "code": "05",
+    "name": "CHILTIUPÁN",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 80,
+    "code": "06",
+    "name": "HUIZÚCAR",
+    "district": "Santa Tecla",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 81,
+    "code": "07",
+    "name": "JAYAQUE",
+    "district": "Santa Tecla",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 82,
+    "code": "08",
+    "name": "JICALAPA",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 83,
+    "code": "09",
+    "name": "LA LIBERTAD",
+    "district": "Santa Tecla",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": "CP 1511"
+  },
+  {
+    "id": 84,
+    "code": 10,
+    "name": "NUEVO CUSCATLÁN",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": "CP 1513"
+  },
+  {
+    "id": 85,
+    "code": 11,
+    "name": "SANTA TECLA (NUEVA SAN SALVADOR)",
+    "district": "Santa Tecla",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": "CP 1501"
+  },
+  {
+    "id": 86,
+    "code": 12,
+    "name": "QUEZALTEPEQUE",
+    "district": "Quezaltepeque",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 87,
+    "code": 13,
+    "name": "SACACOYO",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 88,
+    "code": 14,
+    "name": "SAN JOSÉ VILLANUEVA",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 89,
+    "code": 15,
+    "name": "SAN JUAN OPICO",
+    "district": "San Juan Opico",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 90,
+    "code": 16,
+    "name": "SAN MATÍAS",
+    "district": "San Juan Opico",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 91,
+    "code": 17,
+    "name": "SAN PABLO TACACHICO",
+    "district": "Quezaltepeque",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 92,
+    "code": 18,
+    "name": "TAMANIQUE",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": "CP 1522"
+  },
+  {
+    "id": 93,
+    "code": 19,
+    "name": "TALNIQUE",
+    "district": "Santa Tecla",
+    "title": "Pueblo",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 94,
+    "code": 20,
+    "name": "TEOTEPEQUE",
+    "district": "Santa Tecla",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 95,
+    "code": 21,
+    "name": "TEPECOYO",
+    "district": "Santa Tecla",
+    "title": "Villa",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 96,
+    "code": 22,
+    "name": "ZARAGOZA",
+    "district": "Santa Tecla",
+    "title": "Ciudad",
+    "department_id": "05",
+    "zipcode": ""
+  },
+  {
+    "id": 97,
+    "code": "01",
+    "name": "AGUILARES",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1122"
+  },
+  {
+    "id": 98,
+    "code": "02",
+    "name": "APOPA",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1123"
+  },
+  {
+    "id": 99,
+    "code": "03",
+    "name": "AYUTUXTEPEQUE",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1121"
+  },
+  {
+    "id": 100,
+    "code": "04",
+    "name": "CUSCATANCINGO",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1119"
+  },
+  {
+    "id": 101,
+    "code": "05",
+    "name": "EL PAISNAL",
+    "district": "Tonacatepeque",
+    "title": "Villa",
+    "department_id": "06",
+    "zipcode": "CP 1124"
+  },
+  {
+    "id": 102,
+    "code": "06",
+    "name": "GUAZAPA",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1125"
+  },
+  {
+    "id": 103,
+    "code": "07",
+    "name": "ILOPANGO",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1117"
+  },
+  {
+    "id": 104,
+    "code": "08",
+    "name": "MEJICANOS",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1120"
+  },
+  {
+    "id": 105,
+    "code": "09",
+    "name": "NEJAPA",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1126"
+  },
+  {
+    "id": 106,
+    "code": 10,
+    "name": "PANCHIMALCO",
+    "district": "Santo Tomás",
+    "title": "Villa",
+    "department_id": "06",
+    "zipcode": "CP 1127"
+  },
+  {
+    "id": 107,
+    "code": 11,
+    "name": "ROSARIO DE MORA",
+    "district": "Santo Tomás",
+    "title": "Pueblo",
+    "department_id": "06",
+    "zipcode": "CP 1128"
+  },
+  {
+    "id": 108,
+    "code": 12,
+    "name": "SAN MARCOS",
+    "district": "Santo Tomás",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1115"
+  },
+  {
+    "id": 109,
+    "code": 13,
+    "name": "SAN MARTÍN",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1129"
+  },
+  {
+    "id": 110,
+    "code": 14,
+    "name": "SAN SALVADOR",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1101"
+  },
+  {
+    "id": 111,
+    "code": 15,
+    "name": "SANTIAGO TEXACUANGOS",
+    "district": "Santo Tomás",
+    "title": "Villa",
+    "department_id": "06",
+    "zipcode": "CP 1130"
+  },
+  {
+    "id": 112,
+    "code": 16,
+    "name": "SANTO TOMÁS",
+    "district": "Santo Tomás",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1131"
+  },
+  {
+    "id": 113,
+    "code": 17,
+    "name": "SOYAPANGO",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1116"
+  },
+  {
+    "id": 114,
+    "code": 18,
+    "name": "TONACATEPEQUE",
+    "district": "Tonacatepeque",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1132"
+  },
+  {
+    "id": 115,
+    "code": 19,
+    "name": "CIUDAD DELGADO",
+    "district": "San Salvador",
+    "title": "Ciudad",
+    "department_id": "06",
+    "zipcode": "CP 1118"
+  },
+  {
+    "id": 116,
+    "code": "01",
+    "name": "CANDELARIA",
+    "district": "Cojutepeque",
+    "title": "Villa",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 117,
+    "code": "02",
+    "name": "COJUTEPEQUE",
+    "district": "Cojutepeque",
+    "title": "Ciudad",
+    "department_id": "07",
+    "zipcode": "CP 1401"
+  },
+  {
+    "id": 118,
+    "code": "03",
+    "name": "EL CARMEN",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 119,
+    "code": "04",
+    "name": "EL ROSARIO",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 120,
+    "code": "05",
+    "name": "MONTE SAN JUAN",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 121,
+    "code": "06",
+    "name": "ORATORIO DE CONCEPCIÓN",
+    "district": "Suchitoto",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 122,
+    "code": "07",
+    "name": "SAN BARTOLOMÉ PERULAPÍA",
+    "district": "Cojutepeque",
+    "title": "Villa",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 123,
+    "code": "08",
+    "name": "SAN CRISTÓBAL",
+    "district": "Cojutepeque",
+    "title": "Villa",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 124,
+    "code": "09",
+    "name": "SAN JOSÉ GUAYABAL",
+    "district": "Suchitoto",
+    "title": "Villa",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 125,
+    "code": 10,
+    "name": "SAN PEDRO PERULAPÁN",
+    "district": "Cojutepeque",
+    "title": "Ciudad",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 126,
+    "code": 11,
+    "name": "SAN RAFAEL CEDROS",
+    "district": "Cojutepeque",
+    "title": "Ciudad",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 127,
+    "code": 12,
+    "name": "SAN RAMÓN",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 128,
+    "code": 13,
+    "name": "SANTA CRUZ ANALQUITO",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 129,
+    "code": 14,
+    "name": "SANTA CRUZ MICHAPA",
+    "district": "Cojutepeque",
+    "title": "Pueblo",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 130,
+    "code": 15,
+    "name": "SUCHITOTO",
+    "district": "Suchitoto",
+    "title": "Ciudad",
+    "department_id": "07",
+    "zipcode": "CP 1415"
+  },
+  {
+    "id": 131,
+    "code": 16,
+    "name": "TENANCINGO",
+    "district": "Cojutepeque",
+    "title": "Villa",
+    "department_id": "07",
+    "zipcode": ""
+  },
+  {
+    "id": 132,
+    "code": "01",
+    "name": "CUYULTITÁN",
+    "district": "Olocuilta",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 133,
+    "code": "02",
+    "name": "EL ROSARIO / ROSARIO DE LA PAZ",
+    "district": "San Pedro Masahuat",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 134,
+    "code": "03",
+    "name": "JERUSALÉN",
+    "district": "San Pedro Nonualco",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 135,
+    "code": "04",
+    "name": "MERCEDES LA CEIBA",
+    "district": "San Pedro Nonualco",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 136,
+    "code": "05",
+    "name": "OLOCUILTA",
+    "district": "Olocuilta",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 137,
+    "code": "06",
+    "name": "PARAÍSO DE OSORIO",
+    "district": "San Pedro Nonualco",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 138,
+    "code": "07",
+    "name": "SAN ANTONIO MASAHUAT",
+    "district": "San Pedro Masahuat",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 139,
+    "code": "08",
+    "name": "SAN EMIGDIO",
+    "district": "San Pedro Nonualco",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 140,
+    "code": "09",
+    "name": "SAN FRANCISCO CHINAMECA",
+    "district": "Olocuilta",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 141,
+    "code": 10,
+    "name": "SAN JUAN NONUALCO",
+    "district": "Zacatecoluca",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 142,
+    "code": 11,
+    "name": "SAN JUAN TALPA",
+    "district": "Olocuilta",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 143,
+    "code": 12,
+    "name": "SAN JUAN TEPEZONTES",
+    "district": "San Pedro Masahuat",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 144,
+    "code": 13,
+    "name": "SAN LUIS TALPA",
+    "district": "Olocuilta",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": "CP 1616"
+  },
+  {
+    "id": 145,
+    "code": 14,
+    "name": "SAN MIGUEL TEPEZONTES",
+    "district": "San Pedro Masahuat",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 146,
+    "code": 15,
+    "name": "SAN PEDRO MASAHUAT",
+    "district": "San Pedro Masahuat",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 147,
+    "code": 16,
+    "name": "SAN PEDRO NONUALCO",
+    "district": "San Pedro Nonualco",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 148,
+    "code": 17,
+    "name": "SAN RAFAEL OBRAJUELO",
+    "district": "Zacatecoluca",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 149,
+    "code": 18,
+    "name": "SANTA MARÍA OSTUMA",
+    "district": "San Pedro Nonualco",
+    "title": "Villa",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 150,
+    "code": 19,
+    "name": "SANTIAGO NONUALCO",
+    "district": "Zacatecoluca",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 151,
+    "code": 20,
+    "name": "TAPALHUACA",
+    "district": "Olocuilta",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 152,
+    "code": 21,
+    "name": "ZACATECOLUCA",
+    "district": "Zacatecoluca",
+    "title": "Ciudad",
+    "department_id": "08",
+    "zipcode": "CP 1601"
+  },
+  {
+    "id": 153,
+    "code": 22,
+    "name": "SAN LUIS LA HERRADURA",
+    "district": "Zacatecoluca",
+    "title": "Pueblo",
+    "department_id": "08",
+    "zipcode": ""
+  },
+  {
+    "id": 154,
+    "code": "01",
+    "name": "CINQUERA",
+    "district": "Ilobasco",
+    "title": "Pueblo",
+    "department_id": "09",
+    "zipcode": "CP 1202"
+  },
+  {
+    "id": 155,
+    "code": "02",
+    "name": "GUACOTECTI",
+    "district": "Sensuntepeque",
+    "title": "Villa",
+    "department_id": "09",
+    "zipcode": "CP 1203"
+  },
+  {
+    "id": 156,
+    "code": "03",
+    "name": "ILOBASCO",
+    "district": "Ilobasco",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1204"
+  },
+  {
+    "id": 157,
+    "code": "04",
+    "name": "JUTIAPA",
+    "district": "Ilobasco",
+    "title": "Villa",
+    "department_id": "09",
+    "zipcode": "CP 1206"
+  },
+  {
+    "id": 158,
+    "code": "05",
+    "name": "SAN ISIDRO",
+    "district": "Sensuntepeque",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1207"
+  },
+  {
+    "id": 159,
+    "code": "06",
+    "name": "SENSUNTEPEQUE",
+    "district": "Sensuntepeque",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1201"
+  },
+  {
+    "id": 160,
+    "code": "07",
+    "name": "TEJUTEPEQUE",
+    "district": "Ilobasco",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1209"
+  },
+  {
+    "id": 161,
+    "code": "08",
+    "name": "VICTORIA",
+    "district": "Sensuntepeque",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1210"
+  },
+  {
+    "id": 162,
+    "code": "09",
+    "name": "DOLORES / VILLA DOLORES",
+    "district": "Sensuntepeque",
+    "title": "Ciudad",
+    "department_id": "09",
+    "zipcode": "CP 1209"
+  },
+  {
+    "id": 163,
+    "code": "01",
+    "name": "APASTEPEQUE",
+    "district": "San Vicente",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 164,
+    "code": "02",
+    "name": "GUADALUPE",
+    "district": "San Vicente",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 165,
+    "code": "03",
+    "name": "SAN CAYETANO ISTEPEQUE",
+    "district": "San Vicente",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 166,
+    "code": "04",
+    "name": "SANTA CLARA",
+    "district": "San Sebastián",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": "CP 1709"
+  },
+  {
+    "id": 167,
+    "code": "05",
+    "name": "SANTO DOMINGO",
+    "district": "San Sebastián",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 168,
+    "code": "06",
+    "name": "SAN ESTEBAN CATARINA",
+    "district": "San Sebastián",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 169,
+    "code": "07",
+    "name": "SAN ILDEFONSO",
+    "district": "San Sebastián",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 170,
+    "code": "08",
+    "name": "SAN LORENZO",
+    "district": "San Sebastián",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 171,
+    "code": "09",
+    "name": "SAN SEBASTIÁN",
+    "district": "San Sebastián",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 172,
+    "code": 10,
+    "name": "SAN VICENTE",
+    "district": "San Vicente",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": "CP 1701"
+  },
+  {
+    "id": 173,
+    "code": 11,
+    "name": "TECOLUCA",
+    "district": "San Vicente",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 174,
+    "code": 12,
+    "name": "TEPETITÁN",
+    "district": "San Vicente",
+    "title": "Villa",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 175,
+    "code": 13,
+    "name": "VERAPAZ",
+    "district": "San Vicente",
+    "title": "Ciudad",
+    "department_id": 10,
+    "zipcode": ""
+  },
+  {
+    "id": 176,
+    "code": "01",
+    "name": "ALEGRÍA",
+    "district": "Santiago de María",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 177,
+    "code": "02",
+    "name": "BERLÍN",
+    "district": "Berlín",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": "CP 3403"
+  },
+  {
+    "id": 178,
+    "code": "03",
+    "name": "CALIFORNIA",
+    "district": "Santiago de María",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 179,
+    "code": "04",
+    "name": "CONCEPCIÓN BATRES",
+    "district": "Usulután",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 180,
+    "code": "05",
+    "name": "EL TRIUNFO",
+    "district": "Estanzuelas",
+    "title": "Villas",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 181,
+    "code": "06",
+    "name": "EREGUAYQUÍN",
+    "district": "Usulután",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 182,
+    "code": "07",
+    "name": "ESTANZUELAS",
+    "district": "Estanzuelas",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": "CP 3408"
+  },
+  {
+    "id": 183,
+    "code": "08",
+    "name": "JIQUILISCO",
+    "district": "Usulután",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 184,
+    "code": "09",
+    "name": "JUCUAPA",
+    "district": "Estanzuelas",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 185,
+    "code": 10,
+    "name": "JUCUARÁN",
+    "district": "Usulután",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 186,
+    "code": 11,
+    "name": "MERCEDES UMAÑA",
+    "district": "Berlín",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 187,
+    "code": 12,
+    "name": "NUEVA GRANADA",
+    "district": "Estanzuelas",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 188,
+    "code": 13,
+    "name": "OZATLÁN",
+    "district": "Usulután",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 189,
+    "code": 14,
+    "name": "PUERTO EL TRIUNFO",
+    "district": "Usulután",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 190,
+    "code": 15,
+    "name": "SAN AGUSTÍN",
+    "district": "Berlín",
+    "title": "Villa",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 191,
+    "code": 16,
+    "name": "SAN BUENAVENTURA",
+    "district": "Estanzuelas",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 192,
+    "code": 17,
+    "name": "SAN DIONISIO",
+    "district": "Usulután",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 193,
+    "code": 18,
+    "name": "SANTA ELENA",
+    "district": "Usulután",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": "CP 3422"
+  },
+  {
+    "id": 194,
+    "code": 19,
+    "name": "SAN FRANCISCO JAVIER",
+    "district": "Berlín",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 195,
+    "code": 20,
+    "name": "SANTA MARÍA",
+    "district": "Usulután",
+    "title": "Pueblo",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 196,
+    "code": 21,
+    "name": "SANTIAGO DE MARÍA",
+    "district": "Santiago de María",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": "CP 3424"
+  },
+  {
+    "id": 197,
+    "code": 22,
+    "name": "TECAPÁN",
+    "district": "Santiago de María",
+    "title": "Vill",
+    "department_id": 11,
+    "zipcode": ""
+  },
+  {
+    "id": 198,
+    "code": 23,
+    "name": "USULUTÁN",
+    "district": "Usulután",
+    "title": "Ciudad",
+    "department_id": 11,
+    "zipcode": "CP 3401"
+  },
+  {
+    "id": 199,
+    "code": "01",
+    "name": "CAROLINA",
+    "district": "Sesori",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 200,
+    "code": "02",
+    "name": "CIUDAD BARRIOS",
+    "district": "San Miguel",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 201,
+    "code": "03",
+    "name": "COMACARÁN",
+    "district": "San Miguel",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 202,
+    "code": "04",
+    "name": "CHAPELTIQUE",
+    "district": "San Miguel",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 203,
+    "code": "05",
+    "name": "CHINAMECA",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 204,
+    "code": "06",
+    "name": "CHIRILAGUA",
+    "district": "San Miguel",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 205,
+    "code": "07",
+    "name": "EL TRÁNSITO",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 206,
+    "code": "08",
+    "name": "LOLOTIQUE",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 207,
+    "code": "09",
+    "name": "MONCAGUA",
+    "district": "San Miguel",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 208,
+    "code": 10,
+    "name": "NUEVA GUADALUPE",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 209,
+    "code": 11,
+    "name": "NUEVO EDÉN DE SAN JUAN",
+    "district": "Sesori",
+    "title": "Pueblo",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 210,
+    "code": 12,
+    "name": "QUELEPA",
+    "district": "San Miguel",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 211,
+    "code": 13,
+    "name": "SAN ANTONIO DEL MOSCO",
+    "district": "Sesori",
+    "title": "Pueblo",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 212,
+    "code": 14,
+    "name": "SAN GERARDO",
+    "district": "Sesori",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 213,
+    "code": 15,
+    "name": "SAN JORGE",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 214,
+    "code": 16,
+    "name": "SAN LUIS DE LA REINA",
+    "district": "Sesori",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 215,
+    "code": 17,
+    "name": "SAN MIGUEL",
+    "district": "San Miguel",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": "CP 3301"
+  },
+  {
+    "id": 216,
+    "code": 18,
+    "name": "SAN RAFAEL ORIENTE",
+    "district": "Chinameca",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 217,
+    "code": 19,
+    "name": "SESORI",
+    "district": "Sesori",
+    "title": "Ciudad",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 218,
+    "code": 20,
+    "name": "ULUAZAPA",
+    "district": "San Miguel",
+    "title": "Villa",
+    "department_id": 12,
+    "zipcode": ""
+  },
+  {
+    "id": 219,
+    "code": "01",
+    "name": "ARAMBALA",
+    "district": "Jocoaitique",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 220,
+    "code": "02",
+    "name": "CACAOPERA",
+    "district": "Osicala",
+    "title": "Osicala",
+    "department_id": 13,
+    "zipcode": "CP 3216"
+  },
+  {
+    "id": 221,
+    "code": "03",
+    "name": "CORINTO",
+    "district": "Osicala",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 222,
+    "code": "04",
+    "name": "CHILANGA",
+    "district": "San Francisco",
+    "title": "Villa",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 223,
+    "code": "05",
+    "name": "DELICIAS DE CONCEPCIÓN",
+    "district": "Osicala",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 224,
+    "code": "06",
+    "name": "EL DIVISADERO",
+    "district": "San Francisco",
+    "title": "Villa",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 225,
+    "code": "07",
+    "name": "EL ROSARIO",
+    "district": "Jocoaitique",
+    "title": "Villa",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 226,
+    "code": "08",
+    "name": "GUALOCOCTI",
+    "district": "Osicala",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 227,
+    "code": "09",
+    "name": "GUATAJIAGUA",
+    "district": "San Francisco",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 228,
+    "code": 10,
+    "name": "JOATECA",
+    "district": "Jocoaitique",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 229,
+    "code": 11,
+    "name": "JOCOAITIQUE",
+    "district": "Jocoaitique",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": "CP 3212"
+  },
+  {
+    "id": 230,
+    "code": 12,
+    "name": "JOCORO",
+    "district": "San Francisco",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 231,
+    "code": 13,
+    "name": "LOLOTIQUILLO",
+    "district": "San Francisco",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 232,
+    "code": 14,
+    "name": "MEANGUERA",
+    "district": "Jocoaitique",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 233,
+    "code": 15,
+    "name": "OSICALA",
+    "district": "Osicala",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 234,
+    "code": 16,
+    "name": "PERQUÍN",
+    "district": "Jocoaitique",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 235,
+    "code": 17,
+    "name": "SAN CARLOS",
+    "district": "San Francisco",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 236,
+    "code": 18,
+    "name": "SAN FERNANDO",
+    "district": "Jocoaitique",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 237,
+    "code": 19,
+    "name": "SAN FRANCISCO GOTERA",
+    "district": "San Francisco",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": "CP 3201"
+  },
+  {
+    "id": 238,
+    "code": 20,
+    "name": "SAN ISIDRO",
+    "district": "Osicala",
+    "title": "Villa",
+    "department_id": 13,
+    "zipcode": "CP 3220"
+  },
+  {
+    "id": 239,
+    "code": 21,
+    "name": "SAN SIMÓN",
+    "district": "Osicala",
+    "title": "Villa",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 240,
+    "code": 22,
+    "name": "SENSEMBRA",
+    "district": "San Francisco",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 241,
+    "code": 23,
+    "name": "SOCIEDAD",
+    "district": "San Francisco",
+    "title": "Ciudad",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 242,
+    "code": 24,
+    "name": "TOROLA",
+    "district": "Jocoaitique",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 243,
+    "code": 25,
+    "name": "YAMABAL",
+    "district": "San Francisco",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 244,
+    "code": 26,
+    "name": "YOLOAIQUÍN",
+    "district": "Osicala",
+    "title": "Pueblo",
+    "department_id": 13,
+    "zipcode": ""
+  },
+  {
+    "id": 245,
+    "code": "01",
+    "name": "ANAMORÓS",
+    "district": "Santa Rosa de Lima",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 246,
+    "code": "02",
+    "name": "BOLÍVAR",
+    "district": "La Union",
+    "title": "Pueblo",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 247,
+    "code": "03",
+    "name": "CONCEPCIÓN DE ORIENTE",
+    "district": "Santa Rosa de Lima",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 248,
+    "code": "04",
+    "name": "CONCHAGUA",
+    "district": "La Union",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 249,
+    "code": "05",
+    "name": "EL CARMEN",
+    "district": "La Union",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 250,
+    "code": "06",
+    "name": "EL SAUCE",
+    "district": "Santa Rosa de Lima",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 251,
+    "code": "07",
+    "name": "INTIPUCÁ",
+    "district": "La Union",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 252,
+    "code": "08",
+    "name": "LA UNIÓN",
+    "district": "La Union",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": "CP 3101"
+  },
+  {
+    "id": 253,
+    "code": "09",
+    "name": "LILISQUE",
+    "district": "Santa Rosa de Lima",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 254,
+    "code": 10,
+    "name": "MEANGUERA DEL GOLFO",
+    "district": "La Union",
+    "title": "Pueblo",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 255,
+    "code": 11,
+    "name": "NUEVA ESPARTA",
+    "district": "Santa Rosa de Lima",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 256,
+    "code": 12,
+    "name": "PASAQUINA",
+    "district": "Santa Rosa de Lima",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 257,
+    "code": 13,
+    "name": "POLORÓS",
+    "district": "Santa Rosa de Lima",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 258,
+    "code": 14,
+    "name": "SAN ALEJO",
+    "district": "La Union",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 259,
+    "code": 15,
+    "name": "SAN JOSÉ",
+    "district": "La Union",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 260,
+    "code": 16,
+    "name": "SANTA ROSA DE LIMA",
+    "district": "Santa Rosa de Lima",
+    "title": "Ciudad",
+    "department_id": 14,
+    "zipcode": "CP 3121"
+  },
+  {
+    "id": 261,
+    "code": 17,
+    "name": "YAYANTIQUE",
+    "district": "La Union",
+    "title": "Pueblo",
+    "department_id": 14,
+    "zipcode": ""
+  },
+  {
+    "id": 262,
+    "code": 18,
+    "name": "YUCUAIQUÍN",
+    "district": "La Union",
+    "title": "Villa",
+    "department_id": 14,
+    "zipcode": ""
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "code": 1,
+    "name": "AHUACHAPÁN",
+    "zone": "ZOC"
+  },
+  {
+    "id": 2,
+    "code": 2,
+    "name": "SANTA ANA",
+    "zone": "ZOC"
+  },
+  {
+    "id": 3,
+    "code": 3,
+    "name": "SONSONATE",
+    "zone": "ZOC"
+  },
+  {
+    "id": 4,
+    "code": 4,
+    "name": "CHALATENANGO",
+    "zone": "ZCE"
+  },
+  {
+    "id": 5,
+    "code": 5,
+    "name": "LA LIBERTAD",
+    "zone": "ZCE"
+  },
+  {
+    "id": 6,
+    "code": 6,
+    "name": "SAN SALVADOR",
+    "zone": "ZCE"
+  },
+  {
+    "id": 7,
+    "code": 7,
+    "name": "CUSCATLÁN",
+    "zone": "ZCE"
+  },
+  {
+    "id": 8,
+    "code": 8,
+    "name": "LA PAZ",
+    "zone": "ZCE"
+  },
+  {
+    "id": 9,
+    "code": 9,
+    "name": "CABAÑAS",
+    "zone": "ZCE"
+  },
+  {
+    "id": 10,
+    "code": 10,
+    "name": "SAN VICENTE",
+    "zone": "ZCE"
+  },
+  {
+    "id": 11,
+    "code": 11,
+    "name": "USULUTÁN",
+    "zone": "ZOR"
+  },
+  {
+    "id": 12,
+    "code": 12,
+    "name": "SAN MIGUEL",
+    "zone": "ZOR"
+  },
+  {
+    "id": 13,
+    "code": 13,
+    "name": "MORAZÁN",
+    "zone": "ZOR"
+  },
+  {
+    "id": 14,
+    "code": 14,
+    "name": "LA UNIÓN",
+    "zone": "ZOR"
+  }
+]
