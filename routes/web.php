@@ -55,6 +55,7 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function(){
     Route::get('index', [CompanyController::class, 'index'])->name('index');
     Route::get('view/{company}', [CompanyController::class, 'show'])->name('view');
     Route::get('getCompany', [CompanyController::class, 'getCompany'])->name('getCompany');
+    Route::get('getCompanytag', [CompanyController::class, 'getCompanytag'])->name('getCompanytag');
     Route::get('getCompanyid/{company}', [CompanyController::class, 'getCompanyid'])->name('getCompanyid');
     Route::post('store', [CompanyController::class, 'store'])->name('store');
     Route::patch('update', [CompanyController::class, 'update'])->name('update');
@@ -69,6 +70,8 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function(){
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('index', [UserController::class, 'index'])->name('index');
+    Route::get('getusers', [UserController::class, 'getusers'])->name('getusers');
+    Route::get('store', [UserController::class, 'store'])->name('store');
     Route::get('roles/index', [RolController::class, 'index'])->name('roles/index');
     Route::get('permissions/index', [PermissionController::class, 'index'])->name('permissions/index');
 

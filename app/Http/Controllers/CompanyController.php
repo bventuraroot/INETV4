@@ -33,6 +33,11 @@ class CompanyController extends Controller
         $Company = Company::all();
         return response()->json($Company);
     }
+    public function getCompanytag()
+    {
+        $Company = Company::select('companies.id as value', 'companies.name as name', 'companies.logo as avatar', 'companies.email as email')->get();
+        return response()->json($Company);
+    }
     public function getCompanyid($id)
     {
         $Company = Company::join('addresses', 'companies.address_id', '=', 'addresses.id')

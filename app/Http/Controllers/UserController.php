@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,6 +16,30 @@ class UserController extends Controller
     public function index()
     {
         return view('admin.users.index');
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getusers()
+    {
+        $query = "SELECT
+        users.*,
+        roles.name 'role',
+        (SELECT GROUP_CONCAT(CONCAT(com.name,'(',com.id,')')) FROM permission_company AS em
+        INNER JOIN companies AS com ON em.company_id=com.id
+        WHERE em.user_id=users.id) AS 'Empresa',
+        DATE_FORMAT(users.created_at, '%m/%d/%Y %H:%i') AS 'createDate',
+        DATE_FORMAT(users.updated_at, '%m/%d/%Y %H:%i') AS 'updateDate'
+        FROM
+        users
+        LEFT JOIN model_has_roles AS rol ON users.id = rol.model_id
+        LEFT JOIN roles ON rol.role_id = roles.id";
+
+        $result['data'] = DB::select(DB::raw($query));
+        return response()->json($result);
     }
 
     /**
@@ -35,7 +60,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
     }
 
     /**
