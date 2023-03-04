@@ -52,11 +52,15 @@ class RolController extends Controller
             }
         }
         //dd($permissionsbyrol);
+        //$permissions = "SELECT
+        //SUBSTRING_INDEX(c.name,'.',1) as modules
+        //FROM role_has_permissions a
+        //INNER JOIN roles b ON a.role_id=b.id
+        //INNER JOIN permissions c ON a.permission_id=c.id
+        //GROUP BY SUBSTRING_INDEX(c.name,'.',1)";
         $permissions = "SELECT
         SUBSTRING_INDEX(c.name,'.',1) as modules
-        FROM role_has_permissions a
-        INNER JOIN roles b ON a.role_id=b.id
-        INNER JOIN permissions c ON a.permission_id=c.id
+        FROM permissions c
         GROUP BY SUBSTRING_INDEX(c.name,'.',1)";
         $permissions = DB::select(DB::raw($permissions));
         //dd($rolesdata);
