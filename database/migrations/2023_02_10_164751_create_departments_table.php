@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('zone');
-            $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('country_id')->nullable()->default(1)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

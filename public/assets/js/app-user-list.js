@@ -18,6 +18,17 @@ $(function () {
     headingColor = config.colors.headingColor;
   }
 
+  $.ajax({
+    url: "/getroles",
+    method: "GET",
+    success: function(response){
+        $.each(response, function(index, value) {
+                $('#role').append('<option value="'+value.name+'">'+value.name+'</option>');
+                $('#roleedit').append('<option value="'+value.name+'">'+value.name+'</option>');
+          });
+    }
+});
+
   // Variable declaration for table
   var dt_user_table = $('.datatables-users'),
     select2 = $('.select2'),
@@ -110,7 +121,7 @@ $(function () {
                 '<span class="badge badge-center rounded-pill bg-label-warning w-px-30 h-px-30 me-2"><i class="ti ti-user ti-sm"></i></span>',
               Author:
                 '<span class="badge badge-center rounded-pill bg-label-success w-px-30 h-px-30 me-2"><i class="ti ti-circle-check ti-sm"></i></span>',
-              Maintainer:
+              Ventas:
                 '<span class="badge badge-center rounded-pill bg-label-primary w-px-30 h-px-30 me-2"><i class="ti ti-chart-pie-2 ti-sm"></i></span>',
               Editor:
                 '<span class="badge badge-center rounded-pill bg-label-info w-px-30 h-px-30 me-2"><i class="ti ti-edit ti-sm"></i></span>',
@@ -128,7 +139,7 @@ $(function () {
             var status;
             if($status == 'Active'){
                 status='2';
-            }else if($status=='disable'){
+            }else if($status=='Inactive'){
                 status='3';
             }else{
                 status='1';
@@ -194,16 +205,30 @@ $(function () {
           responsivePriority: 2,
           orderable: false,
           render: function (data, type, full, meta) {
+            var estado;
+            var $id = full['id'];
+            var $state = full['state'];
+            if($state=='Active'){
+                estado='Deshabilitar';
+            }else if($state='Inactive'){
+                estado='Activar';
+            }
             return (
               '<div class="d-flex align-items-center">' +
-              '<a href="javascript:;" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
-              '<a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
+              '<a href="javascript:editUsers('+
+              $id
+              +');" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>' +
+              '<a href="javascript:deleteUsers('+
+              $id
+              +');" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>' +
               '<a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>' +
-              '<div class="dropdown-menu dropdown-menu-end m-0">' +
-              '<a href="' +
-              userView +
-              '" class="dropdown-item">View</a>' +
-              '<a href="javascript:;" class="dropdown-item">Suspend</a>' +
+              '<div class="dropdown-menu dropdown-menu-end m-4">' +
+              '<a href="javascript:suspendUsers('+
+              $id + ','+ "'" + $state + "'," + "'" + estado + "'"
+              +');" class="dropdown-item">'+
+              estado
+              +'</a>' +
+              '<a href="javascript:changepass();" class="dropdown-item">Solicitar cambio de contraseña</a>' +
               '</div>' +
               '</div>'
             );
@@ -414,11 +439,6 @@ $(function () {
     });
   }
 
-  // Delete Record
-  $('.datatables-users tbody').on('click', '.delete-record', function () {
-    dt_user.row($(this).parents('tr')).remove().draw();
-  });
-
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
   setTimeout(() => {
@@ -438,69 +458,6 @@ $(function () {
         tags(usersList);
     }
 });
-//console.log(usersList);
-  const usersListold = [
-    {
-      value: 1,
-      name: 'Justinian Hattersley',
-      avatar: 'https://i.pravatar.cc/80?img=1',
-      email: 'jhattersley0@ucsd.edu'
-    },
-    {
-      value: 2,
-      name: 'Antons Esson',
-      avatar: 'https://i.pravatar.cc/80?img=2',
-      email: 'aesson1@ning.com'
-    },
-    {
-      value: 3,
-      name: 'Ardeen Batisse',
-      avatar: 'https://i.pravatar.cc/80?img=3',
-      email: 'abatisse2@nih.gov'
-    },
-    {
-      value: 4,
-      name: 'Graeme Yellowley',
-      avatar: 'https://i.pravatar.cc/80?img=4',
-      email: 'gyellowley3@behance.net'
-    },
-    {
-      value: 5,
-      name: 'Dido Wilford',
-      avatar: 'https://i.pravatar.cc/80?img=5',
-      email: 'dwilford4@jugem.jp'
-    },
-    {
-      value: 6,
-      name: 'Celesta Orwin',
-      avatar: 'https://i.pravatar.cc/80?img=6',
-      email: 'corwin5@meetup.com'
-    },
-    {
-      value: 7,
-      name: 'Sally Main',
-      avatar: 'https://i.pravatar.cc/80?img=7',
-      email: 'smain6@techcrunch.com'
-    },
-    {
-      value: 8,
-      name: 'Grethel Haysman',
-      avatar: 'https://i.pravatar.cc/80?img=8',
-      email: 'ghaysman7@mashable.com'
-    },
-    {
-      value: 9,
-      name: 'Marvin Mandrake',
-      avatar: 'https://i.pravatar.cc/80?img=9',
-      email: 'mmandrake8@sourceforge.net'
-    },
-    {
-      value: 10,
-      name: 'Corrie Tidey',
-      avatar: 'https://i.pravatar.cc/80?img=10',
-      email: 'ctidey9@youtube.com'
-    }
-  ];
  //console.log(typeof(usersListold));
 
 
@@ -598,3 +555,311 @@ function tags(usersList){
   }
 }
 });
+
+function valemail(email){
+    $.ajax({
+        url: "valmail/"+email,
+        method: "GET",
+        success: function(response){
+                    if(response==true){
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Oops...',
+                            text: 'Correo ya exite en otro usuario'
+                          });
+                          $('#send').attr('disabled', true);
+                    }else if(response==false){
+                        $('#send').attr('disabled', false);
+                    }
+        }
+    });
+}
+
+function llamarselected(){
+
+}
+
+
+function editUsers(id){
+    //Get data edit users
+    $.ajax({
+        url: "getuserid/"+btoa(id),
+        method: "GET",
+        success: function(response){
+            //llamarselected(response[0]['country'],response[0]['departament'],response[0]['municipio'], response[0]['acteconomica']);
+            $.each(response[0], function(index, value) {
+                if(index=='image'){
+                    $('#avatarview').html("<img src='http://inetv4.test/assets/img/avatars/"+value+"' alt='logo' width='150px'><input type='hidden' name='logoeditoriginal' id='logoeditoriginal'/>");
+                    $('#logoeditoriginal').val(value);
+                }else if(index=='CompaniesName'){
+                    $('#permissioncompanyedit').val(value);
+                }else if(index=='role'){
+                    $('#roleedit option[value="'+value+'"]').attr("selected", "selected");
+                }else{
+                    $('#'+index+'edit').val(value);
+                }
+              });
+              const bsOffcanvas = new bootstrap.Offcanvas('#offcanvasUpdateUser').show();
+        }
+    });
+    const TagifyUserListEl = document.querySelector('#permissioncompanyedit');
+  //var usersList;
+  $.ajax({
+    url: "/company/getCompanytag",
+    method: "GET",
+    success: function(response){
+        var usersList = response
+        tagsedit(usersList);
+    }
+});
+
+function tagsedit(usersList){
+    function tagTemplate(tagData) {
+    return `
+    <tag title="${tagData.title || tagData.email}"
+      contenteditable='false'
+      spellcheck='false'
+      tabIndex="-1"
+      class="${this.settings.classNames.tag} ${tagData.class ? tagData.class : ''}"
+      ${this.getAttributes(tagData)}
+    >
+      <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
+      <div>
+        <div class='tagify__tag__avatar-wrap'>
+          <img onerror="this.style.visibility='hidden'" src="../assets/img/logo/${tagData.avatar}">
+        </div>
+        <span class='tagify__tag-text'>${tagData.name}</span>
+      </div>
+    </tag>
+  `;
+  }
+
+  function suggestionItemTemplate(tagData) {
+    return `
+    <div ${this.getAttributes(tagData)}
+      class='tagify__dropdown__item align-items-center ${tagData.class ? tagData.class : ''}'
+      tabindex="0"
+      role="option"
+    >
+      ${
+        tagData.avatar
+          ? `<div class='tagify__dropdown__item__avatar-wrap'>
+          <img onerror="this.style.visibility='hidden'" src="../assets/img/logo/${tagData.avatar}">
+        </div>`
+          : ''
+      }
+      <strong>${tagData.name}</strong>
+      <span>${tagData.email}</span>
+    </div>
+  `;
+  }
+      // initialize Tagify on the above input node reference
+  let TagifyUserList = new Tagify(TagifyUserListEl, {
+    tagTextProp: 'name', // very important since a custom template is used with this property as text. allows typing a "value" or a "name" to match input with whitelist
+    enforceWhitelist: true,
+    skipInvalid: true, // do not remporarily add invalid tags
+    dropdown: {
+      closeOnSelect: false,
+      enabled: 0,
+      classname: 'users-list',
+      searchKeys: ['name', 'email'] // very important to set by which keys to search for suggesttions when typing
+    },
+    templates: {
+      tag: tagTemplate,
+      dropdownItem: suggestionItemTemplate
+    },
+    whitelist: usersList
+  });
+
+  TagifyUserList.on('dropdown:show dropdown:updated', onDropdownShow);
+  TagifyUserList.on('dropdown:select', onSelectSuggestion);
+
+  let addAllSuggestionsEl;
+
+  function onDropdownShow(e) {
+    let dropdownContentEl = e.detail.tagify.DOM.dropdown.content;
+
+    if (TagifyUserList.suggestedListItems.length > 1) {
+      addAllSuggestionsEl = getAddAllSuggestionsEl();
+
+      // insert "addAllSuggestionsEl" as the first element in the suggestions list
+      dropdownContentEl.insertBefore(addAllSuggestionsEl, dropdownContentEl.firstChild);
+    }
+  }
+
+  function onSelectSuggestion(e) {
+    if (e.detail.elm == addAllSuggestionsEl) TagifyUserList.dropdown.selectAll.call(TagifyUserList);
+  }
+
+  // create an "add all" custom suggestion element every time the dropdown changes
+  function getAddAllSuggestionsEl() {
+    // suggestions items should be based on "dropdownItem" template
+    return TagifyUserList.parseTemplate('dropdownItem', [
+      {
+        class: 'addAll',
+        name: 'Add all',
+        email:
+          TagifyUserList.settings.whitelist.reduce(function (remainingSuggestions, item) {
+            return TagifyUserList.isTagDuplicate(item.value) ? remainingSuggestions : remainingSuggestions + 1;
+          }, 0) + ' Members'
+      }
+    ]);
+  }
+}
+   }
+
+function deleteUsers(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: '¿Eliminar?',
+        text: "Esta accion no tiene retorno",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Eliminarlo!',
+        cancelButtonText: 'No, Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "destroy/"+btoa(id),
+                method: "GET",
+                success: function(response){
+                        if(response.res==1){
+                            Swal.fire({
+                                title: 'Eliminado',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                  location.reload();
+                                }
+                              })
+
+                        }else if(response.res==0){
+                            swalWithBootstrapButtons.fire(
+                                'Problemas!',
+                                'Algo sucedio y no pudo eliminar la empresa, favor comunicarse con el administrador.',
+                                'success'
+                              )
+                        }
+            }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+   }
+
+   function suspendUsers(id,status,message){
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: '¿' + message + '?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si!',
+        cancelButtonText: 'No!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "changedtatus/"+btoa(id)+"/status/"+btoa(status),
+                method: "GET",
+                success: function(response){
+                        if(response.res==1){
+                            Swal.fire({
+                                title: '' + message +'',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                  location.reload();
+                                }
+                              })
+
+                        }else if(response.res==0){
+                            swalWithBootstrapButtons.fire(
+                                'Problemas!',
+                                'Algo sucedio y no pudo eliminar la empresa, favor comunicarse con el administrador.',
+                                'success'
+                              )
+                        }
+            }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+
+   }
+
+   function changepass(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: '¿Desea solicitar cambio de contraseña?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Solicitar!',
+        cancelButtonText: 'No, he cambiado de opinión!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+                            Swal.fire({
+                                title: 'Listo, hemos realizado el proceso',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+
+   }
+
+

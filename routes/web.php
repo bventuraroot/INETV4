@@ -67,13 +67,33 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function(){
     Route::get('getdepartment/{pais}', [DepartmentController::class, 'getDepartment'])->name('getDepartment');
     Route::get('getmunicipality/{dep}', [MunicipalityController::class, 'getMunicipality'])->name('getmunicipios');
     Route::get('geteconomicactivity/{pais}', [EconomicactivityController::class, 'geteconomicactivity'])->name('geteconomicactivity');
+    Route::get('getroles', [RolController::class, 'getRoles'])->name('getroles');
 
 Route::group(['prefix' => 'user', 'as' => 'user.'], function(){
     Route::get('index', [UserController::class, 'index'])->name('index');
     Route::get('getusers', [UserController::class, 'getusers'])->name('getusers');
-    Route::get('store', [UserController::class, 'store'])->name('store');
-    Route::get('roles/index', [RolController::class, 'index'])->name('roles/index');
-    Route::get('permissions/index', [PermissionController::class, 'index'])->name('permissions/index');
+    Route::get('getuserid/{user}', [UserController::class, 'getuserid'])->name('getuserid');
+    Route::get('valmail/{mail}', [UserController::class, 'valmail'])->name('valmail');
+    Route::post('store', [UserController::class, 'store'])->name('store');
+    Route::patch('update', [UserController::class, 'update'])->name('update');
+    Route::get('changedtatus/{user}/status/{status}', [UserController::class, 'changedtatus'])->name('changedtatus');
+    Route::get('destroy/{user}', [UserController::class, 'destroy'])->name('destroy');
+
+    });
+
+Route::group(['prefix' => 'rol', 'as' => 'rol.'], function(){
+    Route::get('index', [RolController::class, 'index'])->name('index');
+    Route::patch('update', [RolController::class, 'update'])->name('update');
+    Route::post('store', [RolController::class, 'store'])->name('store');
+
+    });
+
+Route::group(['prefix' => 'permission', 'as' => 'permission.'], function(){
+    Route::get('index', [PermissionController::class, 'index'])->name('index');
+    Route::patch('update', [PermissionController::class, 'update'])->name('update');
+    Route::post('store', [PermissionController::class, 'store'])->name('store');
+    Route::get('destroy', [PermissionController::class, 'destroy'])->name('destroy');
+    Route::get('getpermission', [PermissionController::class, 'getpermission'])->name('getpermission');
 
     });
 });

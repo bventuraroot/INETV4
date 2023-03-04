@@ -3,12 +3,12 @@
     {
         "url": "/",
         "name": "Home",
-        "icon": "menu-icon tf-icons ti ti-smart-home",
+        "icon": "menu-icon fa-solid fa-home",
         "slug": "dashboard"
       },
     {
       "name": "Administracion",
-      "icon": "menu-icon tf-icons ti ti-user",
+      "icon": "menu-icon fa-solid fa-shield",
       "slug": "user.index",
       "badge": [
         "primary",
@@ -21,12 +21,12 @@
           "slug": "user.index"
           },
         {
-          "url": "/user/roles/index",
+          "url": "/rol/index",
           "name": "Roles",
-          "slug": "user.roles.index"
+          "slug": "user.rol.index"
         },
         {
-          "url": "/user/permissions/index",
+          "url": "/permission/index",
           "name": "Permisos",
           "slug": "user.permission.index"
         }
@@ -35,14 +35,38 @@
     {
         "url": "/company/index",
         "name": "Empresas",
-        "icon": "menu-icon tf-icons ti ti-id-badge",
+        "icon": "menu-icon fa-solid fa-id-badge",
         "slug": "company.index"
       },
     {
         "url": "/client/index",
         "name": "Clientes",
-        "icon": "menu-icon tf-icons ti ti-user",
+        "icon": "menu-icon fa-solid fa-user-plus",
         "slug": "client.index"
+      },
+      {
+        "url": "/product/index",
+        "name": "Productos",
+        "icon": "menu-icon fa-solid fa-barcode",
+        "slug": "product.index"
+      },
+      {
+        "url": "/sales/index",
+        "name": "Ventas",
+        "icon": "menu-icon fa-solid fa-dollar",
+        "slug": "sales.index"
+      },
+      {
+        "url": "/sales/index",
+        "name": "Compras",
+        "icon": "menu-icon fa-solid fa-truck",
+        "slug": "sales.index"
+      },
+      {
+        "url": "/sales/index",
+        "name": "Reportes",
+        "icon": "menu-icon fa-solid fa-line-chart",
+        "slug": "sales.index"
       }
   ]
 }

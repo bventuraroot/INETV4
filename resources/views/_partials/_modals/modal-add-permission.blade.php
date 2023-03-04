@@ -5,25 +5,20 @@
         <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="modal-body">
           <div class="text-center mb-4">
-            <h3 class="mb-2">Add New Permission</h3>
-            <p class="text-muted">Permissions you may use and assign to your users.</p>
+            <h3 class="mb-2">Crear nuevo permiso</h3>
+            <p class="text-muted">Permisos que puede usar y asignar a sus usuarios.</p>
           </div>
-          <form id="addPermissionForm" class="row" onsubmit="return false">
+          <form id="addPermissionForm" class="row" action="{{Route('permission.store')}}" method="POST">
+            @csrf @method('POST')
             <div class="col-12 mb-3">
-              <label class="form-label" for="modalPermissionName">Permission Name</label>
-              <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="Permission Name" autofocus />
+              <label class="form-label" for="modalPermissionName">Nuevo Permiso</label>
+              <input type="text" id="modalPermissionName" name="modalPermissionName" class="form-control" placeholder="Permission Name" autofocus required/>
             </div>
             <div class="col-12 mb-2">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="corePermission" />
-                <label class="form-check-label" for="corePermission">
-                  Set as core permission
-                </label>
-              </div>
             </div>
             <div class="col-12 text-center demo-vertical-spacing">
-              <button type="submit" class="btn btn-primary me-sm-3 me-1">Create Permission</button>
-              <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Discard</button>
+              <button type="submit" class="btn btn-primary me-sm-3 me-1">Crear Permiso</button>
+              <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
             </div>
           </form>
         </div>

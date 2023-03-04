@@ -19,14 +19,10 @@
 
 @section('page-script')
 <script src="{{asset('assets/js/app-access-permission.js')}}"></script>
-<script src="{{asset('assets/js/modal-add-permission.js')}}"></script>
-<script src="{{asset('assets/js/modal-edit-permission.js')}}"></script>
 @endsection
 
 @section('content')
-<h4 class="fw-semibold mb-4">Permissions List</h4>
-
-<p class="mb-4">Each category (Basic, Professional, and Business) includes the four predefined roles shown below.</p>
+<h4 class="fw-semibold mb-4">Lista de Permisos</h4>
 
 
 <!-- Permission Table -->
@@ -36,11 +32,10 @@
       <thead>
         <tr>
           <th></th>
+          <th>Nombre</th>
+          <th>Roles</th>
+          <th>Fecha de Creación</th>
           <th></th>
-          <th>Name</th>
-          <th>Assigned To</th>
-          <th>Created Date</th>
-          <th>Actions</th>
         </tr>
       </thead>
     </table>

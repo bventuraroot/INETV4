@@ -21,7 +21,9 @@ class RoleSeeder extends Seeder
         $role3 = Role::create(['name' => 'Ventas']);
         $role4 = Role::create(['name' => 'Caja']);
 
-        Permission::create(['name' => 'dashboard']);
+        Permission::create(['name' => 'dashboard.index']);
+        Permission::create(['name' => 'dashboard.store']);
+        Permission::create(['name' => 'dashboard.update']);
         /**
          * permisos para modulo clientes
          */
@@ -48,10 +50,22 @@ class RoleSeeder extends Seeder
         /**
          * permisos para modulo api
          */
-        Permission::create(['name' => 'getcountry']);
-        Permission::create(['name' => 'getDepartment']);
-        Permission::create(['name' => 'getmunicipios']);
-        Permission::create(['name' => 'geteconomicactivity']);
+        Permission::create(['name' => 'api.index']);
+        Permission::create(['name' => 'api.store']);
+        Permission::create(['name' => 'api.update']);
+        Permission::create(['name' => 'api.getcountry']);
+        Permission::create(['name' => 'api.getDepartment']);
+        Permission::create(['name' => 'api.getmunicipios']);
+        Permission::create(['name' => 'api.geteconomicactivity']);
+
+         /**
+         * permisos para modulo Users
+         */
+        Permission::create(['name' => 'users.index']);
+        Permission::create(['name' => 'users.store']);
+        Permission::create(['name' => 'users.update']);
+        Permission::create(['name' => 'users.destroy']);
+        Permission::create(['name' => 'users.changedtatus']);
 
         $role1->givePermissionTo(Permission::all());
         $role2->givePermissionTo('client.index', 'company.index');

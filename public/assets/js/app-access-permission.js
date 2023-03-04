@@ -7,92 +7,89 @@
 $(function () {
   var dataTablePermissions = $('.datatables-permissions'),
     dt_permission,
-    userList = baseUrl + 'app/user/list';
+    userList = baseUrl;
 
   // Users List datatable
   if (dataTablePermissions.length) {
     dt_permission = dataTablePermissions.DataTable({
-      ajax: assetsPath + 'json/permissions-list.json', // JSON file to add data
-      columns: [
-        // columns according to JSON
-        { data: '' },
-        { data: 'id' },
-        { data: 'name' },
-        { data: 'assigned_to' },
-        { data: 'created_date' },
-        { data: '' }
-      ],
+        ajax: {
+            url: 'getpermission',
+            dataSrc: 'data',
+        },
       columnDefs: [
         {
           // For Responsive
           className: 'control',
           orderable: false,
           searchable: false,
-          responsivePriority: 2,
+          responsivePriority: 1,
           targets: 0,
           render: function (data, type, full, meta) {
             return '';
           }
         },
         {
-          targets: 1,
-          searchable: false,
-          visible: false
-        },
-        {
           // Name
-          targets: 2,
+          targets: 1,
           render: function (data, type, full, meta) {
             var $name = full['name'];
-            return '<span class="text-nowrap">' + $name + '</span>';
+            return '<span class="text-nowrap m-2">' + $name.toUpperCase() + '</span>';
           }
         },
         {
           // User Role
-          targets: 3,
+          targets: 2,
           orderable: false,
           render: function (data, type, full, meta) {
-            var $assignedTo = full['assigned_to'],
+            var $assignedTo = full['roles'],
               $output = '';
             var roleBadgeObj = {
-              Admin: '<a href="' + userList + '"><span class="badge bg-label-primary m-1">Administrator</span></a>',
-              Manager: '<a href="' + userList + '"><span class="badge bg-label-warning m-1">Manager</span></a>',
-              Users: '<a href="' + userList + '"><span class="badge bg-label-success m-1">Users</span></a>',
-              Support: '<a href="' + userList + '"><span class="badge bg-label-info m-1">Support</span></a>',
-              Restricted:
-                '<a href="' + userList + '"><span class="badge bg-label-danger m-1">Restricted User</span></a>'
+              Admin: '<span class="badge bg-label-primary m-1">Administrator</span></a>',
+              Contabilidad: '<span class="badge bg-label-warning m-1">Contabilidad</span></a>',
+              Ventas: '<span class="badge bg-label-success m-1">Ventas</span></a>',
+              Caja: '<span class="badge bg-label-info m-1">Caja</span></a>',
+              Restricted:'<span class="badge bg-label-danger m-1">Restricted User</span></a>'
             };
             for (var i = 0; i < $assignedTo.length; i++) {
               var val = $assignedTo[i];
-              $output += roleBadgeObj[val];
+              val = val.rolename;
+              $output += (roleBadgeObj[val]!='undefined')?'<span class="badge bg-label-primary m-1">'+ val +'</span></a>':roleBadgeObj[val];
             }
             return '<span class="text-nowrap">' + $output + '</span>';
           }
         },
         {
           // remove ordering from Name
-          targets: 4,
+          targets: 3,
           orderable: false,
           render: function (data, type, full, meta) {
-            var $date = full['created_date'];
-            return '<span class="text-nowrap">' + $date + '</span>';
+            var $date = full['created_at'];
+            var $datefull = $date.split('-');
+            var $horafull = $date.split(':');
+            return '<span class="text-nowrap badge bg-label-info m-1">' + $datefull[2].substring(0,2) +'-' + $datefull[1] +'-' + $datefull[0] + ' ' + $horafull[0].substring(0,2) + ':' + $horafull[1] + ':' + $horafull[2].substring(0,2) + '</span>';
           }
         },
         {
           // Actions
-          targets: -1,
+          targets: 4,
           searchable: false,
           title: 'Actions',
           orderable: false,
           render: function (data, type, full, meta) {
+            var $id = full['id'];
+            var $name = full['name'];
             return (
-              '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" data-bs-target="#editPermissionModal" data-bs-toggle="modal" data-bs-dismiss="modal"><i class="ti ti-edit"></i></button>' +
-              '<button class="btn btn-sm btn-icon delete-record"><i class="ti ti-trash"></i></button></span>'
+              '<span class="text-nowrap"><button class="btn btn-sm btn-icon me-2" onclick="javascript:editpermission('+
+              $id + ','+ "'" + $name + "'"
+               +');"><i class="ti ti-edit"></i></button>' +
+              '<button class="btn btn-sm btn-icon onclick="javascript:deletepermission('+
+              $id
+              +');" delete-record"><i class="ti ti-trash"></i></button></span>'
             );
           }
         }
       ],
-      order: [[1, 'asc']],
+      order: [[3, 'desc']],
       dom:
         '<"row mx-1"' +
         '<"col-sm-12 col-md-3" l>' +
@@ -104,13 +101,13 @@ $(function () {
         '>',
       language: {
         sLengthMenu: 'Show _MENU_',
-        search: 'Search',
-        searchPlaceholder: 'Search..'
+        search: 'Buscar',
+        searchPlaceholder: 'Buscar..'
       },
       // Buttons with Dropdown
       buttons: [
         {
-          text: 'Add Permission',
+          text: 'Agregar Permiso',
           className: 'add-new btn btn-primary mb-3 mb-md-0',
           attr: {
             'data-bs-toggle': 'modal',
@@ -127,7 +124,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data();
-              return 'Details of ' + data['name'];
+              return 'Detalles de ' + data['name'];
             }
           }),
           type: 'column',
@@ -153,38 +150,10 @@ $(function () {
             return data ? $('<table class="table"/><tbody />').append(data) : false;
           }
         }
-      },
-      initComplete: function () {
-        // Adding role filter once table initialized
-        this.api()
-          .columns(3)
-          .every(function () {
-            var column = this;
-            var select = $(
-              '<select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option></select>'
-            )
-              .appendTo('.user_role')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val());
-                column.search(val ? '^' + val + '$' : '', true, false).draw();
-              });
-
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>');
-              });
-          });
       }
     });
   }
 
-  // Delete Record
-  $('.datatables-permissions tbody').on('click', '.delete-record', function () {
-    dt_permission.row($(this).parents('tr')).remove().draw();
-  });
 
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
@@ -192,4 +161,68 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
 });
+
+function editpermission(id, name){
+    $('#editPermissionName').val(name);
+    $('#editPermissionid').val(id);
+    $("#editPermissionModal").modal("show");
+}
+
+function deletepermission(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: '¿Eliminar?',
+        text: "Esta accion no tiene retorno",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Eliminarlo!',
+        cancelButtonText: 'No, Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "destroy/"+btoa(id),
+                method: "GET",
+                success: function(response){
+                        if(response.res==1){
+                            Swal.fire({
+                                title: 'Eliminado',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                  location.reload();
+                                }
+                              })
+
+                        }else if(response.res==0){
+                            swalWithBootstrapButtons.fire(
+                                'Problemas!',
+                                'Algo sucedio y no pudo eliminar la empresa, favor comunicarse con el administrador.',
+                                'success'
+                              )
+                        }
+            }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+}

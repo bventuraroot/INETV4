@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PermissionCompany;
 use App\Models\User;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Exists;
 
 class UserController extends Controller
 {
@@ -42,6 +46,32 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    public function valmail($mail){
+        $mailval = User::where('email', $mail)->exists();
+        return response()->json($mailval);
+    }
+
+    public function getUserid($id)
+    {
+        $Users = "SELECT
+        (SELECT GROUP_CONCAT(com.name) FROM permission_company AS em
+        INNER JOIN companies AS com ON em.company_id=com.id
+        WHERE em.user_id=users.id) AS 'CompaniesName',
+        (SELECT GROUP_CONCAT(com.id) FROM permission_company AS em
+        INNER JOIN companies AS com ON em.company_id=com.id
+        WHERE em.user_id=users.id) AS 'CompaniesId',
+        roles.name AS role,
+        users.*
+        FROM
+        users
+        INNER JOIN model_has_roles ON users.id = model_has_roles.model_id
+        INNER JOIN roles ON model_has_roles.role_id = roles.id
+        WHERE
+        users.id = ".base64_decode($id)."";
+        $result = DB::select(DB::raw($Users));
+        return response()->json($result);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -61,6 +91,30 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //dd($request);
+
+       if($request->hasFile("avatar")){
+        $imagen = $request->file("avatar");
+        $nombre =  time()."_".$imagen->getClientOriginalName();
+        Storage::disk('avatar')->put($nombre,  File::get($imagen));
+       }
+
+       $user = new User();
+       $user->name = $request->name;
+       $user->email = $request->email;
+       $user->password = bcrypt($request->pass);
+       $user->image = $nombre;
+       $user->state = 'Active';
+       $user->assignRole($request->role);
+       $user->save();
+       $permission = json_decode($request->permissioncompany, TRUE);
+       foreach ($permission as $per){
+            $percompany= new PermissionCompany();
+            $percompany->user_id = $user['id'];
+            $percompany->company_id = $per['value'];
+            $percompany->state = 1;
+            $percompany->save();
+        }
+        return redirect()->route('user.index');
     }
 
     /**
@@ -92,9 +146,41 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+       if($request->hasFile("avataredit")){
+        $imagen = $request->file("avataredit");
+        if($imagen->getClientOriginalName()!=$request->logoeditoriginal){
+            $nombre =  time()."_".$imagen->getClientOriginalName();
+        Storage::disk('avatar')->put($nombre,  File::get($imagen));
+        }else{
+            $nombre = $request->logoeditoriginal;
+        }
+       }else{
+            $nombre = $request->logoeditoriginal;
+       }
+       $user = User::find($request->idedit);
+       $user->name = $request->nameedit;
+       $user->image = $nombre;
+       $roles = $user->getRoleNames();
+       //dd($roles);
+       if(!$user->hasRole($request->roleedit)) {
+        $user->removeRole($roles[0]);
+        $user->assignRole($request->roleedit);}
+       $user->save();
+       $permission = json_decode($request->permissioncompanyedit, TRUE);
+       //dd($permission);
+       foreach ($permission as $per){
+            $valperuser = PermissionCompany::where('user_id', '=',$user['id']);
+            $valperuser -> delete();
+            $percompany= new PermissionCompany();
+            $percompany->user_id = $user['id'];
+            $percompany->company_id = $per['value'];
+            $percompany->state = 1;
+            $percompany->save();
+        }
+        return redirect()->route('user.index');
     }
 
     /**
@@ -105,6 +191,26 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find(base64_decode($id));
+        $user->delete();
+        return response()->json(array(
+            "res" => "1"
+        ));
+    }
+
+    public function changedtatus($id, $status)
+    {
+        //dd(base64_decode($status));
+        if(base64_decode($status)=='Active'){
+            $estadofinal = 'Inactive';
+        }else if(base64_decode($status)=='Inactive'){
+            $estadofinal = 'Active';
+        }
+        $user = User::find(base64_decode($id));
+        $user->state = $estadofinal;
+        $user->save();
+        return response()->json(array(
+            "res" => "1"
+        ));
     }
 }
