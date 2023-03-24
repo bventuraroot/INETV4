@@ -30,6 +30,16 @@ class ClientController extends Controller
 
     }
 
+    public function getclientbycompany($idcompany){
+        $clients = Client::join('companies', 'clients.company_id', '=', 'companies.id')
+        ->select('clients.id',
+                'clients.firstname',
+                'clients.secondname')
+        ->where('companies.id', '=', base64_decode($idcompany))
+        ->get();
+        return response()->json($clients);
+    }
+
     public function getClientid($id)
     {
         $Client = Client::join('addresses', 'clients.address_id', '=', 'addresses.id')
@@ -100,6 +110,7 @@ class ClientController extends Controller
         $client->legal = $request->legal;
         $client->tpersona = $request->tpersona;
         $client->contribuyente = $contri;
+        $client->tipoContribuyente = $request->tipocontribuyente;
         $client->economicactivity_id = $request->acteconomica;
         $client->birthday = date('Ymd', strtotime($request->birthday));
         $client->empresa = $request->empresa;
@@ -173,6 +184,7 @@ class ClientController extends Controller
         $client->legal = $request->legaledit;
         $client->tpersona = $request->tpersonaedit;
         $client->contribuyente = $request->contribuyenteeditvalor;
+        $client->tipoContribuyente = $request->tipocontribuyenteedit;
         $client->economicactivity_id = $request->acteconomicaedit;
         $client->birthday = date('Ymd', strtotime($request->birthdayedit));
         $client->empresa = $request->empresaedit;

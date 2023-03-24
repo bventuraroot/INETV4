@@ -23,6 +23,8 @@ class Client extends Model
         'birthday',
         'empresa',
         'companyselected',
+        'contribuyente',
+        'tipoContribuyente',
         'country',
         'departament',
         'municipio',

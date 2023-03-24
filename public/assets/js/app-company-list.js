@@ -133,6 +133,24 @@ $(function () {
       dropdownParent: $this.parent()
     });
   }
+  var select2tipocontri = $('.select2tipocontri');
+
+  if (select2tipocontri.length) {
+    var $this = select2tipocontri;
+    $this.wrap('<div class="position-relative"></div>').select2({
+      placeholder: 'Seleccionar Tipo Contribuyente',
+      dropdownParent: $this.parent()
+    });
+  }
+  var select2tipocontriedit = $('.select2tipocontriedit');
+
+  if (select2tipocontriedit.length) {
+    var $this = select2tipocontriedit;
+    $this.wrap('<div class="position-relative"></div>').select2({
+      placeholder: 'Seleccionar Tipo Contribuyente',
+      dropdownParent: $this.parent()
+    });
+  }
   // Client datatable
   if (dt_company_table.length) {
     var dt_company = dt_company_table.DataTable({
@@ -142,13 +160,13 @@ $(function () {
           className: 'control',
           searchable: false,
           orderable: false,
-          responsivePriority: 1,
+          responsivePriority: 0,
           targets: 0,
           render: function (data, type, full, meta) {
             return '';
           }
         },
-        { responsivePriority: 2, targets: 11 },
+        { responsivePriority: 1, targets: 12 },
       ],
       order: [[2, 'desc']],
       dom:

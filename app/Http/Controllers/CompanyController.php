@@ -18,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('Company.index', array(
+        return view('company.index', array(
             "companies" => Company::join('addresses', 'companies.address_id', '=', 'addresses.id')
             ->join('countries', 'addresses.country_id' , '=', 'countries.id')
             ->join('departments', 'addresses.department_id' , '=', 'departments.id')
@@ -33,9 +33,19 @@ class CompanyController extends Controller
         $Company = Company::all();
         return response()->json($Company);
     }
+
     public function getCompanytag()
     {
         $Company = Company::select('companies.id as value', 'companies.name as name', 'companies.logo as avatar', 'companies.email as email')->get();
+        return response()->json($Company);
+    }
+
+    public function getCompanybyuser($idUser)
+    {
+        $Company = Company::join('permission_company', 'companies.id', '=', 'permission_company.company_id')
+        ->select('companies.id', 'companies.name')
+        ->where('permission_company.user_id', '=', $idUser)
+        ->get();
         return response()->json($Company);
     }
     public function getCompanyid($id)
@@ -105,6 +115,7 @@ class CompanyController extends Controller
        $company->ncr = $request->ncr;
        $company->giro = $request->giro;
        $company->cuenta_no = $request->cuenta_no;
+       $company->tipoContribuyente = $request->tipocontribuyente;
        $company->tipoEstablecimiento = $request->tipoEstablecimiento;
        $company->address_id = $address['id'];
        $company->economicactivity_id = $request->acteconomica;
@@ -184,6 +195,7 @@ class CompanyController extends Controller
         $Company->ncr = $request->ncredit;
         $Company->giro = $request->giroedit;
         $Company->cuenta_no = $request->cuenta_noedit;
+        $company->tipoContribuyente = $request->tipoContribuyenteedit;
         $Company->tipoEstablecimiento = $request->tipoEstablecimientoedit;
         $Company->address_id = $request->addresseditid;
         $Company->economicactivity_id = $request->acteconomicaedit;

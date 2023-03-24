@@ -680,7 +680,7 @@ function tagsedit(usersList){
     let dropdownContentEl = e.detail.tagify.DOM.dropdown.content;
 
     if (TagifyUserList.suggestedListItems.length > 1) {
-      addAllSuggestionsEl = getAddAllSuggestionsEl();
+      //addAllSuggestionsEl = getAddAllSuggestionsEl();
 
       // insert "addAllSuggestionsEl" as the first element in the suggestions list
       dropdownContentEl.insertBefore(addAllSuggestionsEl, dropdownContentEl.firstChild);

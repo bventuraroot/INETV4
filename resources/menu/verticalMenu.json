@@ -45,28 +45,43 @@
         "slug": "client.index"
       },
       {
-        "url": "/product/index",
-        "name": "Productos",
-        "icon": "menu-icon fa-solid fa-barcode",
-        "slug": "product.index"
+        "name": "Produccion",
+        "icon": "menu-icon fa-solid fa-feed",
+        "slug": "user.index",
+        "badge": [
+          "primary",
+          "2"
+        ],
+        "submenu": [
+          {
+            "url": "/product/index",
+            "name": "Productos",
+            "slug": "product.index"
+            },
+            {
+            "url": "/provider/index",
+            "name": "Proveedores",
+            "slug": "provider.index"
+                }
+        ]
       },
       {
-        "url": "/sales/index",
+        "url": "/sale/index",
         "name": "Ventas",
         "icon": "menu-icon fa-solid fa-dollar",
-        "slug": "sales.index"
+        "slug": "sale.index"
       },
       {
-        "url": "/sales/index",
+        "url": "/shopping/index",
         "name": "Compras",
         "icon": "menu-icon fa-solid fa-truck",
-        "slug": "sales.index"
+        "slug": "shopping.index"
       },
       {
-        "url": "/sales/index",
+        "url": "/report/index",
         "name": "Reportes",
         "icon": "menu-icon fa-solid fa-line-chart",
-        "slug": "sales.index"
+        "slug": "report.index"
       }
   ]
 }

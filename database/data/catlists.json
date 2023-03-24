@@ -1,0 +1,188 @@
+[
+  {
+    "id": 1,
+    "code": "CAT-001",
+    "namefield": "ambiente",
+    "description": "Ambiente de destino"
+  },
+  {
+    "id": 2,
+    "code": "CAT-002",
+    "namefield": "tipoDoc",
+    "description": "Tipo de Documento"
+  },
+  {
+    "id": 3,
+    "code": "CAT-003",
+    "namefield": "tipoModelo",
+    "description": "Modelo de Facturacion"
+  },
+  {
+    "id": 4,
+    "code": "CAT-004",
+    "namefield": "tipoTransmision",
+    "description": "Tipo de Transmision"
+  },
+  {
+    "id": 5,
+    "code": "CAT-005",
+    "namefield": "tipoContingencia",
+    "description": "Tipo de Contingencia"
+  },
+  {
+    "id": 6,
+    "code": "CAT-006",
+    "namefield": "retencionIVA",
+    "description": "Retención IVA MH"
+  },
+  {
+    "id": 7,
+    "code": "CAT-007",
+    "namefield": "tipoGeneracionDocumento",
+    "description": "Tipo de Generación del Documento"
+  },
+  {
+    "id": 8,
+    "code": "CAT-008",
+    "namefield": "",
+    "description": "Eliminado"
+  },
+  {
+    "id": 9,
+    "code": "CAT-009",
+    "namefield": "tipoEstablecimiento",
+    "description": "Tipo de Establecimiento"
+  },
+  {
+    "id": 10,
+    "code": "CAT-010",
+    "namefield": "tipoServicioMedido",
+    "description": "Código tipo de Servicio Médico"
+  },
+  {
+    "id": 11,
+    "code": "CAT-011",
+    "namefield": "tipoItem",
+    "description": "Tipo de ítem"
+  },
+  {
+    "id": 12,
+    "code": "CAT-012",
+    "namefield": "",
+    "description": "Departamentos"
+  },
+  {
+    "id": 13,
+    "code": "CAT-013",
+    "namefield": "",
+    "description": "Municipios"
+  },
+  {
+    "id": 14,
+    "code": "CAT-014",
+    "namefield": "unidadMedida",
+    "description": "Unidad de Medida"
+  },
+  {
+    "id": 15,
+    "code": "CAT-015",
+    "namefield": "codigoTributo",
+    "description": "Codigos de tributos"
+  },
+  {
+    "id": 16,
+    "code": "CAT-016",
+    "namefield": "condicionOperacion",
+    "description": "Condicion Operacion - Formas de Pago"
+  },
+  {
+    "id": 17,
+    "code": "CAT-017",
+    "namefield": "formaPago",
+    "description": "Formado Pago"
+  },
+  {
+    "id": 18,
+    "code": "CAT-018",
+    "namefield": "",
+    "description": ""
+  },
+  {
+    "id": 19,
+    "code": "CAT-019",
+    "namefield": "codActividadEconomica",
+    "description": "Actividad Economica - Giros"
+  },
+  {
+    "id": 20,
+    "code": "CAT-020",
+    "namefield": "codPais",
+    "description": "Paises"
+  },
+  {
+    "id": 21,
+    "code": "CAT-021",
+    "namefield": "otrosDocumentosAsociados",
+    "description": "Documentos Asociados - Invalidaciones y referencias"
+  },
+  {
+    "id": 22,
+    "code": "CAT-022",
+    "namefield": "tipoDocIdentificacion",
+    "description": "Tipos de documentos de Indentificacion personal"
+  },
+  {
+    "id": 23,
+    "code": "CAT-023",
+    "namefield": "tipoDocContingencia",
+    "description": "Tipos de documentos fiscales en contingencia"
+  },
+  {
+    "id": 24,
+    "code": "CAT-024",
+    "namefield": "tipoInvalidacion",
+    "description": "Tipos de Invalidaciones - Anulaciones de documentos fiscales"
+  },
+  {
+    "id": 25,
+    "code": "CAT-025",
+    "namefield": "tituloRemisionBienes",
+    "description": "Titulo a que se remiten los bienes"
+  },
+  {
+    "id": 26,
+    "code": "CAT-026",
+    "namefield": "",
+    "description": ""
+  },
+  {
+    "id": 27,
+    "code": "CAT-027",
+    "namefield": "recintoFiscal",
+    "description": "Recinto Fiscal"
+  },
+  {
+    "id": 28,
+    "code": "CAT-028",
+    "namefield": "regimenExportacion",
+    "description": "Regimen de Exportacion"
+  },
+  {
+    "id": 29,
+    "code": "CAT-029",
+    "namefield": "tipoPersoneria",
+    "description": "Tipo Personeria"
+  },
+  {
+    "id": 30,
+    "code": "CAT-030",
+    "namefield": "tipoTransporte",
+    "description": "Tipo de Transporte"
+  },
+  {
+    "id": 31,
+    "code": "CAT-031",
+    "namefield": "codIncoterms",
+    "description": "Incorterms"
+  }
+]

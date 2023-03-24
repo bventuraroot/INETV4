@@ -13,7 +13,7 @@ return [
     'myRTLSupport' => true, // options[Boolean]: true(default), false // To provide RTLSupport or not
     'myRTLMode' => false, // options[Boolean]: false(default), true // To set layout to RTL layout  (myRTLSupport must be true for rtl mode)
     'hasCustomizer' => true, // options[Boolean]: true(default), false // Display customizer or not THIS WILL REMOVE INCLUDED JS FILE. SO LOCAL STORAGE WON'T WORK
-    'displayCustomizer' => false, // options[Boolean]: true(default), false // Display customizer UI or not, THIS WON'T REMOVE INCLUDED JS FILE. SO LOCAL STORAGE WILL WORK
+    'displayCustomizer' => true, // options[Boolean]: true(default), false // Display customizer UI or not, THIS WON'T REMOVE INCLUDED JS FILE. SO LOCAL STORAGE WILL WORK
     'menuFixed' => true, // options[Boolean]: true(default), false // Layout(menu) Fixed
     'menuCollapsed' => false, // options[Boolean]: false(default), true // Show menu collapsed, Only for vertical Layout
     'navbarFixed' => false, // options[Boolean]: false(default), true // Navbar Fixed

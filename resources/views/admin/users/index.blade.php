@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'User List - Pages')
+@section('title', 'Usuarios')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">

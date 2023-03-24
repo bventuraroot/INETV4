@@ -7,8 +7,11 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::group(['prefix' => 'client', 'as' => 'client.'], function(){
 
     Route::get('index/{company?}', [ClientController::class, 'index'])->name('index');
+    Route::get('getclientbycompany/{company}', [ClientController::class, 'getclientbycompany'])->name('getclientbycompany');
     Route::get('view/{client}', [CompanyController::class, 'show'])->name('view');
     Route::get('edit/{client}', [ClientController::class, 'edit'])->name('edit');
     Route::get('getClientid/{client}', [ClientController::class, 'getClientid'])->name('getClientid');
@@ -55,6 +59,7 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function(){
     Route::get('index', [CompanyController::class, 'index'])->name('index');
     Route::get('view/{company}', [CompanyController::class, 'show'])->name('view');
     Route::get('getCompany', [CompanyController::class, 'getCompany'])->name('getCompany');
+    Route::get('getCompanybyuser/{iduser}', [CompanyController::class, 'getCompanybyuser'])->name('getCompanybyuser');
     Route::get('getCompanytag', [CompanyController::class, 'getCompanytag'])->name('getCompanytag');
     Route::get('getCompanyid/{company}', [CompanyController::class, 'getCompanyid'])->name('getCompanyid');
     Route::post('store', [CompanyController::class, 'store'])->name('store');
@@ -95,6 +100,39 @@ Route::group(['prefix' => 'permission', 'as' => 'permission.'], function(){
     Route::get('destroy', [PermissionController::class, 'destroy'])->name('destroy');
     Route::get('getpermission', [PermissionController::class, 'getpermission'])->name('getpermission');
 
+    });
+Route::group(['prefix' => 'provider', 'as' => 'provider.'], function(){
+        Route::get('index', [ProviderController::class, 'index'])->name('index');
+        Route::get('getproviders', [ProviderController::class, 'getproviders'])->name('getproviders');
+        Route::get('getproviderid/{id}', [ProviderController::class, 'getproviderid'])->name('getproviderid');
+        Route::patch('update', [ProviderController::class, 'update'])->name('update');
+        Route::post('store', [ProviderController::class, 'store'])->name('store');
+        Route::get('destroy/{id}', [ProviderController::class, 'destroy'])->name('destroy');
+        Route::get('getpermission', [ProviderController::class, 'getpermission'])->name('getpermission');
+
+    });
+
+Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
+        Route::get('index', [ProductController::class, 'index'])->name('index');
+        Route::get('getproductid/{id}', [ProductController::class, 'getproductid'])->name('getproductid');
+        Route::get('getproductall', [ProductController::class, 'getproductall'])->name('getproductall');
+        Route::patch('update', [ProductController::class, 'update'])->name('update');
+        Route::post('store', [ProductController::class, 'store'])->name('store');
+        Route::get('destroy/{id}', [ProductController::class, 'destroy'])->name('destroy');
+        Route::get('getpermission', [ProductController::class, 'getpermission'])->name('getpermission');
+
+    });
+
+Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
+        Route::get('index', [SaleController::class, 'index'])->name('index');
+        Route::post('create', [SaleController::class, 'create'])->name('create');
+        Route::get('getproductid/{id}', [SaleController::class, 'getproductid'])->name('getproductid');
+        Route::get('getproductbyid/{id}', [SaleController::class, 'getproductbyid'])->name('getproductbyid');
+        Route::patch('update', [SaleController::class, 'update'])->name('update');
+        Route::post('store', [SaleController::class, 'store'])->name('store');
+        Route::get('destroy/{id}', [SaleController::class, 'destroy'])->name('destroy');
+        Route::get('savefactemp', [SaleController::class, 'savefactemp'])->name('savefactemp');
+        Route::get('newcorrsale/{idempresa}/{iduser}/{typedocument}', [SaleController::class, 'newcorrsale'])->name('newcorrsale');
     });
 });
 

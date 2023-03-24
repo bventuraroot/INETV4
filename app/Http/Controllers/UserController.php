@@ -171,9 +171,9 @@ class UserController extends Controller
        $user->save();
        $permission = json_decode($request->permissioncompanyedit, TRUE);
        //dd($permission);
+       $valperuser = PermissionCompany::where('user_id', '=',$user['id']);
+       $valperuser -> delete();
        foreach ($permission as $per){
-            $valperuser = PermissionCompany::where('user_id', '=',$user['id']);
-            $valperuser -> delete();
             $percompany= new PermissionCompany();
             $percompany->user_id = $user['id'];
             $percompany->company_id = $per['value'];

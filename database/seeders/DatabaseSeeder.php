@@ -20,7 +20,10 @@ class DatabaseSeeder extends Seeder
             MunicipalitiesSeeder::class,
             EconomicactivitiesSeeder::class,
             RoleSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            TypeDocumentSeeder::class,
+            CatListSeeder::class,
+            CatDetailsSeeder::class
 
 
         ]);

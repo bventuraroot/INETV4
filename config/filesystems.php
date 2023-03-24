@@ -63,6 +63,10 @@ return [
             'driver' => 'local',
             'root' => public_path().'/assets/img/avatars',
         ],
+        'products' => [
+            'driver' => 'local',
+            'root' => public_path().'/assets/img/products',
+        ],
 
     ],
 

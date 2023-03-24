@@ -51,13 +51,6 @@ class RolController extends Controller
                 @$permissionsbyrol[$value->name][$value3->modules][$value3->modulestrue]=$value3->modulestrue;
             }
         }
-        //dd($permissionsbyrol);
-        //$permissions = "SELECT
-        //SUBSTRING_INDEX(c.name,'.',1) as modules
-        //FROM role_has_permissions a
-        //INNER JOIN roles b ON a.role_id=b.id
-        //INNER JOIN permissions c ON a.permission_id=c.id
-        //GROUP BY SUBSTRING_INDEX(c.name,'.',1)";
         $permissions = "SELECT
         SUBSTRING_INDEX(c.name,'.',1) as modules
         FROM permissions c

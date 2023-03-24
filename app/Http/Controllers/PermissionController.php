@@ -104,7 +104,7 @@ class PermissionController extends Controller
      * @param  \App\Models\Permission  $permission
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Permission $permission)
+    public function destroy($id)
     {
         $permission = Permission::find(base64_decode($id));
         $permission->delete();

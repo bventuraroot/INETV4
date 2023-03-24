@@ -59,14 +59,14 @@
                         <th>Segundo Nombre</th>
                         <th>Tipo</th>
                         <th>Contribuyente</th>
+                        <th>Tipo Contribuyente</th>
                         <th>Nombre Comercial</th>
                         <th>Representante Legal</th>
                         <th>GIRO</th>
                         <th>NIT</th>
                         <th>NCR</th>
-                        <th>Acciones</th>
                         <th>Email</th>
-                        <th></th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,11 +96,32 @@
                                 FALSE
                                 @endif
                                 </td>
+                                <td class="text-center">
+                                    @switch($client->tipoContribuyente)
+                                        @case('GRA')
+                                            Grande
+                                        @break
+
+                                        @case('MED')
+                                            Mediano
+                                        @break
+
+                                        @case('PEQ')
+                                            Pequeño
+                                        @break
+
+                                        @case('OTR')
+                                            Otro
+                                        @break
+                                        @default
+                                    @endswitch
+                                </td>
                                 <td>{{ $client->empresa }}</td>
                                 <td>{{ $client->legal }}</td>
                                 <td>{{ $client->giro }}</td>
                                 <td>{{ $client->nit }}</td>
                                 <td>{{ $client->ncr }}</td>
+                                <td>{{ $client->email }}</td>
                                 <td><div class="d-flex align-items-center">
                                     <a href="javascript: editClient({{ $client->id }});" class="dropdown-item"><i
                                         class="ti ti-edit ti-sm me-2"></i>Editar</a>
@@ -113,8 +134,6 @@
                                     </div>
 
                                 </div></td>
-                                <td>{{ $client->email }}</td>
-                                <td></td>
                             </tr>
                             @empty
                                 <tr>
@@ -237,6 +256,17 @@
                                 <label class="form-label" for="ncr">NCR</label>
                                 <input type="text" id="ncr" class="form-control" placeholder="xxxxxx-x"
                                     aria-label="ncr" name="ncr" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipocontribuyente" class="form-label">Tipo de contribuyente</label>
+                                <select class="select2tipocontri form-select" id="tipocontribuyente" name="tipocontribuyente"
+                                    aria-label="Seleccionar opcion">
+                                    <option selected>Seleccione</option>
+                                    <option value="GRA">Gran Contribuyente</option>
+                                    <option value="MED">Mediano</option>
+                                    <option value="PEQU">Pequeño</option>
+                                    <option value="OTR">Otro</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="acteconomica" class="form-label">Actividad Económica</label>
@@ -372,6 +402,17 @@
                                 <label class="form-label" for="ncredit">NCR</label>
                                 <input type="text" id="ncredit" class="form-control" placeholder="xxxxxx-x"
                                     aria-label="ncr" name="ncredit" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipocontribuyenteedit" class="form-label">Tipo de contribuyente</label>
+                                <select class="select2tipocontri form-select" id="tipocontribuyenteedit" name="tipocontribuyenteedit"
+                                    aria-label="Seleccionar opcion">
+                                    <option selected>Seleccione</option>
+                                    <option value="GRA">Gran Contribuyente</option>
+                                    <option value="MED">Mediano</option>
+                                    <option value="PEQU">Pequeño</option>
+                                    <option value="OTR">Otro</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="acteconomicaedit" class="form-label">Actividad Económica</label>

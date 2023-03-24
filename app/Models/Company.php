@@ -17,6 +17,7 @@ class Company extends Model
         'nit',
         'ncr',
         'cuenta_no',
+        'tipoContribuyente',
         'tipoEstablecimiento',
         'logo',
         'pais_id',

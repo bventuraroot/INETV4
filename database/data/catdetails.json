@@ -1,0 +1,919 @@
+[
+  {
+    "id": 1,
+    "catlist_id": 1,
+    "codecat": "CAT-001",
+    "code": "00",
+    "description": "Modo prueba"
+  },
+  {
+    "id": 2,
+    "catlist_id": 1,
+    "codecat": "CAT-001",
+    "code": "01",
+    "description": "Modo produccion"
+  },
+  {
+    "id": 3,
+    "catlist_id": 3,
+    "codecat": "CAT-003",
+    "code": 1,
+    "description": "Modelo Facturacion previo"
+  },
+  {
+    "id": 4,
+    "catlist_id": 3,
+    "codecat": "CAT-003",
+    "code": 2,
+    "description": "Modelo Facturacion diferido"
+  },
+  {
+    "id": 5,
+    "catlist_id": 4,
+    "codecat": "CAT-004",
+    "code": 1,
+    "description": "Transmision normal"
+  },
+  {
+    "id": 6,
+    "catlist_id": 4,
+    "codecat": "CAT-004",
+    "code": 1,
+    "description": "Transmision por contingencia"
+  },
+  {
+    "id": 7,
+    "catlist_id": 5,
+    "codecat": "CAT-005",
+    "code": 1,
+    "description": "No disponibilidad de sistema del MH"
+  },
+  {
+    "id": 8,
+    "catlist_id": 5,
+    "codecat": "CAT-005",
+    "code": 2,
+    "description": "No disponibilidad de sistema del emisor"
+  },
+  {
+    "id": 9,
+    "catlist_id": 5,
+    "codecat": "CAT-005",
+    "code": 3,
+    "description": "Falla en el suministro de servicio de Internet del Emisor"
+  },
+  {
+    "id": 10,
+    "catlist_id": 5,
+    "codecat": "CAT-005",
+    "code": 4,
+    "description": "Falla en el suministro de servicio de energia eléctrica del emisor que impida la transmisión de los DTE"
+  },
+  {
+    "id": 11,
+    "catlist_id": 5,
+    "codecat": "CAT-005",
+    "code": 5,
+    "description": "Otro (deberá digitar un máximo de 500 caracteres explicando el motivo)"
+  },
+  {
+    "id": 12,
+    "catlist_id": 6,
+    "codecat": "CAT-006",
+    "code": 22,
+    "description": "Retención IVA 1%"
+  },
+  {
+    "id": 13,
+    "catlist_id": 6,
+    "codecat": "CAT-006",
+    "code": "C4",
+    "description": "Retención IVA 13%"
+  },
+  {
+    "id": 14,
+    "catlist_id": 6,
+    "codecat": "CAT-006",
+    "code": "C9",
+    "description": "Otras retenciones IVA casos especiales"
+  },
+  {
+    "id": 15,
+    "catlist_id": 7,
+    "codecat": "CAT-007",
+    "code": 1,
+    "description": "Físico"
+  },
+  {
+    "id": 16,
+    "catlist_id": 7,
+    "codecat": "CAT-007",
+    "code": 2,
+    "description": "Electrónico"
+  },
+  {
+    "id": 17,
+    "catlist_id": 9,
+    "codecat": "CAT-009",
+    "code": "01",
+    "description": "Sucursal / Agencia"
+  },
+  {
+    "id": 18,
+    "catlist_id": 9,
+    "codecat": "CAT-009",
+    "code": "02",
+    "description": "Casa matriz"
+  },
+  {
+    "id": 19,
+    "catlist_id": 9,
+    "codecat": "CAT-009",
+    "code": "04",
+    "description": "Bodega"
+  },
+  {
+    "id": 20,
+    "catlist_id": 9,
+    "codecat": "CAT-009",
+    "code": "07",
+    "description": "Predio y/o patio"
+  },
+  {
+    "id": 21,
+    "catlist_id": 9,
+    "codecat": "CAT-009",
+    "code": 20,
+    "description": "Otro"
+  },
+  {
+    "id": 22,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 1,
+    "description": "Cirugía"
+  },
+  {
+    "id": 23,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 2,
+    "description": "Operación"
+  },
+  {
+    "id": 24,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 3,
+    "description": "Tratamiento médico"
+  },
+  {
+    "id": 25,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 4,
+    "description": "Cirugía instituto salvadoreño de Bienestar Magisterial"
+  },
+  {
+    "id": 26,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 5,
+    "description": "Operación Instituto Salvadoreño de Bienestar Magisterial"
+  },
+  {
+    "id": 27,
+    "catlist_id": 10,
+    "codecat": "CAT-010",
+    "code": 6,
+    "description": "Tratamiento médico Institulo Salvadoreño de Bienestar Magisterial"
+  },
+  {
+    "id": 28,
+    "catlist_id": 11,
+    "codecat": "CAT-011",
+    "code": 1,
+    "description": "Bienes"
+  },
+  {
+    "id": 29,
+    "catlist_id": 11,
+    "codecat": "CAT-011",
+    "code": 2,
+    "description": "Servicios"
+  },
+  {
+    "id": 30,
+    "catlist_id": 11,
+    "codecat": "CAT-011",
+    "code": 3,
+    "description": "Ambos (Bienes y Servicios, incluye los dos inherente a los Productos o servicios)"
+  },
+  {
+    "id": 31,
+    "catlist_id": 11,
+    "codecat": "CAT-011",
+    "code": 4,
+    "description": "Otros tributos por ítem"
+  },
+  {
+    "id": 32,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "01",
+    "description": "Metro"
+  },
+  {
+    "id": 33,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "02",
+    "description": "Yarda"
+  },
+  {
+    "id": 34,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "03",
+    "description": "Vara"
+  },
+  {
+    "id": 35,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "04",
+    "description": "Pie"
+  },
+  {
+    "id": 36,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "05",
+    "description": "Pulgada"
+  },
+  {
+    "id": 37,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "06",
+    "description": "Milímetro"
+  },
+  {
+    "id": 38,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "08",
+    "description": "Milla cuadrada"
+  },
+  {
+    "id": 39,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": "09",
+    "description": "Kilómetro cuadrado"
+  },
+  {
+    "id": 40,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 10,
+    "description": "Hectárea"
+  },
+  {
+    "id": 41,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 11,
+    "description": "Manzana"
+  },
+  {
+    "id": 42,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 12,
+    "description": "Acre"
+  },
+  {
+    "id": 43,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 13,
+    "description": "Metro cuadrado"
+  },
+  {
+    "id": 44,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 14,
+    "description": "Yarda cuadrada"
+  },
+  {
+    "id": 45,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 15,
+    "description": "Vara cuadrada"
+  },
+  {
+    "id": 46,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 16,
+    "description": "Pie cuadrado"
+  },
+  {
+    "id": 47,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 17,
+    "description": "Pulgada cuadrada"
+  },
+  {
+    "id": 48,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 18,
+    "description": "Metro cúbico"
+  },
+  {
+    "id": 49,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 19,
+    "description": "Yarda cúbica"
+  },
+  {
+    "id": 50,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 20,
+    "description": "Barril"
+  },
+  {
+    "id": 51,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 21,
+    "description": "Pie cúbico"
+  },
+  {
+    "id": 52,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 22,
+    "description": "Galón"
+  },
+  {
+    "id": 53,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 23,
+    "description": "Litro"
+  },
+  {
+    "id": 54,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 24,
+    "description": "Botella"
+  },
+  {
+    "id": 55,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 25,
+    "description": "Pulgada cúbica"
+  },
+  {
+    "id": 56,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 26,
+    "description": "Mililitro"
+  },
+  {
+    "id": 57,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 27,
+    "description": "Onza fluida"
+  },
+  {
+    "id": 58,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 29,
+    "description": "Tonelada métrica"
+  },
+  {
+    "id": 59,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 30,
+    "description": "Tonelada"
+  },
+  {
+    "id": 60,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 31,
+    "description": "Quintal métrico"
+  },
+  {
+    "id": 61,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 32,
+    "description": "Quintal"
+  },
+  {
+    "id": 62,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 33,
+    "description": "Arroba"
+  },
+  {
+    "id": 63,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 34,
+    "description": "Kilogramo"
+  },
+  {
+    "id": 64,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 35,
+    "description": "Libra troy"
+  },
+  {
+    "id": 65,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 36,
+    "description": "Libra"
+  },
+  {
+    "id": 66,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 37,
+    "description": "Onza troy"
+  },
+  {
+    "id": 67,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 38,
+    "description": "Onza"
+  },
+  {
+    "id": 68,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 39,
+    "description": "Gramo"
+  },
+  {
+    "id": 69,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 40,
+    "description": "Miligramo"
+  },
+  {
+    "id": 70,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 42,
+    "description": "Megawatt"
+  },
+  {
+    "id": 71,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 43,
+    "description": "Kilowatt"
+  },
+  {
+    "id": 72,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 44,
+    "description": "Watt"
+  },
+  {
+    "id": 73,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 45,
+    "description": "Megavoltio-amperio"
+  },
+  {
+    "id": 74,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 46,
+    "description": "Kilovoltio-amperio"
+  },
+  {
+    "id": 75,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 47,
+    "description": "Voltio-amperio"
+  },
+  {
+    "id": 76,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 49,
+    "description": "Gigawatt-hora"
+  },
+  {
+    "id": 77,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 50,
+    "description": "Megawatt-hora"
+  },
+  {
+    "id": 78,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 51,
+    "description": "Kilowatt-hora"
+  },
+  {
+    "id": 79,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 52,
+    "description": "Watt-hora"
+  },
+  {
+    "id": 80,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 53,
+    "description": "Kilovoltio"
+  },
+  {
+    "id": 81,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 54,
+    "description": "Voltio"
+  },
+  {
+    "id": 82,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 55,
+    "description": "Millar"
+  },
+  {
+    "id": 83,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 56,
+    "description": "Medio millar"
+  },
+  {
+    "id": 84,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 57,
+    "description": "Ciento"
+  },
+  {
+    "id": 85,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 58,
+    "description": "Docena"
+  },
+  {
+    "id": 86,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 59,
+    "description": "Unidad"
+  },
+  {
+    "id": 87,
+    "catlist_id": 14,
+    "codecat": "CAT-014",
+    "code": 99,
+    "description": "Otra"
+  },
+  {
+    "id": 88,
+    "catlist_id": 12,
+    "codecat": "CAT-015",
+    "code": 20,
+    "description": "Impuesto al Valor Agregado 13%"
+  },
+  {
+    "id": 89,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": "C3",
+    "description": "Impuesto al Valor Agregado (exportaciones) 0%"
+  },
+  {
+    "id": 90,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": 59,
+    "description": "Turismo: por alojamiento (5%)"
+  },
+  {
+    "id": 91,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": 71,
+    "description": "Turismo: salida del pais por via aerea $7.00"
+  },
+  {
+    "id": 92,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": "D1",
+    "description": "FOVIAL ($0.20 Ctvs. por galon)"
+  },
+  {
+    "id": 93,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": "C8",
+    "description": "CONTRANS ($0.10 Ctvs. por galon)"
+  },
+  {
+    "id": 94,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": "D5",
+    "description": "Otras tasas casos especiales"
+  },
+  {
+    "id": 95,
+    "catlist_id": 12,
+    "codecat": "CAT-015-1",
+    "code": "D4",
+    "description": "Otros impuestos casos especiales"
+  },
+  {
+    "id": 96,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": "A8",
+    "description": "Impuesto Especial al Combustible (0%, 0.5%, 1%)"
+  },
+  {
+    "id": 97,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": 57,
+    "description": "Impuesto industria de Cemento"
+  },
+  {
+    "id": 98,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": 90,
+    "description": "Impuesto especial a la primera matricula"
+  },
+  {
+    "id": 99,
+    "catlist_id": 12,
+    "codecat": "CAT-015",
+    "code": "D4",
+    "description": "Otros impuestos casos especiales"
+  },
+  {
+    "id": 100,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": "D4",
+    "description": "Otros Impuestos casos especiales"
+  },
+  {
+    "id": 101,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": "D5",
+    "description": "Otras tasas casos especiales"
+  },
+  {
+    "id": 102,
+    "catlist_id": 15,
+    "codecat": "CAT-015-2",
+    "code": "A6",
+    "description": "Impuesto ad-valorem, armas de fuego, municiones explosivas y articulos similares"
+  },
+  {
+    "id": 103,
+    "catlist_id": 15,
+    "codecat": "CAT-015-3",
+    "code": "C5",
+    "description": "Impuesto ad-valorem por diferencial de precios de bebidas alcoholicas (8%)"
+  },
+  {
+    "id": 104,
+    "catlist_id": 15,
+    "codecat": "CAT-015-3",
+    "code": "C6",
+    "description": "Impuesto ad-valorem por diferencial de precios al tabaco cigarrillos (39%)"
+  },
+  {
+    "id": 105,
+    "catlist_id": 15,
+    "codecat": "CAT-015-3",
+    "code": "C7",
+    "description": "Impuesto ad-valorem por diferencial de precios al tabaco cigarros (100%)"
+  },
+  {
+    "id": 106,
+    "catlist_id": 16,
+    "codecat": "CAT-016",
+    "code": 1,
+    "description": "Contado"
+  },
+  {
+    "id": 107,
+    "catlist_id": 16,
+    "codecat": "CAT-016",
+    "code": 2,
+    "description": "A credito"
+  },
+  {
+    "id": 108,
+    "catlist_id": 16,
+    "codecat": "CAT-016",
+    "code": 3,
+    "description": "Otro"
+  },
+  {
+    "id": 109,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "01",
+    "description": "Billetes y monedas"
+  },
+  {
+    "id": 110,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "02",
+    "description": "Tarjeta de debito"
+  },
+  {
+    "id": 111,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "03",
+    "description": "Tarjeta de credito"
+  },
+  {
+    "id": 112,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "04",
+    "description": "Cheque"
+  },
+  {
+    "id": 113,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "05",
+    "description": "Transferencia, deposito bancario"
+  },
+  {
+    "id": 114,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "06",
+    "description": "Vales o cupones"
+  },
+  {
+    "id": 115,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "08",
+    "description": "Dinero electronico"
+  },
+  {
+    "id": 116,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": "09",
+    "description": "Monedero electronico"
+  },
+  {
+    "id": 117,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 10,
+    "description": "Certificado o tarjeta de regalo"
+  },
+  {
+    "id": 118,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 11,
+    "description": "Bitcoin"
+  },
+  {
+    "id": 119,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 12,
+    "description": "Otras Criptomonedas"
+  },
+  {
+    "id": 120,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 13,
+    "description": "Cuentas por pagar del receptor"
+  },
+  {
+    "id": 121,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 14,
+    "description": "Giro bancario"
+  },
+  {
+    "id": 122,
+    "catlist_id": 17,
+    "codecat": "CAT-017",
+    "code": 99,
+    "description": "Otros (se debe indicar el medio de pago)"
+  },
+  {
+    "id": 123,
+    "catlist_id": 21,
+    "codecat": "CAT-021",
+    "code": 1,
+    "description": "Emisor"
+  },
+  {
+    "id": 124,
+    "catlist_id": 21,
+    "codecat": "CAT-021",
+    "code": 2,
+    "description": "Receptor"
+  },
+  {
+    "id": 125,
+    "catlist_id": 21,
+    "codecat": "CAT-021",
+    "code": 3,
+    "description": "Medico (solo aplica para contribuyentes obligados a la presentacion de F958)"
+  },
+  {
+    "id": 126,
+    "catlist_id": 21,
+    "codecat": "CAT-021",
+    "code": 4,
+    "description": "Transporte ( solo aplica para Factura de exportacion)"
+  },
+  {
+    "id": 127,
+    "catlist_id": 22,
+    "codecat": "CAT-022",
+    "code": 36,
+    "description": "NIT"
+  },
+  {
+    "id": 128,
+    "catlist_id": 22,
+    "codecat": "CAT-022",
+    "code": 13,
+    "description": "DUI"
+  },
+  {
+    "id": 129,
+    "catlist_id": 22,
+    "codecat": "CAT-022",
+    "code": 37,
+    "description": "Otro"
+  },
+  {
+    "id": 130,
+    "catlist_id": 22,
+    "codecat": "CAT-022",
+    "code": "03",
+    "description": "Pasaporte"
+  },
+  {
+    "id": 131,
+    "catlist_id": 22,
+    "codecat": "CAT-022",
+    "code": "02",
+    "description": "Carnet de Residente"
+  }
+]

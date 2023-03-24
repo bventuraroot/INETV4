@@ -21,11 +21,13 @@ return new class extends Migration
             $table->string('ncr');
             $table->string('cuenta_no');
             $table->string('giro');
+            $table->string('tipoContribuyente');
             $table->string('tipoEstablecimiento');
             $table->string('logo');
             $table->foreignId('economicactivity_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('phone_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('address_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

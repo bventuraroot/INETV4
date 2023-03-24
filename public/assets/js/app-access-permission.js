@@ -84,7 +84,7 @@ $(function () {
                +');"><i class="ti ti-edit"></i></button>' +
               '<button class="btn btn-sm btn-icon onclick="javascript:deletepermission('+
               $id
-              +');" delete-record"><i class="ti ti-trash"></i></button></span>'
+              +');"><i class="ti ti-trash"></i></button></span>'
             );
           }
         }

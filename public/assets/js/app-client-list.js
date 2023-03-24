@@ -140,7 +140,8 @@ $(function () {
           render: function (data, type, full, meta) {
             return '';
           }
-        }
+        },
+        { responsivePriority: 1, targets: 13 }
       ],
       order: [[2, 'desc']],
       dom:

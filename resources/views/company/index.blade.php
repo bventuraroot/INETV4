@@ -57,6 +57,7 @@
                         <th>No Cuenta</th>
                         <th>Actividad Economica</th>
                         <th>Tipo</th>
+                        <th>Contribuyente</th>
                         <th>Ubicacion</th>
                         <th>Direccion</th>
                         <th>Acciones</th>
@@ -100,6 +101,26 @@
                                         @default
                                     @endswitch
                                 </td>
+                                <td class="text-center">
+                                    @switch($company->tipoContribuyente)
+                                        @case('GRA')
+                                            Grande
+                                        @break
+
+                                        @case('MED')
+                                            Mediano
+                                        @break
+
+                                        @case('PEQ')
+                                            Pequeño
+                                        @break
+
+                                        @case('OTR')
+                                            Otro
+                                        @break
+                                        @default
+                                    @endswitch
+                                </td>
                                 <td>{{ $company->pais }} <br>
                                     {{ $company->departamento }} <br>
                                     {{ $company->municipio }} </td>
@@ -130,6 +151,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>No hay datos</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -205,6 +227,17 @@
                             <label class="form-label" for="giro">GIRO</label>
                             <input type="text" id="giro" class="form-control" placeholder="giro" aria-label="giro"
                                 name="giro" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="tipocontribuyente" class="form-label">Tipo de contribuyente</label>
+                            <select class="select2tipocontri form-select" id="tipocontribuyente" name="tipocontribuyente"
+                                aria-label="Seleccionar opcion">
+                                <option selected>Seleccione</option>
+                                <option value="GRA">Gran Contribuyente</option>
+                                <option value="MED">Mediano</option>
+                                <option value="PEQU">Pequeño</option>
+                                <option value="OTR">Otro</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="tipoEstablecimiento" class="form-label">Tipo de Establecimiento</label>
@@ -310,6 +343,15 @@
                             <input type="text" id="giroedit" class="form-control" placeholder="giro" aria-label="giro"
                                 name="giroedit" />
                         </div>
+                        <label for="tipocontribuyenteedit" class="form-label">Tipo de contribuyente</label>
+                        <select class="select2tipocontriedit form-select" id="tipocontribuyenteedit" name="tipocontribuyenteedit"
+                            aria-label="Seleccionar opcion">
+                            <option selected>Seleccione</option>
+                            <option value="GRA">Gran Contribuyente</option>
+                            <option value="MED">Mediano</option>
+                            <option value="PEQU">Pequeño</option>
+                            <option value="OTR">Otro</option>
+                        </select>
                         <div class="mb-3">
                             <label for="tipoEstablecimientoedit" class="form-label">Tipo de Establecimiento</label>
                             <select class="select2tipoesedit form-select" id="tipoEstablecimientoedit"
