@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string('acuenta');
-            $table->boolean('state');
-            $table->decimal('totalamount',5,2);
-            $table->string('waytopay');
+            $table->string('acuenta')->nullable();
+            $table->boolean('state')->nullable();
+            $table->decimal('totalamount',5,2)->nullable();
+            $table->string('waytopay')->nullable();
             $table->date('date');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('typedocument_id')->nullable()->constrained()->onDelete('cascade');

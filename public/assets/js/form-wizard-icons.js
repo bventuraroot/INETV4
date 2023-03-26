@@ -192,20 +192,21 @@ function createcorrsale(){
     var idcompany = $('#company').val();
     var iduser= $('#iduser').val();
     var typedocument = $('#typedocument').val();
+    let salida = false;
     $.ajax({
-        url: "newcorrsale/"+btoa(idcompany)+"/"+btoa(iduser)+"/"+btoa(typedocument),
+        url: "newcorrsale/"+idcompany+"/"+iduser+"/"+typedocument,
         method: "GET",
+        async : false,
         success: function(response){
             if($.isNumeric(response)){
-                Swal.fire('Success'+response);
                 $('#corr').val(response);
-                return true;
+                salida = true;
             }else{
                 Swal.fire('Hay un problema, favor verificar');
-                return false;
             }
         }
     });
+    return salida;
 }
 
 function valfpago(fpago){
@@ -231,7 +232,8 @@ function valfpago(fpago){
             var id = $(wizardIconsBtnNextList).attr('id');
             switch(id){
                 case 'step1':
-                    if(createcorrsale()){
+                    var create=createcorrsale();
+                    if(create){
                         iconsStepper.next();
                     }
                     break;

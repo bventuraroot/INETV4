@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
-use App\Models\Salesdetail;
+use App\Models\Tempsales;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class TempsalesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,23 +14,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::all();
-        return view('sales.index', $sales);
-    }
-
-    public function savefactemp($idsale){
-        $sale = Sale::find($idsale);
-    }
-
-    public function newcorrsale($idempresa, $iduser, $iddoc){
-        $corr = new Sale();
-        $corr->company_id = $idempresa;
-        $corr->typedocument_id = $iddoc;
-        $corr->user_id = $iduser;
-        $corr->date = date('Y-m-d');
-        $corr->state = 1;
-        $corr->save();
-        return response()->json($corr['id']);
+        //
     }
 
     /**
@@ -41,7 +24,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        return view('sales.create');
+        //
     }
 
     /**
@@ -58,10 +41,10 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Sale  $Sale
+     * @param  \App\Models\Tempsales  $tempsales
      * @return \Illuminate\Http\Response
      */
-    public function show(Sale $Sale)
+    public function show(Tempsales $tempsales)
     {
         //
     }
@@ -69,10 +52,10 @@ class SaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Sale  $Sale
+     * @param  \App\Models\Tempsales  $tempsales
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sale $Sale)
+    public function edit(Tempsales $tempsales)
     {
         //
     }
@@ -81,10 +64,10 @@ class SaleController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sale  $Sale
+     * @param  \App\Models\Tempsales  $tempsales
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $Sale)
+    public function update(Request $request, Tempsales $tempsales)
     {
         //
     }
@@ -92,10 +75,10 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Sale  $Sale
+     * @param  \App\Models\Tempsales  $tempsales
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $Sale)
+    public function destroy(Tempsales $tempsales)
     {
         //
     }

@@ -144,6 +144,7 @@
                                                 <small>Creación de factura para personas naturales contribuyentes o no contribuyentes</small>
                                               </span>
                                               <input name="typedocument" class="form-check-input" type="radio" value="factura" id="factura" checked />
+                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="6">
                                             </label>
                                           </div>
                                         </div>
@@ -160,6 +161,7 @@
                                                 <small>Creación de documentos donde necesitas una persona natural o jurídica que declare IVA</small>
                                               </span>
                                               <input name="typedocument" class="form-check-input" type="radio" value="fiscal" id="fiscal" />
+                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="3">
                                             </label>
                                           </div>
                                         </div>
@@ -176,6 +178,7 @@
                                                 <small>Creación de documento para modificar un crédito fiscal, requisitos como un crédito fiscal</small>
                                               </span>
                                               <input name="typedocument" class="form-check-input" type="radio" value="nota" id="nota" />
+                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="9">
                                             </label>
                                           </div>
                                         </div>

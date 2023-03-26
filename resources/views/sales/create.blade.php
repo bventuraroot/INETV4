@@ -58,7 +58,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#products">
-                    <button type="button" class="step-trigger">
+                    <button type="button" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/wizard-checkout-cart.svg#wizardCart') }}'>
@@ -96,7 +96,8 @@
                                 <select class="select2company form-select" id="company" name="company"
                                     onchange="aviablenext()" aria-label="Seleccionar opcion">
                                 </select>
-                                <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocument')}}">
+                                <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocumentid')}}">
+                                <input type="hidden" name="valcorr" id="valcorr">
                             </div>
                             <div class="col-12 d-flex justify-content-between">
                                 <button class="btn btn-label-secondary btn-prev" disabled> <i
