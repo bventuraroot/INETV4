@@ -141,7 +141,7 @@ $(function () {
             return '';
           }
         },
-        { responsivePriority: 1, targets: 13 }
+        { responsivePriority: 1, targets: 12 }
       ],
       order: [[2, 'desc']],
       dom:

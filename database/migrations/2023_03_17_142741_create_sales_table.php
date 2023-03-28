@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('state')->nullable();
             $table->decimal('totalamount',5,2)->nullable();
             $table->string('waytopay')->nullable();
+            $table->string('typesale')->default('2')->nullable();
             $table->date('date');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('typedocument_id')->nullable()->constrained()->onDelete('cascade');

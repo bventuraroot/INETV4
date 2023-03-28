@@ -23,14 +23,14 @@
 
 @section('content')
     <!-- Default Icons Wizard -->
-    <div class="col-12 mb-4">
-        <h4 class="fw-bold py-3 mb-4">
+    <div class="mb-4 col-12">
+        <h4 class="py-3 mb-4 fw-bold">
             <span class="text-center fw-semibold">Creación de {{ request('typedocument') }}
         </h4>
-        <div class="bs-stepper wizard-icons wizard-icons-example mt-2">
+        <div class="mt-2 bs-stepper wizard-icons wizard-icons-example">
             <div class="bs-stepper-header">
                 <div class="step" data-target="#company-select">
-                    <button type="button" class="step-trigger">
+                    <button type="button" class="step-trigger2">
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-account.svg#wizardAccount') }}'>
@@ -44,7 +44,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#personal-info">
-                    <button type="button" class="step-trigger">
+                    <button type="button" class="step-trigger2">
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 58 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-personal.svg#wizardPersonal') }}'>
@@ -58,7 +58,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#products">
-                    <button type="button" class="step-trigger" disabled>
+                    <button type="button" class="step-trigger2">
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/wizard-checkout-cart.svg#wizardCart') }}'>
@@ -72,7 +72,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#review-submit">
-                    <button type="button" class="step-trigger">
+                    <button type="button" class="step-trigger2">
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-submit.svg#wizardSubmit') }}'>
@@ -112,7 +112,7 @@
                     </div>
                     <!-- details document -->
                     <div id="personal-info" class="content">
-                        <div class="content-header mb-3">
+                        <div class="mb-3 content-header">
                             <h6 class="mb-0">Detalles de {{ request('typedocument') }}</h6>
                             <small>Ingresa los campos requeridos</small>
                         </div>
@@ -163,7 +163,7 @@
                     </div>
                     <!-- Products -->
                     <div id="products" class="content">
-                        <div class="content-header mb-3">
+                        <div class="mb-3 content-header">
                             <h6 class="mb-0">Productos</h6>
                             <small>Agregue los productos necesarios.</small>
                         </div>
@@ -278,7 +278,7 @@
                     </div>
                     <!-- Social Links -->
                     <div id="social-links" class="content">
-                        <div class="content-header mb-3">
+                        <div class="mb-3 content-header">
                             <h6 class="mb-0">Social Links</h6>
                             <small>Enter Your Social Links.</small>
                         </div>
@@ -316,13 +316,13 @@
                     <!-- Review -->
                     <div id="review-submit" class="content">
 
-                        <p class="fw-semibold mb-2">Account</p>
+                        <p class="mb-2 fw-semibold">Account</p>
                         <ul class="list-unstyled">
                             <li>Username</li>
                             <li>exampl@email.com</li>
                         </ul>
                         <hr>
-                        <p class="fw-semibold mb-2">Personal Info</p>
+                        <p class="mb-2 fw-semibold">Personal Info</p>
                         <ul class="list-unstyled">
                             <li>First Name</li>
                             <li>Last Name</li>
@@ -330,7 +330,7 @@
                             <li>Language</li>
                         </ul>
                         <hr>
-                        <p class="fw-semibold mb-2">Address</p>
+                        <p class="mb-2 fw-semibold">Address</p>
                         <ul class="list-unstyled">
                             <li>Address</li>
                             <li>Landmark</li>
@@ -338,7 +338,7 @@
                             <li>City</li>
                         </ul>
                         <hr>
-                        <p class="fw-semibold mb-2">Social Links</p>
+                        <p class="mb-2 fw-semibold">Social Links</p>
                         <ul class="list-unstyled">
                             <li>https://twitter.com/abc</li>
                             <li>https://facebook.com/abc</li>

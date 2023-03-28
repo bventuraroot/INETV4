@@ -195,7 +195,7 @@ class CompanyController extends Controller
         $Company->ncr = $request->ncredit;
         $Company->giro = $request->giroedit;
         $Company->cuenta_no = $request->cuenta_noedit;
-        $company->tipoContribuyente = $request->tipoContribuyenteedit;
+        $Company->tipoContribuyente = $request->tipoContribuyenteedit;
         $Company->tipoEstablecimiento = $request->tipoEstablecimientoedit;
         $Company->address_id = $request->addresseditid;
         $Company->economicactivity_id = $request->acteconomicaedit;
