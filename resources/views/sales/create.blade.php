@@ -30,7 +30,7 @@
         <div class="mt-2 bs-stepper wizard-icons wizard-icons-example">
             <div class="bs-stepper-header">
                 <div class="step" data-target="#company-select">
-                    <button type="button" class="step-trigger2">
+                    <button type="button" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-account.svg#wizardAccount') }}'>
@@ -44,7 +44,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#personal-info">
-                    <button type="button" class="step-trigger2">
+                    <button type="button" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 58 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-personal.svg#wizardPersonal') }}'>
@@ -58,7 +58,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#products">
-                    <button type="button" class="step-trigger2">
+                    <button type="button" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/wizard-checkout-cart.svg#wizardCart') }}'>
@@ -72,7 +72,7 @@
                     <i class="ti ti-chevron-right"></i>
                 </div>
                 <div class="step" data-target="#review-submit">
-                    <button type="button" class="step-trigger2">
+                    <button type="button" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/form-wizard-submit.svg#wizardSubmit') }}'>
@@ -94,9 +94,10 @@
                                     <h6>Empresa</h6>
                                 </label>
                                 <select class="select2company form-select" id="company" name="company"
-                                    onchange="aviablenext()" aria-label="Seleccionar opcion">
+                                    onchange="aviablenext(this.value)" aria-label="Seleccionar opcion">
                                 </select>
                                 <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocumentid')}}">
+                                <input type="hidden" name="typecontribuyente" id="typecontribuyente">
                                 <input type="hidden" name="valcorr" id="valcorr">
                             </div>
                             <div class="col-12 d-flex justify-content-between">
@@ -128,9 +129,10 @@
                             </div>
                             <div class="col-sm-8">
                                 <label for="client" class="form-label">Cliente</label>
-                                <select class="select2client form-select" id="client" name="client"
+                                <select class="select2client form-select" id="client" name="client" onchange="valtrypecontri(this.value)"
                                     aria-label="Seleccionar opcion">
                                 </select>
+                                <input type="hidden" name="typecontribuyenteclient" id="typecontribuyenteclient">
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label" for="fpago">Forma de pago</label>
@@ -191,7 +193,7 @@
                                 <label class="form-label" for="precio">Precio</label>
                                 <input type="number" id="precio" name="precio" step="0.01" min="1" max="10000" placeholder="0.00" class="form-control" readonly>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <label class="form-label" for="typesale">Tipo de venta</label>
                                 <select class="form-select" id="typesale" name="typesale">
                                     <option value="gravada">Gravadas</option>
@@ -200,7 +202,11 @@
                                 </select>
                             </div>
                             <div class="col-sm-1">
-                                <label class="form-label" for="ivarete">Iva Retenido</label>
+                                <label class="form-label" for="ivarete13">Iva 13%</label>
+                                <input type="number" id="ivarete13" name="ivarete13" step="0.01" max="10000" placeholder="0.00" class="form-control">
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="form-label" for="ivarete">Iva Percibido</label>
                                 <input type="number" id="ivarete" name="ivarete" step="0.01" max="10000" placeholder="0.00" class="form-control">
                             </div>
                             <div class="col-sm-4" style="margin-top: 3%">
@@ -240,7 +246,7 @@
                                         </tr>
 
                                         <tr>
-                                            <td class="text-right">(-) IVA Retenido</td>
+                                            <td class="text-right">(-) IVA Percibido</td>
                                             <td class="text-center" id="ivaretenidol">$0.00</td>
                                             <td></td>
                                         </tr>

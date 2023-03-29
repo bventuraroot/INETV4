@@ -40,6 +40,11 @@ class ClientController extends Controller
         return response()->json($clients);
     }
 
+    public function gettypecontri($client){
+        $contribuyente = Client::find(base64_decode($client));
+        return response()->json($contribuyente);
+    }
+
     public function getClientid($id)
     {
         $Client = Client::join('addresses', 'clients.address_id', '=', 'addresses.id')

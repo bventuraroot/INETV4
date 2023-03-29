@@ -19,8 +19,29 @@ class SaleController extends Controller
         return view('sales.index', $sales);
     }
 
-    public function savefactemp($idsale){
+    public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago){
         $sale = Sale::find($idsale);
+        $sale->client_id = $clientid;
+        $sale->acuenta = $acuenta;
+        $sale->waytopay = $fpago;
+        $sale->save();
+
+        $saledetails = new Salesdetail();
+        $saledetails->sale_id = $idsale;
+        $saledetails->product_id = $productid;
+        $saledetails->amountp = $cantidad;
+        $saledetails->priceunit = $price;
+        $saledetails->pricesale = $pricegravada;
+        $saledetails->nosujeta = $pricenosujeta;
+        $saledetails->exempt = $priceexenta;
+        $saledetails->detained13 = $ivarete13;
+        $saledetails->detained = $ivarete;
+        $saledetails->save();
+        return response()->json(array(
+            "res" => "1",
+            "idsaledetail" => $saledetails['id']
+        ));
+
     }
 
     public function newcorrsale($idempresa, $iduser, $iddoc){
@@ -30,8 +51,17 @@ class SaleController extends Controller
         $corr->user_id = $iduser;
         $corr->date = date('Y-m-d');
         $corr->state = 1;
+        $corr->typesale = 2;
         $corr->save();
         return response()->json($corr['id']);
+    }
+
+    public function destroysaledetail($idsaledetail){
+        $saledetails = Salesdetail::find(base64_decode($idsaledetail));
+        $saledetails->delete();
+        return response()->json(array(
+            "res" => "1"
+        ));
     }
 
     /**

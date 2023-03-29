@@ -43,11 +43,17 @@ class CompanyController extends Controller
     public function getCompanybyuser($idUser)
     {
         $Company = Company::join('permission_company', 'companies.id', '=', 'permission_company.company_id')
-        ->select('companies.id', 'companies.name')
+        ->select('companies.id', 'companies.name', 'companies.tipoContribuyente')
         ->where('permission_company.user_id', '=', $idUser)
         ->get();
         return response()->json($Company);
     }
+
+    public function gettypecontri($company){
+        $contribuyente = Company::find(base64_decode($company));
+        return response()->json($contribuyente);
+    }
+
     public function getCompanyid($id)
     {
         $Company = Company::join('addresses', 'companies.address_id', '=', 'addresses.id')

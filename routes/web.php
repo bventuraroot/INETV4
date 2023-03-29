@@ -47,6 +47,7 @@ Route::group(['prefix' => 'client', 'as' => 'client.'], function(){
     Route::get('view/{client}', [CompanyController::class, 'show'])->name('view');
     Route::get('edit/{client}', [ClientController::class, 'edit'])->name('edit');
     Route::get('getClientid/{client}', [ClientController::class, 'getClientid'])->name('getClientid');
+    Route::get('gettypecontri/{client}', [ClientController::class, 'gettypecontri'])->name('gettypecontri');
     Route::patch('update', [ClientController::class, 'update'])->name('update');
     Route::get('create', [ClientController::class, 'create'])->name('create');
     Route::post('store', [ClientController::class, 'store'])->name('store');
@@ -60,6 +61,7 @@ Route::group(['prefix' => 'company', 'as' => 'company.'], function(){
     Route::get('view/{company}', [CompanyController::class, 'show'])->name('view');
     Route::get('getCompany', [CompanyController::class, 'getCompany'])->name('getCompany');
     Route::get('getCompanybyuser/{iduser}', [CompanyController::class, 'getCompanybyuser'])->name('getCompanybyuser');
+    Route::get('gettypecontri/{company}', [CompanyController::class, 'gettypecontri'])->name('gettypecontri');
     Route::get('getCompanytag', [CompanyController::class, 'getCompanytag'])->name('getCompanytag');
     Route::get('getCompanyid/{company}', [CompanyController::class, 'getCompanyid'])->name('getCompanyid');
     Route::post('store', [CompanyController::class, 'store'])->name('store');
@@ -131,8 +133,10 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::patch('update', [SaleController::class, 'update'])->name('update');
         Route::post('store', [SaleController::class, 'store'])->name('store');
         Route::get('destroy/{id}', [SaleController::class, 'destroy'])->name('destroy');
-        Route::get('savefactemp', [SaleController::class, 'savefactemp'])->name('savefactemp');
+        Route::get('savefactemp/{idsale}/{clientid}/{productid}/{cantida}/{price}/{nosujeto}/{exento}/{gravado}/{iva}/{retenido}/{acuenta}/{fpago}', [SaleController::class, 'savefactemp'])->name('savefactemp');
         Route::get('newcorrsale/{idempresa}/{iduser}/{typedocument}', [SaleController::class, 'newcorrsale'])->name('newcorrsale');
+        Route::get('destroysaledetail/{idsaledetail}', [SaleController::class, 'destroysaledetail'])->name('destroysaledetail');
+
     });
 });
 
