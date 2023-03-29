@@ -117,8 +117,8 @@
                       <div class="text-center mb-4">
                         <h3 class="mb-2">Documentos disponibles</h3>
                       </div>
-                      <form id="selectDocumentForm" class="row" action="{{Route('sale.create')}}" method="POST">
-                        @csrf @method('POST')
+                      <form id="selectDocumentForm" class="row" action="{{Route('sale.create')}}" method="GET">
+                        @csrf @method('GET')
                         <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
                         <div id="wizard-create-deal" class="bs-stepper vertical mt-2">
                             <div class="bs-stepper-content">

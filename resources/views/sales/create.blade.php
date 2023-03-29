@@ -1,6 +1,6 @@
 @extends('layouts/layoutMaster')
 
-@section('title', 'Wizard Icons - Forms')
+@section('title', 'Nuevo documento')
 
 @section('vendor-style')
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
@@ -98,7 +98,8 @@
                                 </select>
                                 <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocumentid')}}">
                                 <input type="hidden" name="typecontribuyente" id="typecontribuyente">
-                                <input type="hidden" name="valcorr" id="valcorr">
+                                <input type="hidden" name="valcorr" id="valcorr" value="{{ isset(request('corr')) ? request('corr') : '' }}">
+                                <input type="hidden" name="valdraft" id="valdraft" value="{{ isset(request('draft')) ? request('draft') : '' }}">
                             </div>
                             <div class="col-12 d-flex justify-content-between">
                                 <button class="btn btn-label-secondary btn-prev" disabled> <i
@@ -364,5 +365,4 @@
     </div>
     <!-- /Default Icons Wizard -->
     </div>
-
 @endsection

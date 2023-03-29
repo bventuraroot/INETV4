@@ -127,9 +127,10 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function(){
 
 Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::get('index', [SaleController::class, 'index'])->name('index');
-        Route::post('create', [SaleController::class, 'create'])->name('create');
+        Route::get('create', [SaleController::class, 'create'])->name('create');
         Route::get('getproductid/{id}', [SaleController::class, 'getproductid'])->name('getproductid');
         Route::get('getproductbyid/{id}', [SaleController::class, 'getproductbyid'])->name('getproductbyid');
+        Route::get('getdatadocbycorr/{corr}', [SaleController::class, 'getdatadocbycorr'])->name('getdatadocbycorr');
         Route::patch('update', [SaleController::class, 'update'])->name('update');
         Route::post('store', [SaleController::class, 'store'])->name('store');
         Route::get('destroy/{id}', [SaleController::class, 'destroy'])->name('destroy');

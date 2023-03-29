@@ -5,6 +5,11 @@
 "use strict";
 
 $(function () {
+    var valcorrdoc = $('#valcorr').val();
+    var valdraftdoc = $('#valdraft').val();
+    if(isNumeric(valcorrdoc) && valdraftdoc==true){
+        var draft = draftdocument(valcorrdoc, valdraftdoc);
+    }
     const select2 = $(".select2"),
         selectPicker = $(".selectpicker");
 
@@ -322,7 +327,9 @@ function eliminarpro(id) {
 
 function aviablenext(idcompany) {
     $("#step1").prop("disabled", false);
-    //var idcompany = $('#company').val();
+}
+
+function getclientbycompanyurl(idcompany){
     $.ajax({
         url: "/client/getclientbycompany/" + btoa(idcompany),
         method: "GET",
@@ -341,6 +348,7 @@ function aviablenext(idcompany) {
             });
         },
     });
+
     //traer el tipo de contribuyente
     $.ajax({
         url: "/company/gettypecontri/" + btoa(idcompany),
@@ -376,8 +384,10 @@ function createcorrsale() {
             async: false,
             success: function (response) {
                 if ($.isNumeric(response)) {
-                    $("#corr").val(response);
-                    salida = true;
+                    //recargar la pagina para retomar si una factura quedo en modo borrador
+                    //$("#corr").val(response);
+                    //salida = true;
+                    window.location.href = "create?corr=" + response + "&draft=true";
                 } else {
                     Swal.fire("Hay un problema, favor verificar");
                 }
@@ -392,6 +402,34 @@ function createcorrsale() {
 
 function valfpago(fpago) {
     //alert(fpago);
+}
+
+function draftdocument(corr, draft){
+    if(draft){
+        $.ajax({
+            url: "getdatadocbycorr/" + btoa(corr),
+            method: "GET",
+            async: false,
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    //valor de company
+                    $('#idcompany').val(value.idcompany);
+                    $('#typeContribuyente').val(value.typeContribuyente);
+                    $('#idcompany').val(value.idcompany);
+                    $('#idcompany').val(value.idcompany);
+                    $('#idcompany').val(value.idcompany);
+                    $('#idcompany').val(value.idcompany);
+                    $('#idcompany').val(value.idcompany);
+                });
+            },
+            failure: function (response) {
+                Swal.fire("Hay un problema: " + response.responseText);
+            },
+            error: function (response) {
+                Swal.fire("Hay un problema: " + response.responseText);
+            }
+        });
+    }
 }
 
 (function () {
