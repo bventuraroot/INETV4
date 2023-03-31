@@ -5,11 +5,6 @@
 "use strict";
 
 $(function () {
-    var valcorrdoc = $('#valcorr').val();
-    var valdraftdoc = $('#valdraft').val();
-    if(isNumeric(valcorrdoc) && valdraftdoc==true){
-        var draft = draftdocument(valcorrdoc, valdraftdoc);
-    }
     const select2 = $(".select2"),
         selectPicker = $(".selectpicker");
 
@@ -97,6 +92,12 @@ $(function () {
     }
 });
 
+var valcorrdoc = $("#valcorr").val();
+var valdraftdoc = $("#valdraft").val();
+if (valcorrdoc != "" && valdraftdoc == "true") {
+    var draft = draftdocument(valcorrdoc, valdraftdoc);
+}
+
 function agregarp() {
     var clientid = $("#client").val();
     var corrid = $("#corr").val();
@@ -134,10 +135,36 @@ function agregarp() {
     }
     var totaltemp = parseFloat(pricegravada + priceexenta + pricenosujeta);
     var iva13temp = parseFloat(totaltemp * 0.13);
-    var totaltemptotal = parseFloat(pricegravada + priceexenta + pricenosujeta + ivarete13 + ivarete);
+    var totaltemptotal = parseFloat(
+        pricegravada + priceexenta + pricenosujeta + ivarete13 + ivarete
+    );
     //enviar a temp factura
     $.ajax({
-        url: 'savefactemp/'+ corrid +'/'+ clientid+'/'+ productid +'/'+ cantidad +'/'+ price +'/'+ pricenosujeta +'/'+ priceexenta +'/'+ pricegravada +'/' + ivarete13 + '/' + ivarete + '/' + acuenta + '/' + fpago,
+        url:
+            "savefactemp/" +
+            corrid +
+            "/" +
+            clientid +
+            "/" +
+            productid +
+            "/" +
+            cantidad +
+            "/" +
+            price +
+            "/" +
+            pricenosujeta +
+            "/" +
+            priceexenta +
+            "/" +
+            pricegravada +
+            "/" +
+            ivarete13 +
+            "/" +
+            ivarete +
+            "/" +
+            acuenta +
+            "/" +
+            fpago,
         method: "GET",
         success: function (response) {
             if (response.res == 1) {
@@ -249,7 +276,7 @@ function searchproduct(idpro) {
                 //validar si es gran contribuyente el cliente vs la empresa
                 if (typecontricompany == "GRA") {
                     if (typecontriclient == "GRA") {
-                        retencion = 0.00;
+                        retencion = 0.0;
                     } else if (
                         typecontriclient == "MED" ||
                         typecontriclient == "PEQ" ||
@@ -268,68 +295,68 @@ function searchproduct(idpro) {
 }
 
 function eliminarpro(id) {
-
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
         },
-        buttonsStyling: false
-      })
+        buttonsStyling: false,
+    });
 
-      swalWithBootstrapButtons.fire({
-        title: '¿Eliminar?',
-        text: "Esta accion no tiene retorno",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Si, Eliminarlo!',
-        cancelButtonText: 'No, Cancelar!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "destroysaledetail/"+btoa(id),
-                method: "GET",
-                success: function(response){
-                        if(response.res==1){
+    swalWithBootstrapButtons
+        .fire({
+            title: "¿Eliminar?",
+            text: "Esta accion no tiene retorno",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, Eliminarlo!",
+            cancelButtonText: "No, Cancelar!",
+            reverseButtons: true,
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "destroysaledetail/" + btoa(id),
+                    method: "GET",
+                    success: function (response) {
+                        if (response.res == 1) {
                             Swal.fire({
-                                title: 'Eliminado',
-                                icon: 'success',
-                                confirmButtonText: 'Ok'
-                              }).then((result) => {
+                                title: "Eliminado",
+                                icon: "success",
+                                confirmButtonText: "Ok",
+                            }).then((result) => {
                                 /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
                                     $("#pro" + id).remove();
                                 }
-                              })
-
-                        }else if(response.res==0){
+                            });
+                        } else if (response.res == 0) {
                             swalWithBootstrapButtons.fire(
-                                'Problemas!',
-                                'Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.',
-                                'success'
-                              )
+                                "Problemas!",
+                                "Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.",
+                                "success"
+                            );
                         }
+                    },
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    "Cancelado",
+                    "No hemos hecho ninguna accion :)",
+                    "error"
+                );
             }
-            });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelado',
-            'No hemos hecho ninguna accion :)',
-            'error'
-          )
-        }
-      })
+        });
 }
 
 function aviablenext(idcompany) {
     $("#step1").prop("disabled", false);
 }
 
-function getclientbycompanyurl(idcompany){
+function getclientbycompanyurl(idcompany) {
     $.ajax({
         url: "/client/getclientbycompany/" + btoa(idcompany),
         method: "GET",
@@ -387,7 +414,8 @@ function createcorrsale() {
                     //recargar la pagina para retomar si una factura quedo en modo borrador
                     //$("#corr").val(response);
                     //salida = true;
-                    window.location.href = "create?corr=" + response + "&draft=true";
+                    window.location.href =
+                        "create?corr=" + response + "&draft=true";
                 } else {
                     Swal.fire("Hay un problema, favor verificar");
                 }
@@ -404,22 +432,50 @@ function valfpago(fpago) {
     //alert(fpago);
 }
 
-function draftdocument(corr, draft){
-    if(draft){
+function draftdocument(corr, draft) {
+    if (draft) {
         $.ajax({
             url: "getdatadocbycorr/" + btoa(corr),
             method: "GET",
             async: false,
             success: function (response) {
+                console.log(response);
                 $.each(response, function (index, value) {
-                    //valor de company
-                    $('#idcompany').val(value.idcompany);
-                    $('#typeContribuyente').val(value.typeContribuyente);
-                    $('#idcompany').val(value.idcompany);
-                    $('#idcompany').val(value.idcompany);
-                    $('#idcompany').val(value.idcompany);
-                    $('#idcompany').val(value.idcompany);
-                    $('#idcompany').val(value.idcompany);
+                    //campo de company
+                    $('#company').empty();
+                    $("#company").append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.name.toUpperCase() +
+                            "</option>"
+                    );
+                    $("#step1").prop("disabled", false);
+                    $('#company').prop('disabled', true);
+                    $('#corr').prop('disabled', true);
+                    $("#typedocument").val(value.typedocument_id);
+                    $("#typecontribuyente").val(value.tipoContribuyente);
+                    $('#date').prop('disabled', true);
+                    $("#corr").val(corr);
+                    $("#date").val(value.date);
+                    //campo cliente
+                    if(value.client_id != null){
+                        $("#client").append(
+                            '<option value="' +
+                                value.client_id +
+                                '">' +
+                                value.client_firstname +' '+ value.client_secondname +
+                                "</option>"
+                        );
+                        $('#client').prop('disabled', true);
+                    }else {
+                       var getsclient =  getclientbycompanyurl(value.id);
+                    }
+                    if(value.waytopay != null){
+                        $("#fpago option[value="+ value.waytopay +"]").attr("selected",true);
+                    }
+                    $("#acuenta").val(value.acuenta);
+                    var details = agregarfacdetails(corr);
                 });
             },
             failure: function (response) {
@@ -427,9 +483,112 @@ function draftdocument(corr, draft){
             },
             error: function (response) {
                 Swal.fire("Hay un problema: " + response.responseText);
-            }
+            },
         });
     }
+}
+
+function agregarfacdetails(corr) {
+    $.ajax({
+        url: "getdetailsdoc/" + btoa(corr),
+        method: "GET",
+        async: false,
+        success: function (response) {
+            console.log(response);
+            $.each(response, function (index, value) {
+                var row =
+                    '<tr id="pro' +
+                    value.id +
+                    '"><td>' +
+                    value.amountp +
+                    "</td><td>" +
+                    productname +
+                    "</td><td>" +
+                    price.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }) +
+                    "</td><td>" +
+                    pricenosujeta.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }) +
+                    "</td><td>" +
+                    priceexenta.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }) +
+                    "</td><td>" +
+                    pricegravada.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }) +
+                    '</td><td class="text-center">' +
+                    totaltemp.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }) +
+                    '</td><td><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
+                    response.idsaledetail +
+                    ')"><span class="ti ti-trash"></span></button></td></tr>';
+                $("#tblproduct tbody").append(row);
+                sumasl = sumas + totaltemp;
+                $("#sumasl").html(
+                    sumasl.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#sumas").val(sumasl);
+                iva13l = parseFloat(iva13 + iva13temp);
+                $("#13ival").html(
+                    iva13l.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#13iva").val(iva13l);
+                ivaretenidol = ivaretenido + ivarete;
+                $("#ivaretenidol").html(
+                    ivaretenidol.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#ivaretenido").val(ivaretenidol);
+                ventasnosujetasl = ventasnosujetas + pricenosujeta;
+                $("#ventasnosujetasl").html(
+                    ventasnosujetasl.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#ventasnosujetas").val(ventasnosujetasl);
+                ventasexentasl = ventasexentas + priceexenta;
+                $("#ventasexentasl").html(
+                    ventasexentasl.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#ventasexentas").val(ventasexentasl);
+                ventatotall = ventatotal + totaltemptotal;
+                $("#ventatotall").html(
+                    ventatotall.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#ventatotal").val(ventatotall);
+            });
+        },
+        failure: function (response) {
+            Swal.fire("Hay un problema: " + response.responseText);
+        },
+        error: function (response) {
+            Swal.fire("Hay un problema: " + response.responseText);
+        },
+    });
 }
 
 (function () {
@@ -461,8 +620,10 @@ function draftdocument(corr, draft){
                             }
                             break;
                         case "step2":
+                            iconsStepper.next();
                             break;
                         case "step3":
+
                             break;
                     }
                 });

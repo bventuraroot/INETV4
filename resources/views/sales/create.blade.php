@@ -98,8 +98,8 @@
                                 </select>
                                 <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocumentid')}}">
                                 <input type="hidden" name="typecontribuyente" id="typecontribuyente">
-                                <input type="hidden" name="valcorr" id="valcorr" value="{{ isset(request('corr')) ? request('corr') : '' }}">
-                                <input type="hidden" name="valdraft" id="valdraft" value="{{ isset(request('draft')) ? request('draft') : '' }}">
+                                <input type="hidden" name="valcorr" id="valcorr" value="{{ request('corr')!='' ? request('corr') : '' }}">
+                                <input type="hidden" name="valdraft" id="valdraft" value="{{ request('draft')!='' ? request('draft') : '' }}">
                             </div>
                             <div class="col-12 d-flex justify-content-between">
                                 <button class="btn btn-label-secondary btn-prev" disabled> <i

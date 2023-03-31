@@ -6,7 +6,7 @@ use App\Models\Sale;
 use App\Models\Salesdetail;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller 
+class SaleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -65,11 +65,20 @@ class SaleController extends Controller
     }
 
     public function getdatadocbycorr($corr){
-        $saledetails = Sale::join('salesdetails', 'salesdetails.sale_id', '=', 'sales.id')
+        $saledetails = Sale::join('companies', 'companies.id', '=', 'sales.company_id')
+        ->leftJoin('clients', 'clients.id', '=', 'sales.client_id')
         ->select('sales.*',
-        'salesdetails.*')
+        'companies.*',
+        'clients.id AS client_id',
+        'clients.firstname AS client_firstname',
+        'clients.secondname AS client_secondname')
         ->where('sales.id', '=', base64_decode($corr))
         ->get();
+        return response()->json($saledetails);
+    }
+
+    public function getdetailsdoc($corr){
+        $saledetails = Salesdetail::find(base64_decode($corr));
         return response()->json($saledetails);
     }
 
