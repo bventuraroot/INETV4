@@ -15,8 +15,15 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::all();
-        return view('sales.index', $sales);
+        $sales = Sale::join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
+        ->join('clients', 'clientes.id', '=', 'sales.client_id')
+        ->select('sales.*',
+        'typedocuments.description AS document_name',
+        'clients.')
+        ->get();
+        return view('sales.index', array(
+            "sales" => $sales
+        ));
     }
 
     public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago){
