@@ -22,6 +22,14 @@
 @endsection
 
 @section('content')
+<style>
+    .imagen-producto-select2 {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+</style>
     <!-- Default Icons Wizard -->
     <div class="mb-4 col-12">
         <h4 class="py-3 mb-4 fw-bold">

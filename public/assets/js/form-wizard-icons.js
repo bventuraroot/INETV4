@@ -53,7 +53,7 @@ $(function () {
                 $("#psearch").append(
                     '<option value="' +
                         value.id +
-                        '">' +
+                        '" title="'+ value.image +'">' +
                         value.name.toUpperCase() +
                         "</option>"
                 );
@@ -81,6 +81,15 @@ $(function () {
         });
     }
 
+    function formatState(state) {
+        if (state.id==0) {
+          return state.text;
+        }
+        var $state = $(
+          '<span><img src="../assets/img/products/'+ state.title +'" class="imagen-producto-select2" /> ' + state.text + '</span>'
+        );
+        return $state;
+      };
     var selectdpsearch = $(".select2psearch");
 
     if (selectdpsearch.length) {
@@ -88,6 +97,7 @@ $(function () {
         $this.wrap('<div class="position-relative"></div>').select2({
             placeholder: "Seleccionar Producto",
             dropdownParent: $this.parent(),
+            templateResult: formatState
         });
     }
 });
