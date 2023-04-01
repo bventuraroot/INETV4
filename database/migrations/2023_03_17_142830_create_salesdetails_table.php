@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('priceunit',5,2);
             $table->decimal('nosujeta',5,2);
             $table->decimal('exempt',5,2);
-            $table->decimal('detained',5,2);
+            $table->decimal('detained',5,2)->nullable();
             $table->decimal('detained13',5,2);
             $table->timestamps();
         });

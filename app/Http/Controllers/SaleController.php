@@ -71,14 +71,19 @@ class SaleController extends Controller
         'companies.*',
         'clients.id AS client_id',
         'clients.firstname AS client_firstname',
-        'clients.secondname AS client_secondname')
+        'clients.secondname AS client_secondname',
+        'clients.tipoContribuyente AS client_contribuyente')
         ->where('sales.id', '=', base64_decode($corr))
         ->get();
         return response()->json($saledetails);
     }
 
     public function getdetailsdoc($corr){
-        $saledetails = Salesdetail::find(base64_decode($corr));
+        $saledetails = Salesdetail::leftJoin('products', 'products.id', '=', 'salesdetails.product_id')
+        ->select('salesdetails.*',
+        'products.name AS product_name')
+        ->where('sale_id', '=', base64_decode($corr))
+        ->get();
         return response()->json($saledetails);
     }
 

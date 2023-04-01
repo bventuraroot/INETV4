@@ -109,7 +109,7 @@ function agregarp() {
     var ivarete13 = parseFloat($("#ivarete13").val());
     var ivarete = parseFloat($("#ivarete").val());
     var type = $("#typesale").val();
-    var cantidad = $("#cantidad").val();
+    var cantidad = parseFloat($("#cantidad").val());
     var productdescription = $("#productdescription").val();
     var pricegravada = 0;
     var priceexenta = 0;
@@ -135,9 +135,13 @@ function agregarp() {
     }
     var totaltemp = parseFloat(pricegravada + priceexenta + pricenosujeta);
     var iva13temp = parseFloat(totaltemp * 0.13);
+    var ventatotaltotal =  ventatotal + iva13 + ivaretenido;
     var totaltemptotal = parseFloat(
         pricegravada + priceexenta + pricenosujeta + ivarete13 + ivarete
     );
+    if(!$.isNumeric(ivarete)){
+        ivarete = 0;
+    }
     //enviar a temp factura
     $.ajax({
         url:
@@ -244,9 +248,9 @@ function agregarp() {
                     })
                 );
                 $("#ventasexentas").val(ventasexentasl);
-                ventatotall = ventatotal + totaltemptotal;
+                ventatotall = parseFloat(ventatotaltotal)  + parseFloat(totaltemptotal);
                 $("#ventatotall").html(
-                    ventatotall.toLocaleString("en-US", {
+                    parseFloat(ventatotall).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     })
@@ -284,6 +288,9 @@ function searchproduct(idpro) {
                     ) {
                         retencion = 0.01;
                     }
+                }
+                if(typecontriclient==""){
+                    retencion = 0.0;
                 }
                 $("#ivarete").val(
                     parseFloat(value.price * retencion).toFixed(2)
@@ -439,7 +446,6 @@ function draftdocument(corr, draft) {
             method: "GET",
             async: false,
             success: function (response) {
-                console.log(response);
                 $.each(response, function (index, value) {
                     //campo de company
                     $('#company').empty();
@@ -455,6 +461,7 @@ function draftdocument(corr, draft) {
                     $('#corr').prop('disabled', true);
                     $("#typedocument").val(value.typedocument_id);
                     $("#typecontribuyente").val(value.tipoContribuyente);
+                    $("#typecontribuyenteclient").val(value.client_contribuyente);
                     $('#date').prop('disabled', true);
                     $("#corr").val(corr);
                     $("#date").val(value.date);
@@ -494,32 +501,53 @@ function agregarfacdetails(corr) {
         method: "GET",
         async: false,
         success: function (response) {
-            console.log(response);
+            let totaltemptotal = 0;
+            let totalsumas = 0;
+            let ivarete13total = 0;
+            let ivaretetotal = 0;
+            let nosujetatotal = 0;
+            let exempttotal = 0;
+            let pricesaletotal = 0;
             $.each(response, function (index, value) {
+                var totaltemp = (parseFloat(value.nosujeta) + parseFloat(value.exempt) + parseFloat(value.pricesale));
+                totalsumas += totaltemp;
+                ivarete13total += parseFloat(value.detained13);
+                ivaretetotal += parseFloat(value.detained);
+                nosujetatotal += parseFloat(value.nosujeta);
+                exempttotal += parseFloat(value.exempt);
+                pricesaletotal += parseFloat(value.pricesale);
+                totaltemptotal += (parseFloat(value.nosujeta) + parseFloat(value.exempt) + parseFloat(value.pricesale))
+                + (parseFloat(value.detained13) + parseFloat(value.detained));
+                var sumasl = 0;
+                var iva13l = 0;
+                var ivaretenidol = 0;
+                var ventasnosujetasl = 0;
+                var ventasexentasl = 0;
+                var ventatotall = 0;
                 var row =
                     '<tr id="pro' +
                     value.id +
                     '"><td>' +
                     value.amountp +
                     "</td><td>" +
-                    productname +
+                    value.product_name +
                     "</td><td>" +
-                    price.toLocaleString("en-US", {
+                    parseFloat(value.priceunit).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
                     "</td><td>" +
-                    pricenosujeta.toLocaleString("en-US", {
+                    parseFloat(value.nosujeta).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
                     "</td><td>" +
-                    priceexenta.toLocaleString("en-US", {
+                    parseFloat(value.exempt).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
                     "</td><td>" +
-                    pricegravada.toLocaleString("en-US", {
+                    parseFloat(value.pricesale).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
@@ -529,10 +557,10 @@ function agregarfacdetails(corr) {
                         currency: "USD",
                     }) +
                     '</td><td><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
-                    response.idsaledetail +
+                    value.id +
                     ')"><span class="ti ti-trash"></span></button></td></tr>';
                 $("#tblproduct tbody").append(row);
-                sumasl = sumas + totaltemp;
+                sumasl = totalsumas;
                 $("#sumasl").html(
                     sumasl.toLocaleString("en-US", {
                         style: "currency",
@@ -540,7 +568,7 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#sumas").val(sumasl);
-                iva13l = parseFloat(iva13 + iva13temp);
+                iva13l = ivarete13total;
                 $("#13ival").html(
                     iva13l.toLocaleString("en-US", {
                         style: "currency",
@@ -548,7 +576,7 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#13iva").val(iva13l);
-                ivaretenidol = ivaretenido + ivarete;
+                ivaretenidol =  ivaretetotal;
                 $("#ivaretenidol").html(
                     ivaretenidol.toLocaleString("en-US", {
                         style: "currency",
@@ -556,7 +584,7 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#ivaretenido").val(ivaretenidol);
-                ventasnosujetasl = ventasnosujetas + pricenosujeta;
+                ventasnosujetasl =  nosujetatotal;
                 $("#ventasnosujetasl").html(
                     ventasnosujetasl.toLocaleString("en-US", {
                         style: "currency",
@@ -564,7 +592,7 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#ventasnosujetas").val(ventasnosujetasl);
-                ventasexentasl = ventasexentas + priceexenta;
+                ventasexentasl = exempttotal;
                 $("#ventasexentasl").html(
                     ventasexentasl.toLocaleString("en-US", {
                         style: "currency",
@@ -572,7 +600,7 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#ventasexentas").val(ventasexentasl);
-                ventatotall = ventatotal + totaltemptotal;
+                ventatotall = totaltemptotal;
                 $("#ventatotall").html(
                     ventatotall.toLocaleString("en-US", {
                         style: "currency",
