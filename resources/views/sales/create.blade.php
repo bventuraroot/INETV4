@@ -30,10 +30,24 @@
     vertical-align: middle;
 }
 </style>
+
+@php
+    switch (request('typedocument') ) {
+        case '6':
+            $document = 'Factura';
+            break;
+        case '9':
+            $document = 'Nota de Crédito';
+            break;
+        case '3':
+            $document = 'Crédito Fiscal';
+            break;
+    }
+@endphp
     <!-- Default Icons Wizard -->
     <div class="mb-4 col-12">
         <h4 class="py-3 mb-4 fw-bold">
-            <span class="text-center fw-semibold">Creación de {{ request('typedocument') }}
+            <span class="text-center fw-semibold">Creación de {{ $document }}
         </h4>
         <div class="mt-2 bs-stepper wizard-icons wizard-icons-example">
             <div class="bs-stepper-header">
@@ -59,14 +73,14 @@
                                 </use>
                             </svg>
                         </span>
-                        <span class="bs-stepper-label">Información {{ request('typedocument') }}</span>
+                        <span class="bs-stepper-label">Información {{ $document }}</span>
                     </button>
                 </div>
                 <div class="line">
                     <i class="ti ti-chevron-right"></i>
                 </div>
-                <div class="step" data-target="#products">
-                    <button type="button" class="step-trigger" disabled>
+                <div class="step" data-target="#products" id="step-products">
+                    <button type="button" id="button-products" class="step-trigger" disabled>
                         <span class="bs-stepper-icon">
                             <svg viewBox="0 0 54 54">
                                 <use xlink:href='{{ asset('assets/svg/icons/wizard-checkout-cart.svg#wizardCart') }}'>
@@ -104,10 +118,11 @@
                                 <select class="select2company form-select" id="company" name="company"
                                     onchange="aviablenext(this.value)" aria-label="Seleccionar opcion">
                                 </select>
-                                <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocumentid')}}">
+                                <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocument')}}">
                                 <input type="hidden" name="typecontribuyente" id="typecontribuyente">
                                 <input type="hidden" name="valcorr" id="valcorr" value="{{ request('corr')!='' ? request('corr') : '' }}">
                                 <input type="hidden" name="valdraft" id="valdraft" value="{{ request('draft')!='' ? request('draft') : '' }}">
+                                <input type="hidden" name="operation" id="operation" value="{{ request('operation')!='' ? request('operation') : '' }}">
                             </div>
                             <div class="col-12 d-flex justify-content-between">
                                 <button class="btn btn-label-secondary btn-prev" disabled> <i
@@ -123,7 +138,7 @@
                     <!-- details document -->
                     <div id="personal-info" class="content">
                         <div class="mb-3 content-header">
-                            <h6 class="mb-0">Detalles de {{ request('typedocument') }}</h6>
+                            <h6 class="mb-0">Detalles de {{ $document }}</h6>
                             <small>Ingresa los campos requeridos</small>
                         </div>
                         <div class="row g-3">

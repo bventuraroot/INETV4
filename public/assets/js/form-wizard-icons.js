@@ -3,6 +3,13 @@
  */
 
 "use strict";
+$( document ).ready(function() {
+    var operation = $('#operation').val();
+    if (operation == 'delete') {
+        var stepper = new Stepper(document.querySelector('.wizard-icons-example'))
+        stepper.to(3);
+    }
+});
 
 $(function () {
     const select2 = $(".select2"),
@@ -332,9 +339,12 @@ function eliminarpro(id) {
         })
         .then((result) => {
             if (result.isConfirmed) {
+                var corr = $('#valcorr').val();
+                var document = $('#typedocument').val();
                 $.ajax({
                     url: "destroysaledetail/" + btoa(id),
                     method: "GET",
+                    async: false,
                     success: function (response) {
                         if (response.res == 1) {
                             Swal.fire({
@@ -344,7 +354,12 @@ function eliminarpro(id) {
                             }).then((result) => {
                                 /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
-                                    $("#pro" + id).remove();
+                                    //$("#pro" + id).remove();
+                                    //$('#resultados').load(location.href + " #resultados");
+                                    //var details = agregarfacdetails($('#valcorr').val());
+                                    //location.reload(true);
+                                    window.location.href =
+                                    "create?corr=" + corr + "&draft=true&typedocument=" + document +"&operation=delete";
                                 }
                             });
                         } else if (response.res == 0) {
@@ -432,7 +447,7 @@ function createcorrsale() {
                     //$("#corr").val(response);
                     //salida = true;
                     window.location.href =
-                        "create?corr=" + response + "&draft=true";
+                        "create?corr=" + response + "&draft=true&typedocument=" + typedocument;
                 } else {
                     Swal.fire("Hay un problema, favor verificar");
                 }
@@ -511,6 +526,7 @@ function agregarfacdetails(corr) {
         method: "GET",
         async: false,
         success: function (response) {
+
             let totaltemptotal = 0;
             let totalsumas = 0;
             let ivarete13total = 0;

@@ -75,10 +75,44 @@
                                 <td>{{ $sale->acuenta }}</td>
                                 <td>{{ $sale->date }}</td>
                                 <td>{{ $sale->document_name }}</td>
-                                <td>{{ $sale->client_id }}</td>
-                                <td>{{ $sale->company_id }}</td>
-                                <td>{{ $sale->waytopay }}</td>
-                                <td>{{ $sale->state }}</td>
+                                <td>{{ $sale->firstname . ' ' . $sale->secondname  }}</td>
+                                <td>{{ $sale->company_name }}</td>
+                                <td>
+                                    @switch($sale->waytopay)
+                                        @case(1)
+                                            CONTADO
+                                        @break
+
+                                        @case(2)
+                                            CRÉDITO
+                                        @break
+
+                                        @case(3)
+                                            OTRO
+                                        @break
+
+                                        @default
+                                    @endswitch</td>
+                                <td>
+                                    @switch($sale->state)
+                                        @case(0)
+                                            ANULADO
+                                        @break
+
+                                        @case(1)
+                                            CONFIRMADO
+                                        @break
+
+                                        @case(2)
+                                            PENDIENTE
+                                        @break
+
+                                        @case(3)
+                                            FACTURADO
+                                        @break
+
+                                        @default
+                                    @endswitch</td>
                                 <td>{{ $sale->totalamount }}</td>
                                 <td><div class="d-flex align-items-center">
                                     <a href="javascript: printsale({{ $sale->id }});" class="dropdown-item"><i
@@ -143,8 +177,7 @@
                                                 <span class="custom-option-title">Factura</span>
                                                 <small>Creación de factura para personas naturales contribuyentes o no contribuyentes</small>
                                               </span>
-                                              <input name="typedocument" class="form-check-input" type="radio" value="factura" id="factura" checked />
-                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="6">
+                                              <input name="typedocument" class="form-check-input" type="radio" value="6" id="factura" checked />
                                             </label>
                                           </div>
                                         </div>
@@ -160,8 +193,7 @@
                                                 <span class="custom-option-title">Credito Fiscal</span>
                                                 <small>Creación de documentos donde necesitas una persona natural o jurídica que declare IVA</small>
                                               </span>
-                                              <input name="typedocument" class="form-check-input" type="radio" value="fiscal" id="fiscal" />
-                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="3">
+                                              <input name="typedocument" class="form-check-input" type="radio" value="3" id="fiscal" />
                                             </label>
                                           </div>
                                         </div>
@@ -177,8 +209,7 @@
                                                 <span class="custom-option-title">Nota de crédito</span>
                                                 <small>Creación de documento para modificar un crédito fiscal, requisitos como un crédito fiscal</small>
                                               </span>
-                                              <input name="typedocument" class="form-check-input" type="radio" value="nota" id="nota" />
-                                              <input type="hidden" name="typedocumentid" id="typedocumentid" value="9">
+                                              <input name="typedocument" class="form-check-input" type="radio" value="9" id="nota" />
                                             </label>
                                           </div>
                                         </div>

@@ -16,10 +16,13 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
-        ->join('clients', 'clientes.id', '=', 'sales.client_id')
+        ->join('clients', 'clients.id', '=', 'sales.client_id')
+        ->join('companies', 'companies.id', '=', 'sales.company_id')
         ->select('sales.*',
         'typedocuments.description AS document_name',
-        'clients.')
+        'clients.firstname',
+        'clients.secondname',
+        'companies.name AS company_name')
         ->get();
         return view('sales.index', array(
             "sales" => $sales
