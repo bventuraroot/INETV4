@@ -131,6 +131,7 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::get('getproductid/{id}', [SaleController::class, 'getproductid'])->name('getproductid');
         Route::get('getproductbyid/{id}', [SaleController::class, 'getproductbyid'])->name('getproductbyid');
         Route::get('getdatadocbycorr/{corr}', [SaleController::class, 'getdatadocbycorr'])->name('getdatadocbycorr');
+        Route::get('getdatadocbycorr2/{corr}', [SaleController::class, 'getdatadocbycorr2'])->name('getdatadocbycorr2');
         Route::patch('update', [SaleController::class, 'update'])->name('update');
         Route::post('store', [SaleController::class, 'store'])->name('store');
         Route::get('destroy/{id}', [SaleController::class, 'destroy'])->name('destroy');

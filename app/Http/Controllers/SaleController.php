@@ -88,6 +88,32 @@ class SaleController extends Controller
         return response()->json($saledetails);
     }
 
+    public function getdatadocbycorr2($corr){
+        $saledetails = Sale::join('companies', 'companies.id', '=', 'sales.company_id')
+        ->join('addresses', 'addresses.id', '=', 'companies.address_id')
+        ->join('countries', 'countries.id', '=', 'addresses.country_id')
+        ->join('departments', 'departments.id', '=', 'addresses.department_id')
+        ->join('municipalities', 'municipalities.id', '=', 'addresses.municipality_id')
+        ->join('phones', 'phones.id', '=', 'companies.phone_id')
+        ->join('clients', 'clients.id', '=', 'sales.client_id')
+        ->join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
+        ->select('sales.*',
+        'companies.*',
+        'countries.name AS country_name',
+        'departments.name AS department_name',
+        'municipalities.name AS municipality_name',
+        'addresses.reference AS address',
+        'phones.*',
+        'typedocuments.description AS document_name',
+        'clients.id AS client_id',
+        'clients.firstname AS client_firstname',
+        'clients.secondname AS client_secondname',
+        'clients.tipoContribuyente AS client_contribuyente')
+        ->where('sales.id', '=', base64_decode($corr))
+        ->get();
+        return response()->json($saledetails);
+    }
+
     public function getdetailsdoc($corr){
         $saledetails = Salesdetail::leftJoin('products', 'products.id', '=', 'salesdetails.product_id')
         ->select('salesdetails.*',

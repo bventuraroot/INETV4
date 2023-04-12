@@ -436,7 +436,6 @@ function createcorrsale() {
         var idcompany = $("#company").val();
         var iduser = $("#iduser").val();
         var typedocument = $("#typedocument").val();
-
         $.ajax({
             url: "newcorrsale/" + idcompany + "/" + iduser + "/" + typedocument,
             method: "GET",
@@ -518,6 +517,33 @@ function draftdocument(corr, draft) {
             },
         });
     }
+}function CheckNullUndefined(value) {
+    return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
+  }
+
+function getinfodoc(){
+    var corr = $('#valcorr').val();
+    let salida = false;
+    $.ajax({
+        url: "getdatadocbycorr2/" + btoa(corr),
+        method: "GET",
+        async: false,
+        success: function (response) {
+            salida = true;
+            console.log(response);
+            $('#logodocfinal').attr('src', '../assets/img/logo/' + response[0].logo);
+            $('#addressdcfinal').empty();
+            $('#addressdcfinal').html('' + response[0].country_name.toUpperCase() + ', ' + response[0].department_name + ', ' + response[0].municipality_name + '</br>' + response[0].address);
+            $('#phonedocfinal').empty();
+            $('#phonedocfinal').html('' + ((CheckNullUndefined(response[0].phone_fijo)==true) ? '' : 'PBX: +503 ' + response[0].phone_fijo) + ' ' + ((CheckNullUndefined(response[0].phone)==true) ? '' : 'Móvil: +503 ' + response[0].phone));
+            $('#emaildocfinal').empty();
+            $('#emaildocfinal').html(response[0].email);
+            $('#emaildocfinal').empty();
+            $('#emaildocfinal').html(response[0].document_name);
+
+        },
+    });
+    return salida;
 }
 
 function agregarfacdetails(corr) {
@@ -665,7 +691,7 @@ function agregarfacdetails(corr) {
         if (wizardIconsBtnNextList) {
             wizardIconsBtnNextList.forEach((wizardIconsBtnNext) => {
                 wizardIconsBtnNext.addEventListener("click", (event) => {
-                    var id = $(wizardIconsBtnNextList).attr("id");
+                    var id = $(wizardIconsBtnNext).attr("id");
                     switch (id) {
                         case "step1":
                             var create = createcorrsale();
@@ -677,8 +703,12 @@ function agregarfacdetails(corr) {
                             iconsStepper.next();
                             break;
                         case "step3":
-
+                            var createdoc = getinfodoc();
+                            if(createdoc){
+                                iconsStepper.to(4);
+                            }
                             break;
+
                     }
                 });
             });
