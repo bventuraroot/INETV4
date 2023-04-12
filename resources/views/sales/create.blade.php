@@ -181,7 +181,7 @@
                                 <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                     <span class="align-middle d-sm-inline-block d-none">Previous</span>
                                 </button>
-                                <button class="btn btn-primary btn-next"> <span
+                                <button id="step2" class="btn btn-primary btn-next"> <span
                                         class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i
                                         class="ti ti-arrow-right"></i></button>
                             </div>
@@ -301,7 +301,7 @@
                             <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
                             </button>
-                            <button class="btn btn-primary btn-next"> <span
+                            <button id="step3" class="btn btn-primary btn-next"> <span
                                     class="align-middle d-sm-inline-block d-none me-sm-1">Next</span> <i
                                     class="ti ti-arrow-right"></i></button>
                         </div>
@@ -345,36 +345,137 @@
                     </div>
                     <!-- Review -->
                     <div id="review-submit" class="content">
+                        <style>
+                            .container{
+                                border-color: black;
+                                border-width: 1.5px;
+                                border-style: solid;
+                                border-radius: 25px;
+                                line-height: 1.5;
+                            }
+                            .nofacfinal{
+                                border-color: black;
+                                border-width: 0.5px;
+                                border-style: solid;
+                                border-radius: 15px;
+                                margin-top: 4%;
+                                height: 120%;
+                                width: 20%;
+                                text-align: center;
+                                background-color: #CCCCCC;
+                                color: black;
+                            }
+                            #logodocfinal{
+                                display:block;
+                                width: 80%;
+                                height: 100%;
+                            }
+                            .interlineado-nulo{
+                                line-height: 1;
+                            }
+                            .cuerpodocfinal{
+                                border-color: black;
+                                border-width: 0.5px;
+                                border-style: solid;
+                                border-radius: 15px;
+                                margin-top: 1%;
+                            }
+                            .camplantilla{
+                                width: 100px;
+                                text-align: left;
+                            }
+                            .dataplantilla{
+                                width: 500px;
+                                text-align: left;
+                            }
+                        </style>
 
-                        <p class="mb-2 fw-semibold">Account</p>
-                        <ul class="list-unstyled">
-                            <li>Username</li>
-                            <li>exampl@email.com</li>
-                        </ul>
-                        <hr>
-                        <p class="mb-2 fw-semibold">Personal Info</p>
-                        <ul class="list-unstyled">
-                            <li>First Name</li>
-                            <li>Last Name</li>
-                            <li>Country</li>
-                            <li>Language</li>
-                        </ul>
-                        <hr>
-                        <p class="mb-2 fw-semibold">Address</p>
-                        <ul class="list-unstyled">
-                            <li>Address</li>
-                            <li>Landmark</li>
-                            <li>Pincode</li>
-                            <li>City</li>
-                        </ul>
-                        <hr>
-                        <p class="mb-2 fw-semibold">Social Links</p>
-                        <ul class="list-unstyled">
-                            <li>https://twitter.com/abc</li>
-                            <li>https://facebook.com/abc</li>
-                            <li>https://plus.google.com/abc</li>
-                            <li>https://linkedin.com/abc</li>
-                        </ul>
+                        <!-- plantilla de factura -->
+
+                        <div class="container">
+                            <div class="row g-3">
+                                <div class="col-sm-3">
+                                    <img  id="logodocfinal" src="">
+                                </div>
+                                <div class="col-sm-6" style="margin-top: 4%;">
+                                    <p class="interlineado-nulo" id="addressdcfinal"></p>
+                                      <p class="interlineado-nulo" id="phonedocfinal"></p>
+                                      <p class="interlineado-nulo" id="emaildocfinal"></p>
+                                </div>
+                                <div class="col-sm-3 nofacfinal" >
+                                    <b style="font-size: 17.5pt;">FACTURA</b></br>
+                                    <small class="interlineado-nulo"><b>1792067464001<b></small></br>
+                                    <small class="interlineado-nulo"><b>NCR: <b></small></br>
+                                    <small class="interlineado-nulo"><b>NIT: <b></small></br>
+                                </div>
+                                <div class="col-sm-8 cuerpodocfinal">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td class="camplantilla">
+                                                    Señor (es):
+                                                </td>
+                                                <td class="dataplantilla" id="name_client">
+
+                                                </td>
+                                                <td class="camplantilla">
+                                                    Fecha:
+                                                </td>
+                                                <td id="date_doc">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="camplantilla">
+                                                    Dirección:
+                                                </td>
+                                                <td id="address_doc">
+
+                                                </td>
+                                                <td class="camplantilla">
+                                                    DUI o NIT:
+                                                </td>
+                                                <td id="">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="camplantilla">
+                                                    Municipio:
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td class="camplantilla">
+                                                    Giro:
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="camplantilla">
+                                                    Departamento:
+                                                </td>
+                                                <td>
+
+                                                </td>
+                                                <td class="camplantilla">
+                                                    Forma de pago:
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+
+                                                </td>
+                                                <td class="camplantilla">
+                                                    Venta a cuenta de:
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fin plantilla de factura -->
+
                         <div class="col-12 d-flex justify-content-between">
                             <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
