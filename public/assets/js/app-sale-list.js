@@ -34,7 +34,11 @@ $(function () {
           render: function (data, type, full, meta) {
             return '';
           }
-        }
+        },
+        {
+            responsivePriority: 1,
+            targets: 10
+          }
       ],
       order: [[2, 'desc']],
       dom:
@@ -244,4 +248,20 @@ $(function () {
     $('.dataTables_filter .form-control').removeClass('form-control-sm');
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
+
 });
+
+function retomarsale(corr, document){
+    window.location.href ="create?corr=" + corr + "&draft=true&typedocument=" + document +"&operation=delete";
+  }
+
+
+  function printsale(corr){
+    var divToPrint=document.getElementById('imprimirdoc');
+    var newWin=window.open('','Print-Window');
+    newWin.document.open();
+    newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+    newWin.document.close();
+    setTimeout(function(){newWin.close();},10);
+  }
+

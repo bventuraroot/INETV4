@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="card-datatable table-responsive">
-            <table class="table datatables-sale border-top">
+            <table class="table datatables-sale border-top nowrap">
                 <thead>
                     <tr>
                         <th>Ver</th>
@@ -113,18 +113,32 @@
 
                                         @default
                                     @endswitch</td>
-                                <td>{{ $sale->totalamount }}</td>
-                                <td><div class="d-flex align-items-center">
-                                    <a href="javascript: printsale({{ $sale->id }});" class="dropdown-item"><i
-                                        class="ti ti-edit ti-sm me-2"></i>imprimir</a>
-                                    <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
-                                    <div class="m-0 dropdown-menu dropdown-menu-end">
-                                        <a href="javascript:cancelsale({{ $sale->id }});" class="dropdown-item"><i
-                                                class="ti ti-eraser ti-sm me-2"></i>Anular</a>
+                                <td>$ {{ $sale->totalamount }}</td>
+                                <td>
+                                    @switch($sale->typesale)
+                                        @case(1)
+                                        <div class="d-flex align-items-center">
+                                            <a href="javascript: printsale({{ $sale->id }});" class="dropdown-item"><i
+                                                class="ti ti-edit ti-sm me-2"></i>imprimir</a>
+                                            <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
+                                            <div class="m-0 dropdown-menu dropdown-menu-end">
+                                                <a href="javascript:cancelsale({{ $sale->id }});" class="dropdown-item"><i
+                                                        class="ti ti-eraser ti-sm me-2"></i>Anular</a>
+                                            </div>
+                                        </div>
+                                        @break
 
-                                    </div>
-                                </div></td>
+                                        @case(2)
+                                        <div class="d-flex align-items-center">
+                                            <a href="javascript: retomarsale({{ $sale->id }}, {{ $sale->typedocument_id}});" class="dropdown-item"><i
+                                                class="ti ti-edit ti-sm me-2"></i>Retomar</a>
+                                        </div>
+                                        @break
+
+                                        @default
+                                    @endswitch
+                                </td>
                             </tr>
                             @empty
                                 <tr>
@@ -225,4 +239,181 @@
                   </div>
                 </div>
               </div>
+
+
+              <div class="container" style="display: none" id="imprimirdoc">
+                <style type="text/css">
+                    .container{
+                        border-color: black;
+                        border-width: 1.5px;
+                        border-style: solid;
+                        border-radius: 25px;
+                        line-height: 1.5;
+                    }
+                    .nofacfinal{
+                        border-color: black;
+                        border-width: 0.5px;
+                        border-style: solid;
+                        border-radius: 15px;
+                        margin-top: 4%;
+                        width: 20%;
+                        text-align: center;
+                        background-color: #cccccc;
+                        color: black;
+                    }
+                    #logodocfinal{
+                        display:block;
+                    }
+                    .interlineado-nulo{
+                        line-height: 1;
+                    }
+                    .porsi{
+                        border-color: black;
+                        border-width: 0.5px;
+                        border-style: solid;
+                        border-radius: 25px;
+                    }
+                    .cuerpodocfinal{
+                        margin-top: 0%;
+                        margin-bottom: 5%;
+                        width: 100%;
+                    }
+                    .camplantilla{
+                        padding: 5px;
+                        width: 14.2%;
+                    }
+                    .dataplantilla{
+                        padding: 5px;
+                        width: 58.5%;
+                        border-bottom-color: black;
+                        border-bottom-width: 1px;
+                    }
+                    table.desingtable{
+                        margin: 2%;
+                    }
+                    table.sample {
+                        margin: 2%;
+                    }
+                    .details_products_documents{
+                        width: 100%
+                    }
+                    .table_details{
+                        margin-bottom: 2%;
+                        width: 100%;
+                        line-height: 30px;
+                    }
+                    .head_details{
+                        margin: 1%;
+                        color: black;
+                        border-width: 1px;
+                        border-radius: 25px;
+                        border-style: solid;
+                    }
+                    .th_details{
+                        text-align: center;
+                    }
+                    .td_details{
+                        width: 5px;
+                        text-align: center;
+
+                    }
+                    .tfoot_details{
+                        border-top-width: 1px;
+                        padding-top: 2%;
+                        margin-top: 2%;
+                        margin-bottom: 5%;
+                        text-align: right;
+                    }
+                </style>
+                <div class="row g-3">
+                    <div class="col-sm-3">
+                        <img  id="logodocfinal" src="">
+                    </div>
+                    <div class="col-sm-6" style="margin-top: 4%;">
+                        <p class="interlineado-nulo" id="addressdcfinal"></p>
+                          <p class="interlineado-nulo" id="phonedocfinal"></p>
+                          <p class="interlineado-nulo" id="emaildocfinal"></p>
+                    </div>
+                    <div class="col-sm-3 nofacfinal" >
+                        <b style="font-size: 17.5pt;" id="name_type_documents_details">FACTURA</b></br>
+                        <small class="interlineado-nulo" id="corr_details"><b>1792067464001<b></small></br>
+                        <small class="interlineado-nulo" id="NCR_details"><b>NCR: <b></small></br>
+                        <small class="interlineado-nulo" id="NIT_details"><b>NIT: <b></small></br>
+                    </div>
+                    <div class="col-sm-8 cuerpodocfinal">
+                        <table class="sample">
+                                <tr>
+                                    <td class="camplantilla">
+                                        Señor (es):
+                                    </td>
+                                    <td class="dataplantilla" id="name_client">
+
+                                    </td>
+                                    <td class="camplantilla" style="padding-left: 1%;">
+                                        Fecha:
+                                    </td>
+                                    <td class="dataplantilla" id="date_doc">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="camplantilla">
+                                        Dirección:
+                                    </td>
+                                    <td class="dataplantilla" id="address_doc">
+
+                                    </td>
+                                    <td class="camplantilla" style="padding-left: 1%;">
+                                        DUI o NIT:
+                                    </td>
+                                    <td class="dataplantilla" id="duinit">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="camplantilla">
+                                        Municipio:
+                                    </td>
+                                    <td class="dataplantilla" id="municipio_name">
+
+                                    </td>
+                                    <td class="camplantilla" style="padding-left: 1%;">
+                                        Giro:
+                                    </td>
+                                    <td class="dataplantilla" id="giro_name">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="camplantilla">
+                                        Departamento:
+                                    </td>
+                                    <td class="dataplantilla" id="departamento_name">
+
+                                    </td>
+                                    <td class="camplantilla" style="padding-left: 1%;">
+                                        Forma de pago:
+                                    </td>
+                                    <td class="dataplantilla" id="forma_pago_name">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+
+                                    </td>
+                                    <td class="camplantilla" style="padding-left: 1%;">
+                                        Venta a cuenta de:
+                                    </td>
+                                    <td class="dataplantilla" id="acuenta_de">
+
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                    <div class="col-sm-8 details_products_documents" id="details_products_documents">
+
+                    </div>
+                </div>
+            </div>
     @endsection

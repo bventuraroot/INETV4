@@ -134,6 +134,7 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::get('getdatadocbycorr2/{corr}', [SaleController::class, 'getdatadocbycorr2'])->name('getdatadocbycorr2');
         Route::patch('update', [SaleController::class, 'update'])->name('update');
         Route::post('store', [SaleController::class, 'store'])->name('store');
+        Route::get('createdocument/{corr}/{amount}', [SaleController::class, 'createdocument'])->name('createdocument');
         Route::get('destroy/{id}', [SaleController::class, 'destroy'])->name('destroy');
         Route::get('savefactemp/{idsale}/{clientid}/{productid}/{cantida}/{price}/{nosujeto}/{exento}/{gravado}/{iva}/{retenido}/{acuenta}/{fpago}', [SaleController::class, 'savefactemp'])->name('savefactemp');
         Route::get('newcorrsale/{idempresa}/{iduser}/{typedocument}', [SaleController::class, 'newcorrsale'])->name('newcorrsale');

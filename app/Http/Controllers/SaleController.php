@@ -99,6 +99,8 @@ class SaleController extends Controller
         ->join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
         ->select('sales.*',
         'companies.*',
+        'companies.ncr AS NCR',
+        'companies.nit AS NIT',
         'countries.name AS country_name',
         'departments.name AS department_name',
         'municipalities.name AS municipality_name',
@@ -108,10 +110,22 @@ class SaleController extends Controller
         'clients.id AS client_id',
         'clients.firstname AS client_firstname',
         'clients.secondname AS client_secondname',
-        'clients.tipoContribuyente AS client_contribuyente')
+        'clients.tipoContribuyente AS client_contribuyente',
+        'sales.id AS corr')
         ->where('sales.id', '=', base64_decode($corr))
         ->get();
         return response()->json($saledetails);
+    }
+
+    public function createdocument($corr, $amount){
+        $amount = substr($amount, 1);
+        $salesave = Sale::find(base64_decode($corr));
+        $salesave->totalamount = $amount;
+        $salesave->typesale = 1;
+        $salesave->save();
+        return response()->json(array(
+            "res" => "1"
+        ));
     }
 
     public function getdetailsdoc($corr){

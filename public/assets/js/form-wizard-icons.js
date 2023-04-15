@@ -5,10 +5,18 @@
 "use strict";
 $( document ).ready(function() {
     var operation = $('#operation').val();
+    var valdraft = $('#valdraft').val();
+    var valcorr = $('#valcorr').val();
     if (operation == 'delete') {
         var stepper = new Stepper(document.querySelector('.wizard-icons-example'))
         stepper.to(3);
+    }else{
+        if(valdraft && $.isNumeric(valcorr)){
+            var stepper = new Stepper(document.querySelector('.wizard-icons-example'))
+        stepper.to(2);
+        }
     }
+
 });
 
 $(function () {
@@ -221,7 +229,7 @@ function agregarp() {
                         style: "currency",
                         currency: "USD",
                     }) +
-                    '</td><td><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
+                    '</td><td class="quitar_documents"><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
                     response.idsaledetail +
                     ')"><span class="ti ti-trash"></span></button></td></tr>';
                 $("#tblproduct tbody").append(row);
@@ -538,12 +546,129 @@ function getinfodoc(){
             $('#phonedocfinal').html('' + ((CheckNullUndefined(response[0].phone_fijo)==true) ? '' : 'PBX: +503 ' + response[0].phone_fijo) + ' ' + ((CheckNullUndefined(response[0].phone)==true) ? '' : 'Móvil: +503 ' + response[0].phone));
             $('#emaildocfinal').empty();
             $('#emaildocfinal').html(response[0].email);
-            $('#emaildocfinal').empty();
-            $('#emaildocfinal').html(response[0].document_name);
-
+            $('#name_client').empty();
+            $('#name_client').html(response[0].client_firstname + ' ' + response[0].client_secondname);
+            $('#date_doc').empty();
+            var dateformat = response[0].date.split('-');
+            $('#date_doc').html(dateformat[2] + '/' + dateformat[1] + '/' + dateformat[0]);
+            $('#address_doc').empty();
+            $('#address_doc').html(response[0].address);
+            $('#duinit').empty();
+            $('#duinit').html(response[0].nit);
+            $('#municipio_name').empty();
+            $('#municipio_name').html(response[0].municipality_name);
+            $('#giro_name').empty();
+            $('#giro_name').html(response[0].giro);
+            $('#name_type_documents_details').empty();
+            $('#name_type_documents_details').html(response[0].document_name);
+            $('#corr_details').empty();
+            $('#corr_details').html('USD' + response[0].corr + '00000');
+            $('#NCR_details').empty();
+            $('#NCR_details').html('NCR: ' + response[0].NCR);
+            $('#NIT_details').empty();
+            $('#NIT_details').html('NIT: ' + response[0].NIT);
+            $('#departamento_name').empty();
+            $('#departamento_name').html(response[0].department_name);
+            $('#forma_pago_name').empty();
+            var forma_name;
+            switch(response[0].waytopay){
+                case "1":
+                    forma_name='CONTADO';
+                    break;
+                case "2":
+                    forma_name='CREDITO';
+                    break;
+                case "3":
+                    forma_name='OTRO';
+                    break;
+            }
+            $('#forma_pago_name').html(forma_name);
+            $('#acuenta_de').empty();
+            $('#acuenta_de').html(response[0].acuenta);
+            var div_copy = $('#tblproduct').clone();
+                div_copy.removeClass();
+                div_copy.addClass('table_details');
+                div_copy.find('.fadeIn').removeClass();
+                div_copy.children().val("");
+                div_copy.find('.quitar_documents').remove();
+                div_copy.find('.bg-secondary').removeClass();
+                div_copy.find('.text-white').removeClass();
+                div_copy.find('thead').addClass('head_details');
+                div_copy.find('tfoot').addClass('tfoot_details');
+                div_copy.find('th').addClass('th_details');
+                div_copy.find('td').addClass('td_details');
+                $('#details_products_documents').empty();
+                $('#details_products_documents').append(div_copy);
+                //$(".quitar_documents").empty();
+                //$("#quitar_documents").remove();
         },
     });
     return salida;
+}
+
+function creardocuments(){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+        .fire({
+            title: "Crear Documento?",
+            text: "Es seguro de guardar la información",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "Si, Crear!",
+            cancelButtonText: "No, espera!",
+            reverseButtons: true,
+        })
+        .then((result) => {
+            if (result.isConfirmed) {
+                var corr = $('#valcorr').val();
+                var totalamount = $('#ventatotall').html();
+                $.ajax({
+                    url: "createdocument/" + btoa(corr) + '/' + totalamount,
+                    method: "GET",
+                    async: false,
+                    success: function (response) {
+                        if (response.res == 1) {
+                            Swal.fire({
+                                title: "Creado",
+                                icon: "success",
+                                confirmButtonText: "Ok",
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    //$("#pro" + id).remove();
+                                    //$('#resultados').load(location.href + " #resultados");
+                                    //var details = agregarfacdetails($('#valcorr').val());
+                                    //location.reload(true);
+                                    window.location.href ="index";
+                                }
+                            });
+                        } else if (response.res == 0) {
+                            swalWithBootstrapButtons.fire(
+                                "Problemas!",
+                                "Algo sucedio y documento no crerado, favor comunicarse con el administrador.",
+                                "success"
+                            );
+                        }
+                    },
+                });
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    "Cancelado",
+                    "No hemos hecho ninguna accion :)",
+                    "error"
+                );
+            }
+        });
 }
 
 function agregarfacdetails(corr) {
@@ -608,7 +733,7 @@ function agregarfacdetails(corr) {
                         style: "currency",
                         currency: "USD",
                     }) +
-                    '</td><td><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
+                    '</td><td class="quitar_documents"><button class="btn rounded-pill btn-icon btn-danger" type="button" onclick="eliminarpro(' +
                     value.id +
                     ')"><span class="ti ti-trash"></span></button></td></tr>';
                 $("#tblproduct tbody").append(row);
@@ -700,7 +825,7 @@ function agregarfacdetails(corr) {
                             }
                             break;
                         case "step2":
-                            iconsStepper.next();
+                            iconsStepper.to(3);
                             break;
                         case "step3":
                             var createdoc = getinfodoc();
@@ -722,7 +847,7 @@ function agregarfacdetails(corr) {
         }
         if (wizardIconsBtnSubmit) {
             wizardIconsBtnSubmit.addEventListener("click", (event) => {
-                alert("Submitted..!!");
+                creardocuments();
             });
         }
     }

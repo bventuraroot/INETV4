@@ -260,37 +260,37 @@
                                             <td rowspan="8" colspan="5"></td>
                                             <td class="text-right">SUMAS</td>
                                             <td class="text-center" id="sumasl">$ 0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
 
                                         <tr>
                                             <td class="text-right">IVA 13%</td>
                                             <td class="text-center" id="13ival">$ 0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
 
                                         <tr>
                                             <td class="text-right">(-) IVA Percibido</td>
                                             <td class="text-center" id="ivaretenidol">$0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
 
                                         <tr>
                                             <td class="text-right">Ventas No Sujetas</td>
                                             <td class="text-center" id="ventasnosujetasl">$0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
 
                                         <tr>
                                             <td class="text-right">Ventas Exentas</td>
                                             <td class="text-center" id="ventasexentasl">$0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
 
                                         <tr>
                                             <td class="text-right">Venta Total</td>
                                             <td class="text-center" id="ventatotall">$ 0.00</td>
-                                            <td></td>
+                                            <td class="quitar_documents"></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -345,7 +345,7 @@
                     </div>
                     <!-- Review -->
                     <div id="review-submit" class="content">
-                        <style>
+                        <style type="text/css">
                             .container{
                                 border-color: black;
                                 border-width: 1.5px;
@@ -373,20 +373,62 @@
                             .interlineado-nulo{
                                 line-height: 1;
                             }
-                            .cuerpodocfinal{
+                            .porsi{
                                 border-color: black;
                                 border-width: 0.5px;
                                 border-style: solid;
-                                border-radius: 15px;
-                                margin-top: 1%;
+                                border-radius: 25px;
+                            }
+                            .cuerpodocfinal{
+                                margin-top: 0%;
+                                margin-bottom: 5%;
+                                width: 100%;
                             }
                             .camplantilla{
-                                width: 100px;
-                                text-align: left;
+                                padding: 5px;
+                                width: 14.2%;
                             }
                             .dataplantilla{
-                                width: 500px;
-                                text-align: left;
+                                padding: 5px;
+                                width: 58.5%;
+                                border-bottom-color: black;
+                                border-bottom-width: 1px;
+                            }
+                            table.desingtable{
+                                margin: 2%;
+                            }
+                            table.sample {
+                                margin: 2%;
+                            }
+                            .details_products_documents{
+                                width: 100%
+                            }
+                            .table_details{
+                                margin-bottom: 2%;
+                                width: 100%;
+                                line-height: 30px;
+                            }
+                            .head_details{
+                                margin: 1%;
+                                color: black;
+                                border-width: 1px;
+                                border-radius: 25px;
+                                border-style: solid;
+                            }
+                            .th_details{
+                                text-align: center;
+                            }
+                            .td_details{
+                                width: 5px;
+                                text-align: center;
+
+                            }
+                            .tfoot_details{
+                                border-top-width: 1px;
+                                padding-top: 2%;
+                                margin-top: 2%;
+                                margin-bottom: 5%;
+                                text-align: right;
                             }
                         </style>
 
@@ -403,14 +445,13 @@
                                       <p class="interlineado-nulo" id="emaildocfinal"></p>
                                 </div>
                                 <div class="col-sm-3 nofacfinal" >
-                                    <b style="font-size: 17.5pt;">FACTURA</b></br>
-                                    <small class="interlineado-nulo"><b>1792067464001<b></small></br>
-                                    <small class="interlineado-nulo"><b>NCR: <b></small></br>
-                                    <small class="interlineado-nulo"><b>NIT: <b></small></br>
+                                    <b style="font-size: 17.5pt;" id="name_type_documents_details">FACTURA</b></br>
+                                    <small class="interlineado-nulo" id="corr_details"><b>1792067464001<b></small></br>
+                                    <small class="interlineado-nulo" id="NCR_details"><b>NCR: <b></small></br>
+                                    <small class="interlineado-nulo" id="NIT_details"><b>NIT: <b></small></br>
                                 </div>
                                 <div class="col-sm-8 cuerpodocfinal">
-                                    <table>
-                                        <thead>
+                                    <table class="sample">
                                             <tr>
                                                 <td class="camplantilla">
                                                     Señor (es):
@@ -418,10 +459,10 @@
                                                 <td class="dataplantilla" id="name_client">
 
                                                 </td>
-                                                <td class="camplantilla">
+                                                <td class="camplantilla" style="padding-left: 1%;">
                                                     Fecha:
                                                 </td>
-                                                <td id="date_doc">
+                                                <td class="dataplantilla" id="date_doc">
 
                                                 </td>
                                             </tr>
@@ -429,13 +470,13 @@
                                                 <td class="camplantilla">
                                                     Dirección:
                                                 </td>
-                                                <td id="address_doc">
+                                                <td class="dataplantilla" id="address_doc">
 
                                                 </td>
-                                                <td class="camplantilla">
+                                                <td class="camplantilla" style="padding-left: 1%;">
                                                     DUI o NIT:
                                                 </td>
-                                                <td id="">
+                                                <td class="dataplantilla" id="duinit">
 
                                                 </td>
                                             </tr>
@@ -443,44 +484,55 @@
                                                 <td class="camplantilla">
                                                     Municipio:
                                                 </td>
-                                                <td>
+                                                <td class="dataplantilla" id="municipio_name">
 
                                                 </td>
-                                                <td class="camplantilla">
+                                                <td class="camplantilla" style="padding-left: 1%;">
                                                     Giro:
+                                                </td>
+                                                <td class="dataplantilla" id="giro_name">
+
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="camplantilla">
                                                     Departamento:
                                                 </td>
-                                                <td>
+                                                <td class="dataplantilla" id="departamento_name">
 
                                                 </td>
-                                                <td class="camplantilla">
+                                                <td class="camplantilla" style="padding-left: 1%;">
                                                     Forma de pago:
+                                                </td>
+                                                <td class="dataplantilla" id="forma_pago_name">
+
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
 
                                                 </td>
-                                                <td class="camplantilla">
+                                                <td class="camplantilla" style="padding-left: 1%;">
                                                     Venta a cuenta de:
                                                 </td>
+                                                <td class="dataplantilla" id="acuenta_de">
+
+                                                </td>
                                             </tr>
-                                        </thead>
                                     </table>
+                                </div>
+                                <div class="col-sm-8 details_products_documents" id="details_products_documents">
+
                                 </div>
                             </div>
                         </div>
                         <!-- Fin plantilla de factura -->
 
-                        <div class="col-12 d-flex justify-content-between">
+                        <div class="col-12 d-flex justify-content-between" style="margin-top: 3%;">
                             <button class="btn btn-label-secondary btn-prev"> <i class="ti ti-arrow-left me-sm-1"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Previous</span>
                             </button>
-                            <button class="btn btn-success btn-submit">Submit</button>
+                            <button class="btn btn-success btn-submit">Crear</button>
                         </div>
                     </div>
                 </form>
