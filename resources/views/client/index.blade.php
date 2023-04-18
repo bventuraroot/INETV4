@@ -45,13 +45,13 @@
 @section('content')
     <div class="card">
         <div class="card-header border-bottom">
-            <h5 class="card-title mb-3">Empresa</h5>
-            <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
+            <h5 class="mb-3 card-title">Empresa</h5>
+            <div class="gap-3 pb-2 d-flex justify-content-between align-items-center row gap-md-0">
                 <div class="col-md-4 companies"></div>
             </div>
         </div>
         <div class="card-datatable table-responsive">
-            <table class="datatables-client table border-top">
+            <table class="table datatables-client border-top">
                 <thead>
                     <tr>
                         <th>Ver</th>
@@ -126,8 +126,8 @@
                                     <a href="javascript: editClient({{ $client->id }});" class="dropdown-item"><i
                                         class="ti ti-edit ti-sm me-2"></i>Editar</a>
                                     <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-end m-0">
+                                        data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
+                                    <div class="m-0 dropdown-menu dropdown-menu-end">
                                         <a href="javascript:deleteClient({{ $client->id }});" class="dropdown-item"><i
                                                 class="ti ti-eraser ti-sm me-2"></i>Eliminar</a>
 
@@ -161,21 +161,49 @@
                     <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Nuevo Cliente</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                    <form class="add-new-user pt-0" id="addNewClientForm" action="{{ route('client.store') }}" method="POST">
+                <div class="flex-grow-0 pt-0 mx-0 offcanvas-body h-100">
+                    <form class="pt-0 add-new-user" id="addNewClientForm" action="{{ route('client.store') }}" method="POST">
                         @csrf @method('POST')
                         <input type="hidden" id="companyselected" name="companyselected"
                             value="{{ isset($companyselected) ? $companyselected : 0 }}">
-                        <div class="mb-3">
-                            <label class="form-label" for="firstname">Primer Nombre</label>
-                            <input type="text" class="form-control" id="firstname" placeholder="Primer Nombre"
-                                name="firstname" aria-label="Primer Nombre" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="secondname">Segundo Nombre</label>
-                            <input type="text" class="form-control" id="secondname" placeholder="Segundo Nombre"
-                                name="secondname" aria-label="Segundo Nombre" />
-                        </div>
+                            <div class="mb-3">
+                                <label for="tpersona" class="form-label">Tipo de cliente</label>
+                                <select class="select2typeperson form-select" id="tpersona" name="tpersona"
+                                    aria-label="Seleccionar opcion" onchange="typeperson(this.value)">
+                                    <option value="0" selected>Seleccione</option>
+                                    <option value="N">NATURAL</option>
+                                    <option value="J">JURIDICA</option>
+                                </select>
+                            </div>
+                            <div id="fields_natural" style="display: none;">
+                                <div class="mb-3">
+                                    <label class="form-label" for="firstname">Primer Nombre</label>
+                                    <input type="text" class="form-control" id="firstname" placeholder="Primer Nombre"
+                                        name="firstname" aria-label="Primer Nombre" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="secondname">Segundo Nombre</label>
+                                    <input type="text" class="form-control" id="secondname" placeholder="Segundo Nombre"
+                                        name="secondname" aria-label="Segundo Nombre" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="firstlastname">Primer Apellido</label>
+                                    <input type="text" class="form-control" id="firstlastname" placeholder="Primer Apellido"
+                                        name="firstlastname" aria-label="Primer Apellido" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="secondlastname">Segundo Apellido</label>
+                                    <input type="text" class="form-control" id="secondlastname" placeholder="Segundo Apellido"
+                                        name="secondlastname" aria-label="Segundo Apellido" />
+                                </div>
+                            </div>
+                            <div id="fields_juridico" style="display: none">
+                                <div class="mb-3">
+                                    <label class="form-label" for="comercial_name">Nombre Comercial</label>
+                                    <input type="text" class="form-control" id="comercial_name" placeholder="Nombre Comercial"
+                                        name="comercial_name" aria-label="Nombre Comercial" />
+                                </div>
+                            </div>
                         <div class="mb-3">
                             <label class="form-label" for="tel1">Teléfono</label>
                             <input type="text" id="tel1" class="form-control" placeholder="7488-8811"
@@ -216,15 +244,6 @@
                             <label class="form-label" for="address">Dirección</label>
                             <input type="text" id="address" class="form-control" placeholder="Av. 5 Norte "
                                 aria-label="Direccion" name="address" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="tpersona" class="form-label">Tipo de cliente</label>
-                            <select class="select2typeperson form-select" id="tpersona" name="tpersona"
-                                aria-label="Seleccionar opcion" onchange="typeperson(this.value)">
-                                <option value="0" selected>Seleccione</option>
-                                <option value="N">NATURAL</option>
-                                <option value="J">JURIDICA</option>
-                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="switch switch-success" id="contribuyentelabel" name="contribuyentelabel"
@@ -305,8 +324,8 @@
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                    <form class="add-new-user pt-0" id="addNewClientForm" action="{{ route('client.update') }}"
+                <div class="flex-grow-0 pt-0 mx-0 offcanvas-body h-100">
+                    <form class="pt-0 add-new-user" id="addNewClientForm" action="{{ route('client.update') }}"
                         method="POST">
                         @csrf @method('PATCH')
                         <input type="hidden" id="companyselectededit" name="companyselectededit"

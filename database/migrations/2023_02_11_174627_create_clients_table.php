@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('secondname');
+            $table->string('firstname')->nullable();
+            $table->string('secondname')->nullable();
+            $table->string('firstlastname')->nullable();
+            $table->string('secondlastname')->nullable();
+            $table->string('comercial_name')->nullable();
             $table->string('email');
             $table->string('ncr')->nullable();
             $table->string('giro')->nullable();
@@ -25,8 +28,8 @@ return new class extends Migration
             $table->string('tpersona');
             $table->date('birthday');
             $table->string('empresa')->nullable();
-            $table->string('contribuyente');
-            $table->string('tipoContribuyente');
+            $table->string('contribuyente')->nullable();
+            $table->string('tipoContribuyente')->nullable();
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('economicactivity_id')->nullable()->default(0)->constrained()->onDelete('cascade');
             $table->foreignId('phone_id')->nullable()->constrained()->onDelete('cascade');

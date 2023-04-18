@@ -7,6 +7,7 @@ use App\Models\Client;
 use App\Models\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Nette\Utils\Arrays;
 
 class ClientController extends Controller
@@ -31,13 +32,18 @@ class ClientController extends Controller
     }
 
     public function getclientbycompany($idcompany){
-        $clients = Client::join('companies', 'clients.company_id', '=', 'companies.id')
-        ->select('clients.id',
-                'clients.firstname',
-                'clients.secondname')
-        ->where('companies.id', '=', base64_decode($idcompany))
-        ->get();
-        return response()->json($clients);
+        $query="SELECT
+        a.*,
+       (CASE a.tpersona WHEN 'N' THEN CONCAT(a.firstname , ' ', a.firstlastname) WHEN 'J' THEN a.comercial_name END) AS name_format_label
+       FROM clients a WHERE a.company_id=base64_decode($idcompany)";
+        //$clients = Client::join('companies', 'clients.company_id', '=', 'companies.id')
+        //->select('clients.id',
+        //        'clients.firstname',
+        //        'clients.secondname')
+        //->where('companies.id', '=', base64_decode($idcompany))
+        //->get();
+        $result = DB::select(DB::raw($query));
+        return response()->json($result);
     }
 
     public function gettypecontri($client){
@@ -103,6 +109,9 @@ class ClientController extends Controller
         $client = new Client();
         $client->firstname = $request->firstname;
         $client->secondname = $request->secondname;
+        $client->firtslastname = $request->firtslastname;
+        $client->secondlastname = $request->secondlastname;
+        $client->comercial_name = $request->comercial_name;
         $client->email = $request->email;
         if($request->contribuyente=='on'){
             $contri='1';
@@ -182,6 +191,9 @@ class ClientController extends Controller
         $client = Client::find($request->idedit);
         $client->firstname = $request->firstnameedit;
         $client->secondname = $request->secondnameedit;
+        $client->firtslastname = $request->firtslastnameedit;
+        $client->secondlastname = $request->secondlastnameedit;
+        $client->comercial_name = $request->comercial_nameedit;
         $client->email = $request->emailedit;
         $client->ncr = $request->ncredit;
         $client->giro = $request->giroedit;

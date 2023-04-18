@@ -161,11 +161,17 @@ $.ajax({
    function typeperson(type){
 
 if(type=='N'){
+    $('#fields_natural').css('display','');
+    $('#fields_juridico').css('display','none');
     $('#contribuyentelabel').css('display','');
     $('#siescontri').css('display','none');
 }else{
     $('#contribuyentelabel').css('display','none');
     $('#siescontri').css('display','');
+}
+if(type=='J'){
+    $('#fields_juridico').css('display','');
+    $('#fields_natural').css('display','none');
 }
    }
    function typepersonedit(type){
