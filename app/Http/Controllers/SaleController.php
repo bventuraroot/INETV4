@@ -21,7 +21,9 @@ class SaleController extends Controller
         ->select('sales.*',
         'typedocuments.description AS document_name',
         'clients.firstname',
-        'clients.secondname',
+        'clients.firstlastname',
+        'clients.comercial_name',
+        'clients.tpersona',
         'companies.name AS company_name')
         ->get();
         return view('sales.index', array(

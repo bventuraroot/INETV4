@@ -75,7 +75,19 @@
                                 <td>{{ $sale->acuenta }}</td>
                                 <td>{{ $sale->date }}</td>
                                 <td>{{ $sale->document_name }}</td>
-                                <td>{{ $sale->firstname . ' ' . $sale->secondname  }}</td>
+                                <td>
+                                    @switch($sale->tpersona)
+                                        @case('N')
+                                    {{$sale->firstname . ' ' . $sale->firstlastname}}
+                                            @break
+                                        @case('J')
+                                    {{$sale->comercial_name}}
+                                        @break
+
+                                        @default
+
+                                    @endswitch
+                                </td>
                                 <td>{{ $sale->company_name }}</td>
                                 <td>
                                     @switch($sale->waytopay)
@@ -146,7 +158,10 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
+                                    <td></td>
                                     <td>No hay datos</td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

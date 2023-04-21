@@ -145,24 +145,30 @@ function agregarp() {
     var ventasnosujetas = parseFloat($("#ventasnosujetas").val());
     var ventasexentas = parseFloat($("#ventasexentas").val());
     var ventatotal = parseFloat($("#ventatotal").val());
+    //ventatotal = parseFloat(ventatotal/1.13).toFixed(2);
     var sumasl = 0;
     var ivaretenidol = 0;
     var iva13l = 0;
     var ventasnosujetasl = 0;
     var ventasexentasl = 0;
     var ventatotall = 0;
+    var iva13temp = 0;
+    var totaltempgravado = 0;
     if (type == "gravada") {
         pricegravada = parseFloat(price * cantidad);
+        totaltempgravado = parseFloat(pricegravada);
+        iva13temp = parseFloat(totaltempgravado*0.13).toFixed(2);
     } else if (type == "exenta") {
         priceexenta = parseFloat(price * cantidad);
+        iva13temp = 0;
     } else if (type == "nosujeta") {
         pricenosujeta = parseFloat(price * cantidad);
+        iva13temp = 0;
     }
-    var totaltemp = parseFloat(pricegravada + priceexenta + pricenosujeta);
-    var iva13temp = parseFloat(totaltemp * 0.13);
-    var ventatotaltotal =  ventatotal + iva13 + ivaretenido;
+    var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
+    var ventatotaltotal =  parseFloat(ventatotal) + parseFloat(iva13) + parseFloat(ivaretenido);
     var totaltemptotal = parseFloat(
-        pricegravada + priceexenta + pricenosujeta + ivarete13 + ivarete
+        ($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) + ($.isNumeric(ivarete)? ivarete: 0)
     );
     if(!$.isNumeric(ivarete)){
         ivarete = 0;
@@ -241,7 +247,7 @@ function agregarp() {
                     })
                 );
                 $("#sumas").val(sumasl);
-                iva13l = parseFloat(iva13 + iva13temp);
+                iva13l = parseFloat(parseFloat(iva13) + parseFloat(iva13temp));
                 $("#13ival").html(
                     iva13l.toLocaleString("en-US", {
                         style: "currency",
@@ -297,7 +303,7 @@ function searchproduct(idpro) {
         method: "GET",
         success: function (response) {
             $.each(response, function (index, value) {
-                $("#precio").val(value.price);
+                $("#precio").val(parseFloat(value.price/1.13).toFixed(2));
                 $("#productname").val(value.name);
                 $("#productid").val(value.id);
                 $("#productdescription").val(value.description);
@@ -318,12 +324,28 @@ function searchproduct(idpro) {
                     retencion = 0.0;
                 }
                 $("#ivarete").val(
-                    parseFloat(value.price * retencion).toFixed(2)
+                    parseFloat(parseFloat(value.price/1.13).toFixed(2) * retencion).toFixed(2)
                 );
-                $("#ivarete13").val(parseFloat(value.price * 0.13).toFixed(2));
+                $("#ivarete13").val(parseFloat(parseFloat(value.price/1.13).toFixed(2) * 0.13).toFixed(2));
             });
         },
     });
+}
+
+function changetypesale(type){
+    var price = $("#precio").val();
+switch(type){
+    case 'gravada':
+        $('#ivarete13').val(parseFloat(price*0.13).toFixed(2));
+        break;
+    case 'exenta':
+        $('#ivarete13').val(0.00);
+        $('#ivarete').val(0.00);
+        break;
+    case 'nosujeta':
+        $('#ivarete13').val(0.00);
+        break;
+}
 }
 
 function eliminarpro(id) {
@@ -403,15 +425,26 @@ function getclientbycompanyurl(idcompany) {
         success: function (response) {
             $("#client").append('<option value="0">Seleccione</option>');
             $.each(response, function (index, value) {
-                $("#client").append(
-                    '<option value="' +
-                        value.id +
-                        '">' +
-                        value.firstname.toUpperCase() +
-                        " " +
-                        value.secondname.toUpperCase() +
-                        "</option>"
-                );
+                console.log(value);
+                if(value.tpersona=='J'){
+                    $("#client").append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.comercial_name.toUpperCase() +
+                            "</option>"
+                    );
+                }else if (value.tpersona=='N'){
+                    $("#client").append(
+                        '<option value="' +
+                            value.id +
+                            '">' +
+                            value.firstname.toUpperCase() +
+                            " " +
+                            value.firstlastname.toUpperCase() +
+                            "</option>"
+                    );
+                }
             });
         },
     });

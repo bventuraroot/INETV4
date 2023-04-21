@@ -219,7 +219,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label" for="typesale">Tipo de venta</label>
-                                <select class="form-select" id="typesale" name="typesale">
+                                <select class="form-select" id="typesale" name="typesale" onchange="changetypesale(this.value)">
                                     <option value="gravada">Gravadas</option>
                                     <option value="exenta">Exenta</option>
                                     <option value="nosujeta">No Sujeta</option>

@@ -74,8 +74,20 @@
                         @forelse($clients as $client)
                             <tr>
                                 <td></td>
-                                <td>{{ $client->firstname }}</td>
-                                <td>{{ $client->secondname }}</td>
+                                @switch( Str::lower($client->tpersona) )
+                                        @case('j')
+                                        <td>{{ $client->comercial_name }}</td>
+                                        <td>{{ $client->empresa }}</td>
+                                        @break
+
+                                        @case('n')
+                                        <td>{{ $client->firstname }}</td>
+                                        <td>{{ $client->secondname }}</td>
+                                        @break
+
+                                        @default
+                                    @endswitch
+
                                 <td>
                                     @switch( Str::lower($client->tpersona) )
                                         @case('j')

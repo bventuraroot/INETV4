@@ -10,6 +10,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Nette\Utils\Arrays;
 
+use function PHPUnit\Framework\isNull;
+
 class ClientController extends Controller
 {
     /**
@@ -35,7 +37,7 @@ class ClientController extends Controller
         $query="SELECT
         a.*,
        (CASE a.tpersona WHEN 'N' THEN CONCAT(a.firstname , ' ', a.firstlastname) WHEN 'J' THEN a.comercial_name END) AS name_format_label
-       FROM clients a WHERE a.company_id=base64_decode($idcompany)";
+       FROM clients a WHERE a.company_id=".  base64_decode($idcompany) ."";
         //$clients = Client::join('companies', 'clients.company_id', '=', 'companies.id')
         //->select('clients.id',
         //        'clients.firstname',
@@ -107,27 +109,27 @@ class ClientController extends Controller
         $address->save();
         //dd($request);
         $client = new Client();
-        $client->firstname = $request->firstname;
-        $client->secondname = $request->secondname;
-        $client->firtslastname = $request->firtslastname;
-        $client->secondlastname = $request->secondlastname;
-        $client->comercial_name = $request->comercial_name;
+        $client->firstname = (is_null($request->firstname)? 'N/A': $request->firstname);
+        $client->secondname = (is_null($request->firstname)? 'N/A': $request->secondname);
+        $client->firstlastname = (is_null($request->firstlastname)? 'N/A': $request->firstlastname);
+        $client->secondlastname = (is_null($request->secondlastname)? 'N/A': $request->secondlastname);
+        $client->comercial_name = (is_null($request->comercial_name)? 'N/A': $request->comercial_name);
         $client->email = $request->email;
         if($request->contribuyente=='on'){
             $contri='1';
         }else{
             $contri='0';
         }
-        $client->ncr = $request->ncr;
-        $client->giro = $request->giro;
+        $client->ncr = (is_null($request->ncr)? 'N/A': $request->ncr);
+        $client->giro = (is_null($request->giro)? 'N/A': $request->giro);
         $client->nit = $request->nit;
-        $client->legal = $request->legal;
+        $client->legal = (is_null($request->legal)? 'N/A': $request->legal);
         $client->tpersona = $request->tpersona;
         $client->contribuyente = $contri;
         $client->tipoContribuyente = $request->tipocontribuyente;
         $client->economicactivity_id = $request->acteconomica;
         $client->birthday = date('Ymd', strtotime($request->birthday));
-        $client->empresa = $request->empresa;
+        $client->empresa = (is_null($request->empresa)? 'N/A': $request->empresa);
         $client->company_id = $request->companyselected;
         $client->address_id = $address['id'];
         $client->phone_id = $phone['id'];
