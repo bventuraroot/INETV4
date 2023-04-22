@@ -558,7 +558,9 @@ function draftdocument(corr, draft) {
             },
         });
     }
-}function CheckNullUndefined(value) {
+}
+
+function CheckNullUndefined(value) {
     return typeof value == 'string' && !value.trim() || typeof value == 'undefined' || value === null;
   }
 

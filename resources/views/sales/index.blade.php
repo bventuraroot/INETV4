@@ -278,6 +278,8 @@
                     }
                     #logodocfinal{
                         display:block;
+                        width: 5%;
+                        height: 10%;
                     }
                     .interlineado-nulo{
                         line-height: 1;
@@ -340,8 +342,9 @@
                         text-align: right;
                     }
                 </style>
+                <div class="container">
                 <div class="row g-3">
-                    <div class="col-sm-3">
+                    <div class="col-sm-1">
                         <img  id="logodocfinal" src="">
                     </div>
                     <div class="col-sm-6" style="margin-top: 4%;">
@@ -427,8 +430,61 @@
                         </table>
                     </div>
                     <div class="col-sm-8 details_products_documents" id="details_products_documents">
+                        <table class="table_details" id="tblproduct">
+                            <thead class="head_details">
+                                <tr>
+                                    <th class="text-center th_details">CANT.</th>
+                                    <th class="th_details">DESCRIPCION</th>
+                                    <th class="text-right th_details">PRECIO UNIT.</th>
+                                    <th class="text-right th_details">NO SUJETAS</th>
+                                    <th class="text-right th_details">EXENTAS</th>
+                                    <th class="text-right th_details">GRAVADAS</th>
+                                    <th class="text-right th_details">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodydetails">
+                            </tbody>
+                            <tfoot class="tfoot_details">
+                                <tr>
+                                    <td rowspan="8" colspan="5" class="td_details"></td>
+                                    <td class="text-right td_details">SUMAS</td>
+                                    <td class="text-center td_details" id="sumasl">$ 0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
 
+                                <tr>
+                                    <td class="text-right td_details">IVA 13%</td>
+                                    <td class="text-center td_details" id="13ival">$ 0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-right td_details">(-) IVA Percibido</td>
+                                    <td class="text-center td_details" id="ivaretenidol">$0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-right td_details">Ventas No Sujetas</td>
+                                    <td class="text-center td_details" id="ventasnosujetasl">$0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-right td_details">Ventas Exentas</td>
+                                    <td class="text-center td_details" id="ventasexentasl">$0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-right td_details">Venta Total</td>
+                                    <td class="text-center td_details" id="ventatotall">$ 0.00</td>
+                                    <td class="quitar_documents td_details"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
             </div>
+              </div>
     @endsection
