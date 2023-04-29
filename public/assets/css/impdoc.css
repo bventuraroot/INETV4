@@ -1,0 +1,83 @@
+.container{
+    border-color: black;
+    border-width: 1.5px;
+    border-style: solid;
+    border-radius: 25px;
+    line-height: 1.5;
+}
+.nofacfinal{
+    border-color: black;
+    border-width: 0.5px;
+    border-style: solid;
+    border-radius: 15px;
+    margin-top: 4%;
+    width: 20%;
+    text-align: center;
+    background-color: #cccccc;
+    color: black;
+}
+#logodocfinal{
+    display:block;
+    width: 5%;
+    height: 10%;
+}
+.interlineado-nulo{
+    line-height: 1;
+}
+.porsi{
+    border-color: black;
+    border-width: 0.5px;
+    border-style: solid;
+    border-radius: 25px;
+}
+.cuerpodocfinal{
+    margin-top: 0%;
+    margin-bottom: 5%;
+    width: 100%;
+}
+.camplantilla{
+    padding: 5px;
+    width: 14.2%;
+}
+.dataplantilla{
+    padding: 5px;
+    width: 58.5%;
+    border-bottom-color: black;
+    border-bottom-width: 1px;
+}
+table.desingtable{
+    margin: 2%;
+}
+table.sample {
+    margin: 2%;
+}
+.details_products_documents{
+    width: 100%
+}
+.table_details{
+    margin-bottom: 2%;
+    width: 100%;
+    line-height: 30px;
+}
+.head_details{
+    margin: 1%;
+    color: black;
+    border-width: 1px;
+    border-radius: 25px;
+    border-style: solid;
+}
+.th_details{
+    text-align: center;
+}
+.td_details{
+    width: 5px;
+    text-align: center;
+
+}
+.tfoot_details{
+    border-top-width: 1px;
+    padding-top: 2%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    text-align: right;
+}

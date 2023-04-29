@@ -31,6 +31,10 @@ class SaleController extends Controller
         ));
     }
 
+    public function impdoc($corr){
+return view('sales.impdoc', array("corr"=>$corr));
+    }
+
     public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago){
         $sale = Sale::find($idsale);
         $sale->client_id = $clientid;
