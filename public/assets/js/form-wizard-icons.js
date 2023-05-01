@@ -127,7 +127,7 @@ function agregarp() {
     var clientid = $("#client").val();
     var corrid = $("#corr").val();
     var productid = $("#productid").val();
-    var acuenta = $("#acuenta").val();
+    var acuenta = ($("#acuenta").val()==""?'SIN VALOR DEFINIDO':$("#acuenta").val());
     var fpago = $("#fpago").val();
     var productname = $("#productname").val();
     var price = parseFloat($("#precio").val());
