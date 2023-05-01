@@ -124,6 +124,7 @@ if (valcorrdoc != "" && valdraftdoc == "true") {
 }
 
 function agregarp() {
+    var typedoc = $('#typedocument').val();
     var clientid = $("#client").val();
     var corrid = $("#corr").val();
     var productid = $("#productid").val();
@@ -157,7 +158,7 @@ function agregarp() {
     if (type == "gravada") {
         pricegravada = parseFloat(price * cantidad);
         totaltempgravado = parseFloat(pricegravada);
-        iva13temp = parseFloat(totaltempgravado*0.13).toFixed(2);
+        iva13temp = parseFloat(ivarete13).toFixed(2);
     } else if (type == "exenta") {
         priceexenta = parseFloat(price * cantidad);
         iva13temp = 0;
@@ -295,15 +296,23 @@ function agregarp() {
 
 function searchproduct(idpro) {
     //Get products by id avaibles
+    var typedoc = $('#typedocument').val();
     var typecontricompany = $("#typecontribuyente").val();
     var typecontriclient = $("#typecontribuyenteclient").val();
     var retencion;
+    var pricevalue;
     $.ajax({
         url: "/product/getproductid/" + btoa(idpro),
         method: "GET",
         success: function (response) {
             $.each(response, function (index, value) {
-                $("#precio").val(parseFloat(value.price/1.13).toFixed(2));
+
+                if(typedoc=='6'){
+                    pricevalue = parseFloat(value.price);
+                }else{
+                    pricevalue = parseFloat(value.price/1.13);
+                }
+                $("#precio").val(pricevalue.toFixed(2));
                 $("#productname").val(value.name);
                 $("#productid").val(value.id);
                 $("#productdescription").val(value.description);
@@ -323,10 +332,14 @@ function searchproduct(idpro) {
                 if(typecontriclient==""){
                     retencion = 0.0;
                 }
+                if(typedoc=='6'){
+                    $("#ivarete13").val(0);
+                }else{
+                    $("#ivarete13").val(parseFloat(pricevalue.toFixed(2) * 0.13).toFixed(2));
+                }
                 $("#ivarete").val(
-                    parseFloat(parseFloat(value.price/1.13).toFixed(2) * retencion).toFixed(2)
+                    parseFloat(pricevalue.toFixed(2) * retencion).toFixed(2)
                 );
-                $("#ivarete13").val(parseFloat(parseFloat(value.price/1.13).toFixed(2) * 0.13).toFixed(2));
             });
         },
     });
@@ -334,9 +347,15 @@ function searchproduct(idpro) {
 
 function changetypesale(type){
     var price = $("#precio").val();
+    var typedoc = $('#typedocument').val();
 switch(type){
     case 'gravada':
-        $('#ivarete13').val(parseFloat(price*0.13).toFixed(2));
+        if(typedoc=='6'){
+            $('#ivarete13').val(parseFloat(0));
+        }else{
+            $('#ivarete13').val(parseFloat(price*0.13).toFixed(2));
+        }
+
         break;
     case 'exenta':
         $('#ivarete13').val(0.00);
