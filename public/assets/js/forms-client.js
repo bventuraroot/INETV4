@@ -222,7 +222,7 @@ if(type=='N'){
         url: "/client/getClientid/"+btoa(id),
         method: "GET",
         success: function(response){
-            //console.log(response);
+            console.log(response);
             llamarselected(response[0]['country'],response[0]['departament'],response[0]['municipio'], response[0]['acteconomica']);
             $.each(response[0], function(index, value) {
                     if(index=='phone'){
@@ -262,9 +262,13 @@ if(type=='N'){
                             selectedN='selected';
                             $('#contribuyentelabeledit').css('display','');
                         }
-                        $('#tpersonaedit').empty()
+                        $('#tpersonaedit').empty();
                         $('#tpersonaedit').append('<option value="N" '+selectedN+'>NATURAL</option>');
                         $('#tpersonaedit').append('<option value="J" '+selectedJ+'>JURIDICO</option>');
+                    }
+
+                    if(index=='tipoContribuyente'){
+                        $("#tipocontribuyenteedit option[value='"+ value +"']").attr("selected",true);
                     }
                     $('#'+index+'edit').val(value);
               });

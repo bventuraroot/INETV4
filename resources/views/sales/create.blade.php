@@ -120,6 +120,8 @@
                                 </select>
                                 <input type="hidden" name="typedocument" id="typedocument" value="{{request('typedocument')}}">
                                 <input type="hidden" name="typecontribuyente" id="typecontribuyente">
+                                <input type="hidden" name="iva" id="iva">
+                                <input type="hidden" name="iva_entre" id="iva_entre">
                                 <input type="hidden" name="valcorr" id="valcorr" value="{{ request('corr')!='' ? request('corr') : '' }}">
                                 <input type="hidden" name="valdraft" id="valdraft" value="{{ request('draft')!='' ? request('draft') : '' }}">
                                 <input type="hidden" name="operation" id="operation" value="{{ request('operation')!='' ? request('operation') : '' }}">

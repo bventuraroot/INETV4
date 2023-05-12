@@ -82,13 +82,16 @@ return view('sales.impdoc', array("corr"=>$corr));
 
     public function getdatadocbycorr($corr){
         $saledetails = Sale::join('companies', 'companies.id', '=', 'sales.company_id')
+        ->join('iva', 'iva.company_id', '=', 'companies.id')
         ->leftJoin('clients', 'clients.id', '=', 'sales.client_id')
         ->select('sales.*',
         'companies.*',
         'clients.id AS client_id',
         'clients.firstname AS client_firstname',
         'clients.secondname AS client_secondname',
-        'clients.tipoContribuyente AS client_contribuyente')
+        'clients.tipoContribuyente AS client_contribuyente',
+        'iva.valor AS iva',
+        'iva.valor_entre AS iva_entre')
         ->where('sales.id', '=', base64_decode($corr))
         ->get();
         return response()->json($saledetails);

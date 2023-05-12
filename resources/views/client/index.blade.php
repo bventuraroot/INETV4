@@ -344,6 +344,12 @@
                             value="{{ isset($companyselected) ? $companyselected : 0 }}">
                         <input type="hidden" name="idedit" id="idedit">
                         <div class="mb-3">
+                            <label for="tpersonaedit" class="form-label">Tipo de cliente</label>
+                            <select class="select2typepersonedit form-select" id="tpersonaedit" name="tpersonaedit"
+                                aria-label="Seleccionar opcion" onchange="typepersonedit(this.value)">
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label" for="firstnameedit">Primer Nombre</label>
                             <input type="text" class="form-control" id="firstnameedit" placeholder="Primer Nombre"
                                 name="firstnameedit" aria-label="Primer Nombre" />
@@ -352,6 +358,16 @@
                             <label class="form-label" for="secondnameedit">Segundo Nombre</label>
                             <input type="text" class="form-control" id="secondnameedit" placeholder="Segundo Nombre"
                                 name="secondnameedit" aria-label="Segundo Nombre" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="firstlastnameedit">Primer Apellido</label>
+                            <input type="text" class="form-control" id="firstlastnameedit" placeholder="Primer Apellido"
+                                name="firstlastnameedit" aria-label="Primer Apellido" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="secondlastnameedit">Segundo Apellido</label>
+                            <input type="text" class="form-control" id="secondlastnameedit" placeholder="Segundo Apellido"
+                                name="secondlastnameedit" aria-label="Segundo Apellido" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tel1edit">Teléfono</label>
@@ -395,12 +411,6 @@
                             <input type="text" id="addressedit" class="form-control" placeholder="john.doe@example.com"
                                 aria-label="Direccion" name="addressedit" />
                                 <input type="hidden" name="addresseditid" id="addresseditid">
-                        </div>
-                        <div class="mb-3">
-                            <label for="tpersonaedit" class="form-label">Tipo de cliente</label>
-                            <select class="select2typepersonedit form-select" id="tpersonaedit" name="tpersonaedit"
-                                aria-label="Seleccionar opcion" onchange="typepersonedit(this.value)">
-                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="switch switch-success" id="contribuyentelabeledit" name="contribuyentelabeledit"

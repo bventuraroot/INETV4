@@ -299,6 +299,9 @@ function searchproduct(idpro) {
     var typedoc = $('#typedocument').val();
     var typecontricompany = $("#typecontribuyente").val();
     var typecontriclient = $("#typecontribuyenteclient").val();
+    var iva = parseFloat($("#iva").val());
+    var iva_entre = parseFloat($("#iva_entre").val());
+    var typecontriclient = $("#typecontribuyenteclient").val();
     var retencion;
     var pricevalue;
     $.ajax({
@@ -310,7 +313,7 @@ function searchproduct(idpro) {
                 if(typedoc=='6'){
                     pricevalue = parseFloat(value.price);
                 }else{
-                    pricevalue = parseFloat(value.price/1.13);
+                    pricevalue = parseFloat(value.price/iva_entre);
                 }
                 $("#precio").val(pricevalue.toFixed(2));
                 $("#productname").val(value.name);
@@ -335,7 +338,7 @@ function searchproduct(idpro) {
                 if(typedoc=='6'){
                     $("#ivarete13").val(0);
                 }else{
-                    $("#ivarete13").val(parseFloat(pricevalue.toFixed(2) * 0.13).toFixed(2));
+                    $("#ivarete13").val(parseFloat(pricevalue.toFixed(2) * iva).toFixed(2));
                 }
                 $("#ivarete").val(
                     parseFloat(pricevalue.toFixed(2) * retencion).toFixed(2)
@@ -348,12 +351,13 @@ function searchproduct(idpro) {
 function changetypesale(type){
     var price = $("#precio").val();
     var typedoc = $('#typedocument').val();
+    var iva = parseFloat($("#iva").val());
 switch(type){
     case 'gravada':
         if(typedoc=='6'){
             $('#ivarete13').val(parseFloat(0));
         }else{
-            $('#ivarete13').val(parseFloat(price*0.13).toFixed(2));
+            $('#ivarete13').val(parseFloat(price*iva).toFixed(2));
         }
 
         break;
@@ -545,6 +549,8 @@ function draftdocument(corr, draft) {
                     $('#corr').prop('disabled', true);
                     $("#typedocument").val(value.typedocument_id);
                     $("#typecontribuyente").val(value.tipoContribuyente);
+                    $("#iva").val(value.iva);
+                    $("#iva_entre").val(value.iva_entre);
                     $("#typecontribuyenteclient").val(value.client_contribuyente);
                     $('#date').prop('disabled', true);
                     $("#corr").val(corr);

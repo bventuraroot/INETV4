@@ -193,7 +193,7 @@ class ClientController extends Controller
         $client = Client::find($request->idedit);
         $client->firstname = $request->firstnameedit;
         $client->secondname = $request->secondnameedit;
-        $client->firtslastname = $request->firtslastnameedit;
+        $client->firstlastname = $request->firstlastnameedit;
         $client->secondlastname = $request->secondlastnameedit;
         $client->comercial_name = $request->comercial_nameedit;
         $client->email = $request->emailedit;
