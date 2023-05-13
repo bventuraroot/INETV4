@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('valor');
             $table->string('valor_entre');
+            $table->string('retenido');
+            $table->string('percibido');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

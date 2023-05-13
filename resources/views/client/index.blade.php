@@ -118,7 +118,7 @@
                                             Mediano
                                         @break
 
-                                        @case('PEQ')
+                                        @case('PEQU')
                                             Pequeño
                                         @break
 
