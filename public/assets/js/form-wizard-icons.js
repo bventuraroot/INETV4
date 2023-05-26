@@ -311,7 +311,7 @@ function searchproduct(idpro) {
             $.each(response, function (index, value) {
 
                 if(typedoc=='6'){
-                    pricevalue = parseFloat(value.price/iva_entre);
+                    pricevalue = parseFloat(value.price);
                 }else{
                     pricevalue = parseFloat(value.price/iva_entre);
                 }

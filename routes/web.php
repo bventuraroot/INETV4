@@ -10,6 +10,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
@@ -141,6 +142,12 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::get('newcorrsale/{idempresa}/{iduser}/{typedocument}', [SaleController::class, 'newcorrsale'])->name('newcorrsale');
         Route::get('getdetailsdoc/{corr}', [SaleController::class, 'getdetailsdoc'])->name('getdetailsdoc');
         Route::get('destroysaledetail/{idsaledetail}', [SaleController::class, 'destroysaledetail'])->name('destroysaledetail');
+
+    });
+
+    Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
+        Route::get('index', [PurchaseController::class, 'index'])->name('index');
+        Route::post('store', [PurchaseController::class, 'store'])->name('store');
 
     });
 });

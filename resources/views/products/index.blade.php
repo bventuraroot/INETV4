@@ -45,13 +45,13 @@
 @section('content')
     <div class="card">
         <div class="card-header border-bottom">
-            <h5 class="card-title mb-3">Productos</h5>
-            <div class="d-flex justify-content-between align-items-center row pb-2 gap-3 gap-md-0">
+            <h5 class="mb-3 card-title">Productos</h5>
+            <div class="gap-3 pb-2 d-flex justify-content-between align-items-center row gap-md-0">
                 <div class="col-md-4 companies"></div>
             </div>
         </div>
         <div class="card-datatable table-responsive">
-            <table class="datatables-products table border-top">
+            <table class="table datatables-products border-top">
                 <thead>
                     <tr>
                         <th>Ver</th>
@@ -85,8 +85,8 @@
                                     <a href="javascript: editproduct({{ $product->id }});" class="dropdown-item"><i
                                         class="ti ti-edit ti-sm me-2"></i>Editar</a>
                                     <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-end m-0">
+                                        data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
+                                    <div class="m-0 dropdown-menu dropdown-menu-end">
                                         <a href="javascript:deleteproduct({{ $product->id }});" class="dropdown-item"><i
                                                 class="ti ti-eraser ti-sm me-2"></i>Eliminar</a>
 
@@ -116,31 +116,31 @@
             <!-- Add product Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3 p-md-5">
+      <div class="p-3 modal-content p-md-5">
         <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="modal-body">
-          <div class="text-center mb-4">
+          <div class="mb-4 text-center">
             <h3 class="mb-2">Crear nuevo producto</h3>
           </div>
           <form id="addproductForm" class="row" action="{{Route('product.store')}}" method="POST" enctype="multipart/form-data">
             @csrf @method('POST')
             <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
               <label class="form-label" for="name">Nombre Producto</label>
               <input type="text" id="name" name="name" class="form-control" placeholder="Nombre del producto" autofocus required/>
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label class="form-label" for="description">Descripcion</label>
                 <input type="text" id="description" class="form-control" placeholder="Descripcion"
                     aria-label="Descripcion" name="description" />
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label for="provider" class="form-label">Proveedor</label>
                 <select class="select2provider form-select" id="provider" name="provider"
                     aria-label="Seleccionar opcion">
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label for="cfiscal" class="form-label">Clasificación Fiscal</label>
                 <select class="select2cfiscal form-select" id="cfiscal" name="cfiscal"
                     aria-label="Seleccionar opcion">
@@ -149,7 +149,7 @@
                     <option value="exento">Exento</option>
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label for="type" class="form-label">Tipo</label>
                 <select class="select2type form-select" id="type" name="type"
                     aria-label="Seleccionar opcion">
@@ -158,16 +158,16 @@
                     <option value="exento">Tercero</option>
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label class="form-label" for="price">Precio</label>
                 <input type="text" id="price" class="form-control" placeholder="$"
                     aria-label="Precio $" name="price" />
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label for="image" class="form-label">Imagen</label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>
-            <div class="col-12 text-center demo-vertical-spacing">
+            <div class="text-center col-12 demo-vertical-spacing">
               <button type="submit" class="btn btn-primary me-sm-3 me-1">Crear</button>
               <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
             </div>
@@ -180,32 +180,32 @@
              <!-- Add update Modal -->
 <div class="modal fade" id="updateProductModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content p-3 p-md-5">
+      <div class="p-3 modal-content p-md-5">
         <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
         <div class="modal-body">
-          <div class="text-center mb-4">
+          <div class="mb-4 text-center">
             <h3 class="mb-2">Editar producto</h3>
           </div>
           <form id="addproductForm" class="row" action="{{Route('product.update')}}" method="POST" enctype="multipart/form-data">
             @csrf @method('PATCH')
             <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
             <input type="hidden" name="idedit" id="idedit">
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
               <label class="form-label" for="nameedit">Nombre Producto</label>
               <input type="text" id="nameedit" name="nameedit" class="form-control" placeholder="Nombre del producto" autofocus required/>
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label class="form-label" for="descriptionedit">Descripcion</label>
                 <input type="text" id="descriptionedit" class="form-control" placeholder="Descripcion"
                     aria-label="Descripcion" name="descriptionedit" />
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label for="provideredit" class="form-label">Proveedor</label>
                 <select class="select2provideredit form-select" id="provideredit" name="provideredit"
                     aria-label="Seleccionar opcion">
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label for="cfiscaledit" class="form-label">Clasificación Fiscal</label>
                 <select class="select2cfiscaledit form-select" id="cfiscaledit" name="cfiscaledit"
                     aria-label="Seleccionar opcion">
@@ -214,7 +214,7 @@
                     <option value="exento">Exento</option>
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label for="typeedit" class="form-label">Tipo</label>
                 <select class="select2typeedit form-select" id="typeedit" name="typeedit"
                     aria-label="Seleccionar opcion">
@@ -223,18 +223,18 @@
                     <option value="tercero">Tercero</option>
                 </select>
             </div>
-            <div class="col-6 mb-3">
+            <div class="mb-3 col-6">
                 <label class="form-label" for="priceedit">Precio</label>
                 <input type="text" id="priceedit" class="form-control" placeholder="$"
                     aria-label="Precio $" name="priceedit" />
             </div>
-            <div class="col-6 mb-3" id="imageview">
+            <div class="mb-3 col-6" id="imageview">
             </div>
-            <div class="col-12 mb-3">
+            <div class="mb-3 col-12">
                 <label for="imageedit" class="form-label">Imagen</label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>
-            <div class="col-12 text-center demo-vertical-spacing">
+            <div class="text-center col-12 demo-vertical-spacing">
               <button type="submit" class="btn btn-primary me-sm-3 me-1">Guardar</button>
               <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
             </div>

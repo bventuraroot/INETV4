@@ -72,10 +72,10 @@
         "slug": "sale.index"
       },
       {
-        "url": "/shopping/index",
+        "url": "/purchase/index",
         "name": "Compras",
         "icon": "menu-icon fa-solid fa-truck",
-        "slug": "shopping.index"
+        "slug": "purchase.index"
       },
       {
         "url": "/report/index",
