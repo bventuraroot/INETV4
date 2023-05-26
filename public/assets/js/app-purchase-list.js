@@ -29,6 +29,15 @@ if (select2.length) {
    dropdownParent: $this.parent()
  });
 }
+var select2edit = $('.select2purchaseedit');
+
+if (select2.length) {
+ var $this = select2edit;
+ $this.wrap('<div class="position-relative"></div>').select2({
+   placeholder: 'Seleccionar Periodo',
+   dropdownParent: $this.parent()
+ });
+}
  var select2company = $('.select2company');
 
 if (select2.length) {
@@ -38,10 +47,28 @@ if (select2.length) {
    dropdownParent: $this.parent()
  });
 }
+var select2companyedit = $('.select2companyedit');
+
+if (select2.length) {
+ var $this = select2companyedit;
+ $this.wrap('<div class="position-relative"></div>').select2({
+   placeholder: 'Seleccionar Empresa',
+   dropdownParent: $this.parent()
+ });
+}
  var select2provider = $('.select2provider');
 
 if (select2.length) {
  var $this = select2provider;
+ $this.wrap('<div class="position-relative"></div>').select2({
+   placeholder: 'Seleccionar Proveedor',
+   dropdownParent: $this.parent()
+ });
+}
+ var select2provideredit = $('.select2provideredit');
+
+if (select2.length) {
+ var $this = select2provideredit;
  $this.wrap('<div class="position-relative"></div>').select2({
    placeholder: 'Seleccionar Proveedor',
    dropdownParent: $this.parent()

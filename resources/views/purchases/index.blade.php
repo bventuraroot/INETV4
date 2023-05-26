@@ -83,13 +83,13 @@
                                 <td>{{ $purchase->name_provider }}</td>
                                 <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="javascript: printsale({{ $purchase->id }});" class="dropdown-item"><i
+                                            <a href="javascript: editpurchase({{ $purchase->idpurchase }});" class="dropdown-item"><i
                                                 class="ti ti-edit ti-sm me-2"></i>Editar</a>
                                             <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
                                             <div class="m-0 dropdown-menu dropdown-menu-end">
-                                                <a href="javascript:cancelsale({{ $purchase->id }});" class="dropdown-item"><i
-                                                        class="ti ti-eraser ti-sm me-2"></i>Anular</a>
+                                                <a href="javascript:deletepurchase({{ $purchase->idpurchase }});" class="dropdown-item"><i
+                                                        class="ti ti-eraser ti-sm me-2"></i>Eliminar</a>
                                             </div>
                                         </div>
                                 </td>
@@ -196,7 +196,7 @@
             </div>
             <div class="mb-3 col-4">
                 <label class="form-label" for="cesc">CESC</label>
-                <input type="number" step="0.01" id="exenta" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="CESC $" name="cesc" />
+                <input type="number" step="0.01" id="cesc" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="CESC $" name="cesc" />
             </div>
             <div class="mb-3 col-4">
                 <label class="form-label" for="iretenido">IVA Retenido</label>
@@ -229,16 +229,17 @@
                       <div class="mb-4 text-center">
                         <h3 class="mb-2">Editar compra</h3>
                       </div>
-                      <form id="addpurchaseForm" class="row" action="{{Route('purchase.store')}}" method="POST" enctype="multipart/form-data">
-                        @csrf @method('POST')
-                        <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
+                      <form id="updatepurchaseForm" class="row" action="{{Route('purchase.update')}}" method="POST" enctype="multipart/form-data">
+                        @csrf @method('PATCH')
+                        <input type="hidden" name="iduseredit" id="iduseredit" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="idedit" id="idedit">
                         <div class="mb-3 col-4">
-                          <label class="form-label" for="number">Numero</label>
-                          <input type="text" id="number" name="number" class="form-control" placeholder="Numero de comprobante" autofocus required/>
+                          <label class="form-label" for="numberedit">Numero</label>
+                          <input type="text" id="numberedit" name="numberedit" class="form-control" placeholder="Numero de comprobante" autofocus required/>
                         </div>
                         <div class="mb-3 col-4">
-                            <label for="period" class="form-label">Periodo</label>
-                            <select class="select2purchase form-select" id="period" name="period"
+                            <label for="periodedit" class="form-label">Periodo</label>
+                            <select class="select2purchaseedit form-select" id="periodedit" name="periodedit"
                                 aria-label="Seleccionar opcion">
                                 <?php           $mes = date('m');
                                                 $meses = date('m');
@@ -253,109 +254,77 @@
                                                     <?php
                                                 }
                                             ?>
-                            </select><div class="modal fade" id="addPurchaseModal" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-xl modal-simple modal-pricing">
-                                  <div class="p-3 modal-content p-md-5">
-                                    <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    <div class="modal-body">
-                                      <div class="mb-4 text-center">
-                                        <h3 class="mb-2">Ingresar compra</h3>
-                                      </div>
-                                      <form id="addpurchaseForm" class="row" action="{{Route('purchase.store')}}" method="POST" enctype="multipart/form-data">
-                                        @csrf @method('POST')
-                                        <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
-                                        <div class="mb-3 col-4">
-                                          <label class="form-label" for="number">Numero</label>
-                                          <input type="text" id="number" name="number" class="form-control" placeholder="Numero de comprobante" autofocus required/>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="period" class="form-label">Periodo</label>
-                                            <select class="select2purchase form-select" id="period" name="period"
-                                                aria-label="Seleccionar opcion">
-                                                <?php           $mes = date('m');
-                                                                $meses = date('m');
-                                                                for ($i = 1; $i <= $meses; $i++) {
-                                                                    setlocale(LC_TIME, 'spanish');
-                                                                    $fecha = DateTime::createFromFormat('!m', $i);
-                                                                    $nmes = strftime("%B", $fecha->getTimestamp());
-                                                                    ?>
-                                                                        <option <?php if($mes == $i){ echo "selected"; } ?> value="<?php if($i < 10){ echo "0".$i; }else{ echo $i; } ?>">
-                                                                            <?php echo ucfirst($nmes); ?>
-                                                                        </option>
-                                                                    <?php
-                                                                }
-                                                            ?>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="company" class="form-label">Empresa</label>
-                                            <select class="select2company form-select" id="company" name="company"
-                                                aria-label="Seleccionar opcion">
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="document" class="form-label">Tipo Documento</label>
-                                            <select class="select2document form-select" id="document" name="document"
-                                                aria-label="Seleccionar opcion">
-                                                <option selected>Elije una opcion</option>
-                                                <option value="6">FACTURA</option>
-                                                <option value="3">COMPROBANTE DE CREDITO FISCAL</option>
-                                                <option value="9">NOTA DE CREDITO</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="datedoc" class="form-label">Fecha de Comprobante</label>
-                                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="datedoc" name="datedoc" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label for="provider" class="form-label">Proveedor</label>
-                                            <select class="select2provider form-select" id="provider" name="provider"
-                                                aria-label="Seleccionar opcion">
-                                            </select>
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="exenta">Exenta</label>
-                                            <input type="number" step="0.01" min="0.00" id="exenta" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="Exenta $" name="exenta" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="gravada">Gravada</label>
-                                            <input type="number" step="0.01" id="gravada" value="0.00" class="form-control" onkeyup="calculaiva(this.value)" placeholder="$" aria-label="Gravada $" name="gravada" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="iva">IVA</label>
-                                            <input type="number" step="0.01" id="iva" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="IVA $" name="iva" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="contrans">Contrans</label>
-                                            <input type="number" step="0.01" id="contrans" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="Contrans $" name="contrans" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="fovial">FOVIAL</label>
-                                            <input type="number" step="0.01" id="fovial" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="FOVIAL $" name="fovial" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="cesc">CESC</label>
-                                            <input type="number" step="0.01" id="exenta" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="CESC $" name="cesc" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="iretenido">IVA Retenido</label>
-                                            <input type="number" step="0.01" id="iretenido" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="IVA Retenido $" name="iretenido" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="others">Otros</label>
-                                            <input type="number" step="0.01" id="others" value="0.00" class="form-control" onkeyup="suma()" placeholder="$" aria-label="Otros $" name="others" />
-                                        </div>
-                                        <div class="mb-3 col-4">
-                                            <label class="form-label" for="total">Total</label>
-                                            <input type="number" step="0.01" id="total" class="form-control" placeholder="$" aria-label="Total $" name="total" />
-                                        </div>
-                                        <div class="text-center col-12 demo-vertical-spacing">
-                                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Agregar</button>
-                                          <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
-                                        </div>
-                                      </form>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="companyedit" class="form-label">Empresa</label>
+                            <select class="select2companyedit form-select" id="companyedit" name="companyedit"
+                                aria-label="Seleccionar opcion">
+                            </select>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="documentedit" class="form-label">Tipo Documento</label>
+                            <select class="select2documentedit form-select" id="documentedit" name="documentedit"
+                                aria-label="Seleccionar opcion">
+                                <option selected>Elije una opcion</option>
+                                <option value="6">FACTURA</option>
+                                <option value="3">COMPROBANTE DE CREDITO FISCAL</option>
+                                <option value="9">NOTA DE CREDITO</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="datedocedit" class="form-label">Fecha de Comprobante</label>
+                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="datedocedit" name="datedocedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="provideredit" class="form-label">Proveedor</label>
+                            <select class="select2provideredit form-select" id="provideredit" name="provideredit"
+                                aria-label="Seleccionar opcion">
+                            </select>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="exentaedit">Exenta</label>
+                            <input type="number" step="0.01" min="0.00" id="exentaedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="Exenta $" name="exentaedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="gravadaedit">Gravada</label>
+                            <input type="number" step="0.01" id="gravadaedit" value="0.00" class="form-control" onkeyup="calculaivaedit(this.value)" placeholder="$" aria-label="Gravada $" name="gravadaedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="ivaedit">IVA</label>
+                            <input type="number" step="0.01" id="ivaedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="IVA $" name="ivaedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="contransedit">Contrans</label>
+                            <input type="number" step="0.01" id="contransedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="Contrans $" name="contransedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="fovialedit">FOVIAL</label>
+                            <input type="number" step="0.01" id="fovialedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="FOVIAL $" name="fovialedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="cescedit">CESC</label>
+                            <input type="number" step="0.01" id="cescedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="CESC $" name="cescedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="iretenidoedit">IVA Retenido</label>
+                            <input type="number" step="0.01" id="iretenidoedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="IVA Retenido $" name="iretenidoedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="othersedit">Otros</label>
+                            <input type="number" step="0.01" id="othersedit" value="0.00" class="form-control" onkeyup="sumaedit()" placeholder="$" aria-label="Otros $" name="othersedit" />
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label class="form-label" for="totaledit">Total</label>
+                            <input type="number" step="0.01" id="totaledit" class="form-control" placeholder="$" aria-label="Total $" name="totaledit" />
+                        </div>
+                        <div class="text-center col-12 demo-vertical-spacing">
+                          <button type="submit" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                          <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
     @endsection

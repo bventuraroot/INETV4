@@ -17,7 +17,8 @@ class PurchaseController extends Controller
         $purchase = Purchase::join("typedocuments", "typedocuments.id", "=", "purchases.document_id")
         ->join("providers", "providers.id", "=", "purchases.provider_id")
         ->join("companies", "companies.id", "=", "purchases.company_id")
-        ->select("typedocuments.description AS namedoc",
+        ->select("purchases.id AS idpurchase",
+            "typedocuments.description AS namedoc",
             "purchases.number",
             "purchases.datedoc",
             "purchases.exenta",
@@ -73,6 +74,11 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.index');
     }
 
+    public function getpurchaseid($id){
+        $purchase = Purchase::find(base64_decode($id));
+        return response()->json($purchase);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -104,7 +110,25 @@ class PurchaseController extends Controller
      */
     public function update(Request $request, Purchase $purchase)
     {
-        //
+        $purchase = Purchase::findOrFail($request->idedit);
+        $purchase->document_id = $request->documentedit;
+        $purchase->provider_id = $request->provideredit;
+        $purchase->company_id = $request->companyedit;
+        $purchase->number = $request->numberedit;
+        $daterequest = strtotime($request->datedocedit);
+        $new_date = date('Y-m-d', $daterequest);
+        $purchase->datedoc = $new_date;
+        $purchase->exenta = $request->exentaedit;
+        $purchase->gravada = $request->gravadaedit;
+        $purchase->iva = $request->ivaedit;
+        $purchase->contrns = $request->contransedit;
+        $purchase->fovial = $request->fovialedit;
+        $purchase->iretenido = $request->iretenidoedit;
+        $purchase->otros = $request->othersedit;
+        $purchase->total = $request->totaledit;
+        $purchase->periodo = $request->periodedit;
+        $purchase->save();
+        return redirect()->route('purchase.index');
     }
 
     /**
@@ -113,8 +137,13 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+         //dd($id);
+         $purchase = Purchase::find(base64_decode($id));
+         $purchase->delete();
+         return response()->json(array(
+             "res" => "1"
+         ));
     }
 }

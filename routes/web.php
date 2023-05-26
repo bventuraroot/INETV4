@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\UserController;
@@ -145,10 +146,17 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
 
     });
 
-    Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
+Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
         Route::get('index', [PurchaseController::class, 'index'])->name('index');
         Route::post('store', [PurchaseController::class, 'store'])->name('store');
+        Route::patch('update', [PurchaseController::class, 'update'])->name('update');
+        Route::get('getpurchaseid/{id}', [PurchaseController::class, 'getpurchaseid'])->name('getpurchaseid');
+        Route::get('destroy/{id}', [PurchaseController::class, 'destroy'])->name('destroy');
+    });
 
+Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
+        Route::get('sales', [ReportsController::class, 'sales'])->name('sales');
+        Route::get('purchases', [ReportsController::class, 'purchases'])->name('purchases');
     });
 });
 

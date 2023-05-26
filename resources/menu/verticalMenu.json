@@ -81,7 +81,23 @@
         "url": "/report/index",
         "name": "Reportes",
         "icon": "menu-icon fa-solid fa-line-chart",
-        "slug": "report.index"
+        "slug": "report.index",
+        "badge": [
+            "primary",
+            "2"
+          ],
+          "submenu": [
+            {
+              "url": "/report/sales",
+              "name": "Ventas",
+              "slug": "report.sales"
+              },
+              {
+              "url": "/report/purchases",
+              "name": "Compras",
+              "slug": "report.purchases"
+                  }
+          ]
       }
   ]
 }
