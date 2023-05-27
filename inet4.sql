@@ -16,8 +16,8 @@
 
 
 -- Volcando estructura de base de datos para inet
-CREATE DATABASE IF NOT EXISTS `inet` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `inet`;
+CREATE DATABASE IF NOT EXISTS `emprecam_inet4` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `emprecam_inet4`;
 
 -- Volcando estructura para tabla inet.addresses
 CREATE TABLE IF NOT EXISTS `addresses` (
