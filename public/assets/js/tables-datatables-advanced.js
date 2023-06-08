@@ -5,10 +5,11 @@
 'use strict';
 
 $(function () {
-  var dt_ajax_table = $('.datatables-ajax'),
-    dt_filter_table = $('.dt-column-search'),
+  var
+    //dt_ajax_table = $('.datatables-ajax'),
+    //dt_filter_table = $('.dt-column-search'),
     dt_adv_filter_table = $('.dt-advanced-search'),
-    dt_responsive_table = $('.dt-responsive'),
+    //dt_responsive_table = $('.dt-responsive'),
     startDateEle = $('.start_date'),
     endDateEle = $('.end_date');
 

@@ -43,62 +43,8 @@
 
 @section('content')
 <h4 class="py-3 mb-4 fw-bold">
-    <span class="text-muted fw-light">DataTables /</span> Advanced
+    <span class="text-muted fw-light">Reportes /</span> Ventas
   </h4>
-
-  <!-- Ajax Sourced Server-side -->
-  <div class="card">
-    <h5 class="card-header">Ajax Sourced Server-side</h5>
-    <div class="card-datatable text-nowrap">
-      <table class="table datatables-ajax">
-        <thead>
-          <tr>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Start date</th>
-            <th>Salary</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
-  </div>
-  <!--/ Ajax Sourced Server-side -->
-
-  <hr class="my-5">
-
-  <!-- Column Search -->
-  <div class="card">
-    <h5 class="card-header">Column Search</h5>
-    <div class="card-datatable text-nowrap">
-      <table class="table dt-column-search">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Post</th>
-            <th>City</th>
-            <th>Date</th>
-            <th>Salary</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Post</th>
-            <th>City</th>
-            <th>Date</th>
-            <th>Salary</th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-  <!--/ Column Search -->
-
-  <hr class="my-5">
 
   <!-- Advanced Search -->
   <div class="card">
@@ -171,44 +117,4 @@
     </div>
   </div>
   <!--/ Advanced Search -->
-
-  <hr class="my-5">
-
-  <!-- Responsive Datatable -->
-  <div class="card">
-    <h5 class="card-header">Responsive Datatable</h5>
-    <div class="card-datatable table-responsive">
-      <table class="table dt-responsive">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Post</th>
-            <th>City</th>
-            <th>Date</th>
-            <th>Salary</th>
-            <th>Age</th>
-            <th>Experience</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Post</th>
-            <th>City</th>
-            <th>Date</th>
-            <th>Salary</th>
-            <th>Age</th>
-            <th>Experience</th>
-            <th>Status</th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-  </div>
-  <!--/ Responsive Datatable -->
     @endsection
