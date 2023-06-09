@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Purchase;
 use App\Models\Report;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
@@ -23,6 +25,40 @@ class ReportsController extends Controller
 
     public function purchases(){
         return view('reports.purchases');
+    }
+
+    public function reportsales($company, $year, $period){
+        $sales_r = Sale::join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
+        ->join('clients', 'clients.id', '=', 'sales.client_id')
+        ->join('companies', 'companies.id', '=', 'sales.company_id')
+        ->select('sales.*',
+        'typedocuments.description AS document_name',
+        'clients.firstname',
+        'clients.firstlastname',
+        'clients.comercial_name',
+        'clients.tpersona',
+        'companies.name AS company_name')
+        ->where("companies.id", "=", $company)
+        ->whereRaw('YEAR(sales.date) = ?', [$year])
+        ->whereRaw('MONTH(sales.date) = ?', [$period])
+        ->get();
+        $sales_r1['data'] = $sales_r;
+        return response()->json($sales_r1);
+    }
+    public function reportpurchases($company, $year, $period){
+        $purchases_r = Purchase::join('typedocuments', 'typedocuments.id', '=', 'purchases.document_id')
+        ->join('providers', 'providers.id', '=', 'purchases.provider_id')
+        ->join('companies', 'companies.id', '=', 'purchases.company_id')
+        ->select('purchases.*',
+        'typedocuments.description AS document_name',
+        'providers.razonsocial AS nameprovider',
+        'companies.name AS company_name')
+        ->where("companies.id", "=", $company)
+        ->whereRaw('YEAR(purchases.datedoc) = ?', [$year])
+        ->whereRaw('MONTH(purchases.datedoc) = ?', [$period])
+        ->get();
+        $purchases_r1['data'] = $purchases_r;
+        return response()->json($purchases_r1);
     }
 
 

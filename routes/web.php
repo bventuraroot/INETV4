@@ -157,6 +157,8 @@ Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
 Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
         Route::get('sales', [ReportsController::class, 'sales'])->name('sales');
         Route::get('purchases', [ReportsController::class, 'purchases'])->name('purchases');
+        Route::get('reportsales/{company}/{year}/{period}', [ReportsController::class, 'reportsales'])->name('reportsales');
+        Route::get('reportpurchases/{company}/{year}/{period}', [ReportsController::class, 'reportpurchases'])->name('reportpurchases');
     });
 });
 
