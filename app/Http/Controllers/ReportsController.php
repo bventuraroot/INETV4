@@ -61,6 +61,18 @@ class ReportsController extends Controller
         return response()->json($purchases_r1);
     }
 
+    public function contribuyentes(){
+
+        return view('reports.contribuyentes');
+
+    }
+
+    public function directas(){
+
+        return view('reports.directas');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.

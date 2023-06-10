@@ -1,103 +1,114 @@
 {
-  "menu": [
-    {
-        "url": "/",
-        "name": "Home",
-        "icon": "menu-icon fa-solid fa-home",
-        "slug": "dashboard"
-      },
-    {
-      "name": "Administracion",
-      "icon": "menu-icon fa-solid fa-shield",
-      "slug": "user.index",
-      "badge": [
-        "primary",
-        "2"
-      ],
-      "submenu": [
+    "menu": [
         {
-          "url": "/user/index",
-          "name": "Usuarios",
-          "slug": "user.index"
-          },
-        {
-          "url": "/rol/index",
-          "name": "Roles",
-          "slug": "user.rol.index"
+            "url": "/",
+            "name": "Home",
+            "icon": "menu-icon fa-solid fa-home",
+            "slug": "dashboard"
         },
         {
-          "url": "/permission/index",
-          "name": "Permisos",
-          "slug": "user.permission.index"
-        }
-      ]
-    },
-    {
-        "url": "/company/index",
-        "name": "Empresas",
-        "icon": "menu-icon fa-solid fa-id-badge",
-        "slug": "company.index"
-      },
-    {
-        "url": "/client/index",
-        "name": "Clientes",
-        "icon": "menu-icon fa-solid fa-user-plus",
-        "slug": "client.index"
-      },
-      {
-        "name": "Produccion",
-        "icon": "menu-icon fa-solid fa-feed",
-        "slug": "user.index",
-        "badge": [
-          "primary",
-          "2"
-        ],
-        "submenu": [
-          {
-            "url": "/product/index",
-            "name": "Productos",
-            "slug": "product.index"
-            },
-            {
-            "url": "/provider/index",
-            "name": "Proveedores",
-            "slug": "provider.index"
+            "name": "Administracion",
+            "icon": "menu-icon fa-solid fa-shield",
+            "slug": "user.index",
+            "badge": ["primary", "2"],
+            "submenu": [
+                {
+                    "url": "/user/index",
+                    "name": "Usuarios",
+                    "slug": "user.index"
+                },
+                {
+                    "url": "/rol/index",
+                    "name": "Roles",
+                    "slug": "user.rol.index"
+                },
+                {
+                    "url": "/permission/index",
+                    "name": "Permisos",
+                    "slug": "user.permission.index"
                 }
-        ]
-      },
-      {
-        "url": "/sale/index",
-        "name": "Ventas",
-        "icon": "menu-icon fa-solid fa-dollar",
-        "slug": "sale.index"
-      },
-      {
-        "url": "/purchase/index",
-        "name": "Compras",
-        "icon": "menu-icon fa-solid fa-truck",
-        "slug": "purchase.index"
-      },
-      {
-        "url": "/report/index",
-        "name": "Reportes",
-        "icon": "menu-icon fa-solid fa-line-chart",
-        "slug": "report.index",
-        "badge": [
-            "primary",
-            "2"
-          ],
-          "submenu": [
-            {
-              "url": "/report/sales",
-              "name": "Ventas",
-              "slug": "report.sales"
-              },
-              {
-              "url": "/report/purchases",
-              "name": "Compras",
-              "slug": "report.purchases"
-                  }
-          ]
-      }
-  ]
+            ]
+        },
+        {
+            "url": "/company/index",
+            "name": "Empresas",
+            "icon": "menu-icon fa-solid fa-id-badge",
+            "slug": "company.index"
+        },
+        {
+            "url": "/client/index",
+            "name": "Clientes",
+            "icon": "menu-icon fa-solid fa-user-plus",
+            "slug": "client.index"
+        },
+        {
+            "name": "Produccion",
+            "icon": "menu-icon fa-solid fa-feed",
+            "slug": "user.index",
+            "badge": ["primary", "2"],
+            "submenu": [
+                {
+                    "url": "/product/index",
+                    "name": "Productos",
+                    "slug": "product.index"
+                },
+                {
+                    "url": "/provider/index",
+                    "name": "Proveedores",
+                    "slug": "provider.index"
+                }
+            ]
+        },
+        {
+            "url": "/sale/index",
+            "name": "Ventas",
+            "icon": "menu-icon fa-solid fa-dollar",
+            "slug": "sale.index"
+        },
+        {
+            "url": "/purchase/index",
+            "name": "Compras",
+            "icon": "menu-icon fa-solid fa-truck",
+            "slug": "purchase.index"
+        },
+        {
+            "url": "/report/index",
+            "name": "Reportes",
+            "icon": "menu-icon fa-solid fa-line-chart",
+            "slug": "report.index",
+            "badge": ["primary", "2"],
+            "submenu": [
+                {
+                    "url": "/report/sales",
+                    "name": "Ventas",
+                    "slug": "report.sales"
+                },
+                {
+                    "url": "/report/contribuyentes",
+                    "name": "Ventas Contribuyentes",
+                    "slug": "report.contribuyentes"
+                },
+                {
+                    "url": "/report/directas",
+                    "name": "Ventas Directas",
+                    "slug": "report.directas"
+                },
+                {
+                    "url": "/report/consumidor",
+                    "name": "Ventas Consumidor",
+                    "slug": "report.consumidor"
+                },
+                {
+                    "url": "/report/purchases",
+                    "name": "Compras",
+                    "slug": "report.purchases"
+                },
+                {
+                    "url": "/report/book",
+                    "name": "Libro de Compras",
+                    "slug": "report.book"
+                }
+            ]
+        }
+    ]
 }

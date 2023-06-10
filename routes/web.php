@@ -159,6 +159,8 @@ Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
         Route::get('purchases', [ReportsController::class, 'purchases'])->name('purchases');
         Route::get('reportsales/{company}/{year}/{period}', [ReportsController::class, 'reportsales'])->name('reportsales');
         Route::get('reportpurchases/{company}/{year}/{period}', [ReportsController::class, 'reportpurchases'])->name('reportpurchases');
+        Route::get('contribuyentes', [ReportsController::class, 'contribuyentes'])->name('contribuyentes');
+        Route::get('directas', [ReportsController::class, 'directas'])->name('directas');
     });
 });
 
