@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Purchase;
 use App\Models\Report;
 use App\Models\Sale;
+use App\Models\Salesdetail;
 use Illuminate\Http\Request;
 
 class ReportsController extends Controller
@@ -62,9 +64,37 @@ class ReportsController extends Controller
     }
 
     public function contribuyentes(){
+            return view('reports.contribuyentes');
+    }
 
-        return view('reports.contribuyentes');
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function contribusearch(Request $request){
+        $Company = Company::find($request['company']);
+        $sales = Sale::leftjoin('clients', 'sales.client_id', '=', 'clients.id')
+        ->select('*','sales.id AS correlativo',
+        'clients.ncr AS ncrC',)
+        ->selectRaw("DATE_FORMAT(sales.date, '%d/%m/%Y') AS dateF ")
+        ->selectRaw("(SELECT SUM(sde.exempt) FROM salesdetails AS sde WHERE sde.sale_id=sales.id) AS exenta")
+        ->selectRaw("(SELECT SUM(sdg.pricesale) FROM salesdetails AS sdg WHERE sdg.sale_id=sales.id) AS gravada")
+        ->selectRaw("(SELECT SUM(sdn.nosujeta) FROM salesdetails AS sdn WHERE sdn.sale_id=sales.id) AS nosujeta")
+        ->selectRaw("(SELECT SUM(sdi.detained13) FROM salesdetails AS sdi WHERE sdi.sale_id=sales.id) AS iva")
+        ->where('sales.typedocument_id', "=", "3")
+        ->whereRaw('YEAR(sales.date)=?', $request['year'])
+        ->whereRaw('MONTH(sales.date)=?', $request['period'])
+        ->WhereRaw('DAY(sales.date) BETWEEN "01" AND "31"')
+        ->where('sales.company_id', '=', $request['company'])
+        ->orderBy('sales.id')
+        ->get();
+        return view('reports.contribuyentes', array(
+            "heading" => $Company,
+            "yearB" => $request['year'],
+            "period" => $request['period'],
+            "sales" => $sales
+        ));
     }
 
     public function directas(){

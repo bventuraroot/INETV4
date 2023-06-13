@@ -160,7 +160,9 @@ Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
         Route::get('reportsales/{company}/{year}/{period}', [ReportsController::class, 'reportsales'])->name('reportsales');
         Route::get('reportpurchases/{company}/{year}/{period}', [ReportsController::class, 'reportpurchases'])->name('reportpurchases');
         Route::get('contribuyentes', [ReportsController::class, 'contribuyentes'])->name('contribuyentes');
-        Route::get('directas', [ReportsController::class, 'directas'])->name('directas');
+        Route::post('contribusearch', [ReportsController::class, 'contribusearch'])->name('contribusearch');
+        Route::get('directas/{company}/{year}/{period}', [ReportsController::class, 'directas'])->name('directas');
+        Route::get('final/{company}/{year}/{period}', [ReportsController::class, 'final'])->name('final');
     });
 });
 
