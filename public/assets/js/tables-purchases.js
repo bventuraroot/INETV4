@@ -28,6 +28,8 @@ $.ajax({
     $("#first-filter").click(function(){
         $('#sendfilters').submit();
 });
+
+
 });
 
 function impFAC(nombreDiv) {

@@ -76,7 +76,7 @@
             "name": "Reportes",
             "icon": "menu-icon fa-solid fa-line-chart",
             "slug": "report.index",
-            "badge": ["primary", "2"],
+            "badge": ["primary", "6"],
             "submenu": [
                 {
                     "url": "/report/sales",
@@ -104,9 +104,9 @@
                     "slug": "report.purchases"
                 },
                 {
-                    "url": "/report/book",
+                    "url": "/report/bookpurchases",
                     "name": "Libro de Compras",
-                    "slug": "report.book"
+                    "slug": "report.bookpurchases"
                 }
             ]
         }

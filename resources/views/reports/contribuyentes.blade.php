@@ -116,6 +116,15 @@ $configData = Helper::appClasses();
 
 $mesesDelAnoMayuscula = array_map('strtoupper', $mesesDelAno);
     ?>
+    <div class="row">
+        <div class="col-12">
+            <div class="box-header" style="text-align: right; margin-right: 6%;">
+                <a href="#!" class='btn btn-success' title='Imprimir credito' onclick="impFAC('areaImprimir');">
+                    <i class="fa-solid fa-print"> </i> &nbsp;&nbsp;Imprimir
+                </a>
+            </div>
+        </div>
+    </div>
     <div id="areaImprimir" class="table-responsive">
         <table class="table" style="">
             <thead style="font-size: 13px;">
@@ -171,18 +180,7 @@ $mesesDelAnoMayuscula = array_map('strtoupper', $mesesDelAno);
                     $tot_final = 0;
                     $vto = 0;
                     $total_iva2P = 0;
-
-                    // $dcompras="select *, DATE_FORMAT(fecha, '%d/%m/%Y') AS fecha
-                    //from ventas a
-                    // LEFT JOIN clientes b on a.id_cliente=b.id_cliente
-                    //where a.id_documento=2
-                    //AND a.fecha BETWEEN '".$anio."-".$mes."-01' AND '".$anio."-".$mes."-31'
-                    //AND a.id_empresa=$empresa
-                    //ORDER BY a.correlativo ASC";
-                    //$dcompras = mysql_query($dcompras, $cn);
                     $i = 1;
-                    // while ($com = mysql_fetch_array($dcompras)) {
-                        //dd($sales);
                 ?>
                 @foreach ($sales as $sale)
                 <tr>

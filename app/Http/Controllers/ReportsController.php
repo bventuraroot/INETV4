@@ -97,6 +97,66 @@ class ReportsController extends Controller
         ));
     }
 
+    public function consumidor(){
+        return view('reports.consumidor');
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function consumidorsearch(Request $request){
+        $Company = Company::find($request['company']);
+        $sales = Sale::join('clients', 'sales.client_id', '=', 'clients.id')
+        ->select('*','sales.id AS correlativo',
+        'clients.ncr AS ncrC',)
+        ->selectRaw("DATE_FORMAT(sales.date, '%d/%m/%Y') AS dateF ")
+        ->selectRaw("(SELECT SUM(sde.exempt) FROM salesdetails AS sde WHERE sde.sale_id=sales.id) AS exenta")
+        ->selectRaw("(SELECT SUM(sdg.pricesale) FROM salesdetails AS sdg WHERE sdg.sale_id=sales.id) AS gravada")
+        ->selectRaw("(SELECT SUM(sdn.nosujeta) FROM salesdetails AS sdn WHERE sdn.sale_id=sales.id) AS nosujeta")
+        ->selectRaw("(SELECT SUM(sdi.detained13) FROM salesdetails AS sdi WHERE sdi.sale_id=sales.id) AS iva")
+        ->where('sales.typedocument_id', "=", "6")
+        ->whereRaw('(clients.tpersona = "N" OR clients.tpersona = "J")' )
+        ->whereRaw('YEAR(sales.date)=?', $request['year'])
+        ->whereRaw('MONTH(sales.date)=?', $request['period'])
+        ->WhereRaw('DAY(sales.date) BETWEEN "01" AND "31"')
+        ->where('sales.company_id', '=', $request['company'])
+        ->orderBy('sales.id')
+        ->get();
+        return view('reports.consumidor', array(
+            "heading" => $Company,
+            "yearB" => $request['year'],
+            "period" => $request['period'],
+            "sales" => $sales
+        ));
+    }
+
+    public function bookpurchases(){
+        return view('reports.bookpurchases');
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function comprassearch(Request $request){
+        $Company = Company::find($request['company']);
+
+        $purchases = Purchase::join('providers AS pro', 'pro.id', '=', 'purchases.provider_id')
+        ->select('*')
+        ->selectRaw("DATE_FORMAT(purchases.datedoc, '%d/%m/%Y') AS dateF")
+        ->whereRaw('YEAR(purchases.datedoc)=?', $request['year'])
+        ->whereRaw('MONTH(purchases.datedoc)=?', $request['period'])
+        ->WhereRaw('DAY(purchases.datedoc) BETWEEN "01" AND "31"')
+        ->where('purchases.company_id', '=', $request['company'])
+        ->orderByRaw('MONTH(purchases.datedoc)')
+        ->orderBy('purchases.datedoc')
+        ->get();
+        return view('reports.bookpurchases', array(
+            "heading" => $Company,
+            "yearB" => $request['year'],
+            "period" => $request['period'],
+            "purchases" => $purchases
+        ));
+    }
     public function directas(){
 
         return view('reports.directas');
