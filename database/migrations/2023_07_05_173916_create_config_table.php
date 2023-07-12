@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('config', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->integer('version');
             $table->string('ambiente');

@@ -114,38 +114,38 @@
             "url": "/report/index",
             "name": "Administracion DTE",
             "icon": "menu-icon fa-solid fa-satellite-dish",
-            "slug": "report.index",
+            "slug": "factmh.index",
             "badge": ["primary", "5"],
             "submenu": [
                 {
                     "url": "/report/sales",
                     "name": "Muestra Cola",
-                    "slug": "report.sales"
+                    "slug": "factmh.show_queue"
                 },
                 {
                     "url": "/report/sales",
                     "name": "Procesar Cola",
-                    "slug": "report.sales"
+                    "slug": "factmh.run_queue"
                 },
                 {
                     "url": "/report/contribuyentes",
                     "name": "Muestra Enviados",
-                    "slug": "report.contribuyentes"
+                    "slug": "factmh.show_sends"
                 },
                 {
                     "url": "/report/directas",
                     "name": "Muestra Rechazados",
-                    "slug": "report.directas"
+                    "slug": "factmh.show_rejected"
                 },
                 {
                     "url": "/report/consumidor",
                     "name": "Prueba Certificado",
-                    "slug": "report.consumidor"
+                    "slug": "factmh.test_crt"
                 },
                 {
                     "url": "/report/consumidor",
                     "name": "Configuraciones Ambiente",
-                    "slug": "report.consumidor"
+                    "slug": "factmh.configurations"
                 }
             ]
         }

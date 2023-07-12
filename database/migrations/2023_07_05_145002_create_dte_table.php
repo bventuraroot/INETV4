@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dte', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
             $table->integer('versionJson');
             $table->foreignId('ambiente_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('tipoDte');
             $table->string('tipoModelo');
             $table->string('tipoTransmision');
-            $table->string('tipoContingencia');
-            $table->string('idContingencia');
+            $table->string('tipoContingencia')->nullable();
+            $table->string('idContingencia')->nullable();
             $table->string('nameTable');
             $table->foreignId('company_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('company_name');
@@ -29,20 +29,20 @@ return new class extends Migration
             $table->string('codTransaction');
             $table->string('desTransaction');
             $table->string('type_document');
-            $table->string('id_doc_Ref1');
-            $table->string('id_doc_Ref2');
-            $table->string('type_invalidacion');
-            $table->string('codEstado');
-            $table->string('Estado');
-            $table->string('codigoGeneracion');
-            $table->string('selloRecibido');
-            $table->dateTime('fhRecibido');
-            $table->string('estadoHacienda');
-            $table->string('nSends');
-            $table->string('codeMessage');
-            $table->string('claMessage');
-            $table->string('descriptionMessage');
-            $table->string('detailsMessage');
+            $table->string('id_doc_Ref1')->nullable();
+            $table->string('id_doc_Ref2')->nullable();
+            $table->string('type_invalidacion')->nullable();
+            $table->string('codEstado')->nullable();
+            $table->string('Estado')->nullable();
+            $table->string('codigoGeneracion')->nullable();
+            $table->string('selloRecibido')->nullable();
+            $table->dateTime('fhRecibido')->nullable();
+            $table->string('estadoHacienda')->nullable();
+            $table->string('nSends')->nullable();
+            $table->string('codeMessage')->nullable();
+            $table->string('claMessage')->nullable();
+            $table->string('descriptionMessage')->nullable();
+            $table->string('detailsMessage')->nullable();
             $table->timestamps();
             $table->string('created_by');
         });

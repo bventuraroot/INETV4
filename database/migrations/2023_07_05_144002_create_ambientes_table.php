@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ambientes', function (Blueprint $table) {
-            $table->id();
+            $table->id(); 
             $table->string('cod');
             $table->string('description');
             $table->string('url_credencial');

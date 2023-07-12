@@ -11,7 +11,7 @@ class FacturacionElectronicaController extends Controller
 {
     public function procesa_cola(){
         date_default_timezone_set('America/El_Salvador');
-        ini_set('max_execution_time', '300');
+        ini_set('max_execution_time', '300'); 
         $cola = Dte::where('codEstado', '01')->where('idContingencia', null)->limit(5)->get();
         //$cola = DTE::where('id', 7832)->limit(5)->get();
         //dd($cola);
@@ -21,7 +21,7 @@ class FacturacionElectronicaController extends Controller
         $id_empresa = -1;
         foreach ($cola as $e) {
             //dd($e);
-            echo '<br>procesando .....'. $i . ' de ' . $total. ' DocEntry '. $e->docEntry .' Codigo de Generacion '. $e->codigoGeneracion. '<br>';
+            echo '<br>procesando .....'. $i . ' de ' . $total. ' DocEntry '. $e->id_doc .' Codigo de Generacion '. $e->codigoGeneracion. '<br>';
             $consulta = [];
             $comprobante = $this->obtener_comprobante($e->id, $e->docEntry, $e->idEmpresa, 'P', $e->codTransaccion, $e->nmTablaDoc, $e->tipoDoc);
             $comprobante["codigoGeneracion"] = $e->codigoGeneracion;

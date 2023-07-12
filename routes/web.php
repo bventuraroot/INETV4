@@ -167,6 +167,23 @@ Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
         Route::get('bookpurchases', [ReportsController::class, 'bookpurchases'])->name('bookpurchases');
         Route::post('comprassearch', [ReportsController::class, 'comprassearch'])->name('comprassearch');
     });
+
+Route::group(['prefix' => 'factmh', 'as', => 'factmh.'], function(){
+
+        Route::get('mostrar_cola', [FacturacionElectronicaController::class, 'mostrar_cola'])->name('show_queue');
+        Route::get('procesa_cola', [FacturacionElectronicaController::class, 'procesa_cola'])->name('run_queue');
+        Route::get('muestra_enviados', [FacturacionElectronicaController::class, 'muestra_enviados'])->name('show_sends');
+        Route::get('muestra_rechazados', [FacturacionElectronicaController::class, 'muestra_rechazados'])->name('show_rejected');
+        Route::get('prueba_certificado', [FacturacionElectronicaController::class, 'prueba_certificado'])->name('test_crt');
+});
+
+Route::group(['prefix' => 'config', 'as', => 'config.'], function(){
+
+    Route::get('index', [ConfigController::class, 'index'])->name('index');
+    Route::get('store', [ConfigController::class, 'store'])->name('store');
+    Route::get('getconfigid/{id}', [ConfigController::class, 'getconfigid'])->name('getconfigid');
+    Route::get('destroy/{id}', [ConfigController::class, 'destroy'])->name('destroy');
+});
 });
 
 

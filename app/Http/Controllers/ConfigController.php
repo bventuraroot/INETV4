@@ -14,7 +14,23 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        //
+        $configs = Config::join('companies AS co', 'configs.company_id', '=', 'co.id')
+        ->select('configs.*',
+                'co.name AS name_company');
+        ->get();
+
+        return view('factmh.config',array(
+            'configs'=> $configs
+        ));
+    }
+
+    public function getconfigid($id){
+        $config = Config::join('companies AS co', 'configs.company_id', '=', 'co.id')
+        ->select('configs.*',
+                'co.name AS name_company');
+        ->where('configs.id', '=', base64_decode($id))
+        ->get();
+        return response()->json($config);
     }
 
     /**
@@ -80,6 +96,10 @@ class ConfigController extends Controller
      */
     public function destroy(Config $config)
     {
-        //
+        $config = Config::find(base64_decode($id));
+        $config->delete();
+        return response()->json(array(
+             "res" => "1"
+         ));
     }
 }

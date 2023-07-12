@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dte;
 use App\Models\Sale;
+use App\Models\Config;
 use App\Models\Salesdetail;
 use Illuminate\Http\Request;
 
@@ -135,12 +136,42 @@ return view('sales.impdoc', array("corr"=>$corr));
         $salesave->save();
 
         $idempresa = $salesave->company_id;
+        $company = Company::find($idempresa);
 
-        $config = Con
+        $config = Config::where('company_id', $idempresa);
+
+        $idambiente = Ambiente::where('cod',$config->ambiente);
 
         $dtecreate = new Dte();
-        $dtecreate-> ;
-
+        $dtecreate->versionJson = $config->versionJson;
+        $dtecreate->ambiente_id = $idambiente;
+        $dtecreate->tipoDte = $tipoDte;
+        $dtecreate->tipoModelo = $tipoModelo;
+        $dtecreate->tipoTransmision = $tipoTransmision;
+        $dtecreate->tipoContingencia = $tipoContingencia;
+        $dtecreate->idContingencia = null;
+        $dtecreate->nameTable = 'Sales';
+        $dtecreate->company_id = $idempresa;
+        $dtecreate->company_name = $company->name;
+        $dtecreate->id_doc = $corr;
+        $dtecreate->codTransaction = $corr;
+        $dtecreate->desTransaction = $corr;
+        $dtecreate->type_document = $corr;
+        $dtecreate->id_doc_Ref1 = null;
+        $dtecreate->id_doc_Ref2 = null;
+        $dtecreate->type_invalidacion = null;
+        $dtecreate->codEstado = '01';
+        $dtecreate->Estado = $corr;
+        $dtecreate->codigoGeneracion = null;
+        $dtecreate->selloRecibido = null;
+        $dtecreate->fhRecibido = null;
+        $dtecreate->estadoHacienda = null;
+        $dtecreate->nSends = null;
+        $dtecreate->codeMessage = null;
+        $dtecreate->claMessage = null;
+        $dtecreate->descriptionMessage = null;
+        $dtecreate->detailsMessage = null;
+        $dtecreate->save();
 
         return response()->json(array(
             "res" => "1"

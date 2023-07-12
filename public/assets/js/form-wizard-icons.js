@@ -42,7 +42,7 @@ $(function () {
     //Get companies avaibles
     var iduser = $("#iduser").val();
     $.ajax({
-        url: "/company/getCompanybyuser/" + iduser,
+        url: "/company/getCompanybyuser/" + iduser, 
         method: "GET",
         success: function (response) {
             $("#company").append('<option value="0">Seleccione</option>');
