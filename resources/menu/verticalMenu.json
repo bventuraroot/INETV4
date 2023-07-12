@@ -109,6 +109,45 @@
                     "slug": "report.bookpurchases"
                 }
             ]
+        },
+        {
+            "url": "/report/index",
+            "name": "Administracion DTE",
+            "icon": "menu-icon fa-solid fa-satellite-dish",
+            "slug": "report.index",
+            "badge": ["primary", "5"],
+            "submenu": [
+                {
+                    "url": "/report/sales",
+                    "name": "Muestra Cola",
+                    "slug": "report.sales"
+                },
+                {
+                    "url": "/report/sales",
+                    "name": "Procesar Cola",
+                    "slug": "report.sales"
+                },
+                {
+                    "url": "/report/contribuyentes",
+                    "name": "Muestra Enviados",
+                    "slug": "report.contribuyentes"
+                },
+                {
+                    "url": "/report/directas",
+                    "name": "Muestra Rechazados",
+                    "slug": "report.directas"
+                },
+                {
+                    "url": "/report/consumidor",
+                    "name": "Prueba Certificado",
+                    "slug": "report.consumidor"
+                },
+                {
+                    "url": "/report/consumidor",
+                    "name": "Configuraciones Ambiente",
+                    "slug": "report.consumidor"
+                }
+            ]
         }
     ]
 }

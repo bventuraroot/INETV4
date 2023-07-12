@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TypeDocumentSeeder::class,
             CatListSeeder::class,
-            CatDetailsSeeder::class
+            CatDetailsSeeder::class,
+            AmbientesSeeder::class,
+            ConfigSeeder::class
 
 
         ]);

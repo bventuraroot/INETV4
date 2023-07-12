@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dte;
 use App\Models\Sale;
 use App\Models\Salesdetail;
 use Illuminate\Http\Request;
@@ -132,6 +133,15 @@ return view('sales.impdoc', array("corr"=>$corr));
         $salesave->totalamount = $amount;
         $salesave->typesale = 1;
         $salesave->save();
+
+        $idempresa = $salesave->company_id;
+
+        $config = Con
+
+        $dtecreate = new Dte();
+        $dtecreate-> ;
+
+
         return response()->json(array(
             "res" => "1"
         ));
