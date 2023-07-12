@@ -1,66 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1>Sistema de Facturación Multiempresa y Facturación Electrónica para Hacienda</h1>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<p>Este es un repositorio que contiene un sistema de facturación multiempresa y facturación electrónica desarrollado para cumplir con los requisitos de la Hacienda. Proporciona una solución completa para la generación, gestión y presentación de facturas electrónicas para múltiples empresas.</p>
 
-## About Laravel
+<h2>Características</h2>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<ul>
+  <li><strong>Multiempresa</strong>: Permite gestionar la facturación de múltiples empresas desde una sola plataforma.</li>
+  <li><strong>Facturación Electrónica</strong>: Genera facturas electrónicas en formato XML compatible con los estándares requeridos por la Hacienda.</li>
+  <li><strong>Integración con Hacienda</strong>: Proporciona métodos para la presentación de las facturas electrónicas ante la Hacienda.</li>
+  <li><strong>Generación de Informes</strong>: Permite generar informes detallados sobre las facturas emitidas, pendientes, pagadas, etc.</li>
+  <li><strong>Administración de Clientes</strong>: Permite gestionar la base de datos de clientes y sus datos relacionados.</li>
+  <li><strong>Control de Inventarios</strong>: Facilita el seguimiento y gestión de inventarios de productos y servicios.</li>
+  <li><strong>Interfaz de Usuario Intuitiva</strong>: Ofrece una interfaz de usuario fácil de usar y navegar.</li>
+</ul>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<h2>Requisitos del Sistema</h2>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<p>Antes de utilizar este sistema de facturación multiempresa y facturación electrónica para Hacienda, asegúrate de tener instalado lo siguiente:</p>
 
-## Learning Laravel
+<ul>
+  <li>Lenguaje de Programación: <a href="https://www.python.org/">Python 3.x</a></li>
+  <li>Base de Datos: <a href="https://www.mysql.com/">MySQL</a> o <a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  <li>Framework Web: <a href="https://www.djangoproject.com/">Django</a></li>
+  <li>Bibliotecas Adicionales: Consulta el archivo <code>requirements.txt</code> para obtener la lista completa de las bibliotecas requeridas.</li>
+</ul>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+<h2>Configuración</h2>
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+<p>Sigue estos pasos para configurar el sistema de facturación:</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<ol>
+  <li>Clona este repositorio en tu máquina local utilizando el siguiente comando:</li>
+</ol>
 
-## Laravel Sponsors
+<pre><code>git clone https://github.com/tu_usuario/tu_repositorio.git
+</code></pre>
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<ol start="2">
+  <li>Accede al directorio del proyecto:</li>
+</ol>
 
-### Premium Partners
+<pre><code>cd tu_repositorio
+</code></pre>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+<ol start="3">
+  <li>Instala las dependencias necesarias utilizando el siguiente comando:</li>
+</ol>
 
-## Contributing
+<pre><code>pip install -r requirements.txt
+</code></pre>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<ol start="4">
+  <li>Configura la base de datos en el archivo <code>settings.py</code> ubicado en el directorio <code>facturacion_multiempresa</code> según tu entorno y preferencias.</li>
+  <li>Realiza las migraciones de la base de datos:</li>
+</ol>
 
-## Code of Conduct
+<pre><code>python manage.py migrate
+</code></pre>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+<ol start="6">
+  <li>Inicia el servidor de desarrollo:</li>
+</ol>
 
-## Security Vulnerabilities
+<pre><code>python manage.py runserver
+</code></pre>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<ol start="7">
+  <li>Abre tu navegador web y accede a la siguiente URL:</li>
+</ol>
 
-## License
+<pre><code>http://localhost:8000/
+</code></pre>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<h2>Contribuciones</h2>
+
+<p>Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, sigue estos pasos:</p>
+
+<ol>
+  <li>Crea un fork de este repositorio.</li>
+  <li>Crea una rama para tu nueva funcionalidad o corrección de errores:</li>
+</ol>
+
+<pre><code>git checkout -b nombre_rama
+</code></pre>
+
+<ol start="3">
+  <li>Realiza los cambios necesarios y realiza los commits:</li>
+</ol>
+
+<pre><code>git commit -m "Descripción de los cambios"
+</code></pre>
+
+<ol start="4">
+  <li>Envía tus cambios al repositorio remoto:</li>
+</ol>
+
+<pre><code>git push origin nombre_rama
+</code></pre>
+
+<ol start="5">
+  <li>Abre una solicitud de extracción en este repositorio y describe tus cambios.</li>
+</ol>
+
+<h2>Licencia</h2>
+
+<p>Este proyecto se encuentra bajo la Licencia <a href="LICENSE">MIT</a>. Puedes consultar el archivo <code>LICENSE</code> para obtener más información.</p>
+
+<h2>Contacto</h2>
+
+<p>Si tienes alguna pregunta o sugerencia relacionada con este proyecto, no dudes en ponerte en contacto conmigo a través de la sección de problemas (Issues) de este repositorio.</p>
+
+<p>Espero que este README sea útil para tu repositorio. ¡Buena suerte con tu proyecto de facturación!</p>
