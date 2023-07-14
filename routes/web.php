@@ -3,6 +3,7 @@
 use App\Http\Controllers\EconomicactivityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\CountryController;
@@ -168,7 +169,7 @@ Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
         Route::post('comprassearch', [ReportsController::class, 'comprassearch'])->name('comprassearch');
     });
 
-Route::group(['prefix' => 'factmh', 'as', => 'factmh.'], function(){
+Route::group(['prefix' => 'factmh', 'as' => 'factmh.'], function(){
 
         Route::get('mostrar_cola', [FacturacionElectronicaController::class, 'mostrar_cola'])->name('show_queue');
         Route::get('procesa_cola', [FacturacionElectronicaController::class, 'procesa_cola'])->name('run_queue');
@@ -177,10 +178,11 @@ Route::group(['prefix' => 'factmh', 'as', => 'factmh.'], function(){
         Route::get('prueba_certificado', [FacturacionElectronicaController::class, 'prueba_certificado'])->name('test_crt');
 });
 
-Route::group(['prefix' => 'config', 'as', => 'config.'], function(){
+Route::group(['prefix' => 'config', 'as' => 'config.'], function(){
 
     Route::get('index', [ConfigController::class, 'index'])->name('index');
-    Route::get('store', [ConfigController::class, 'store'])->name('store');
+    Route::post('store', [ConfigController::class, 'store'])->name('store');
+    Route::get('update', [ConfigController::class, 'update'])->name('update');
     Route::get('getconfigid/{id}', [ConfigController::class, 'getconfigid'])->name('getconfigid');
     Route::get('destroy/{id}', [ConfigController::class, 'destroy'])->name('destroy');
 });

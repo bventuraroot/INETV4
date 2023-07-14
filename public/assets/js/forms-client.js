@@ -222,7 +222,6 @@ if(type=='N'){
         url: "/client/getClientid/"+btoa(id),
         method: "GET",
         success: function(response){
-            console.log(response);
             llamarselected(response[0]['country'],response[0]['departament'],response[0]['municipio'], response[0]['acteconomica']);
             $.each(response[0], function(index, value) {
                     if(index=='phone'){

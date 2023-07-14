@@ -14,21 +14,19 @@ class ConfigController extends Controller
      */
     public function index()
     {
-        $configs = Config::join('companies AS co', 'configs.company_id', '=', 'co.id')
-        ->select('configs.*',
-                'co.name AS name_company');
+        $configs = Config::join('companies AS co', 'config.company_id', '=', 'co.id')
+        ->select('config.*','co.name AS name_company')
         ->get();
 
-        return view('factmh.config',array(
+        return view('dtemh.config',array(
             'configs'=> $configs
         ));
     }
 
     public function getconfigid($id){
-        $config = Config::join('companies AS co', 'configs.company_id', '=', 'co.id')
-        ->select('configs.*',
-                'co.name AS name_company');
-        ->where('configs.id', '=', base64_decode($id))
+        $config = Config::join('companies AS co', 'config.company_id', '=', 'co.id')
+        ->select('config.*','co.name AS name_company')
+        ->where('config.id', '=', base64_decode($id))
         ->get();
         return response()->json($config);
     }
@@ -51,7 +49,21 @@ class ConfigController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $config = new Config();
+        $config->company_id = $request->company;
+        $config->version = $request->version;
+        $config->ambiente = $request->ambiente;
+        $config->typeModel = $request->typemodel;
+        $config->typeTransmission = $request->typetransmission;
+        $config->typeContingencia = $request->typecontingencia;
+        $config->versionJson = $request->versionjson;
+        $config->passPrivateKey = $request->passprivatekey;
+        $config->passkeyPublic = $request->passpublickey;
+        $config->passMH = $request->passmh;
+        $config->codeCountry = "9300";
+        $config->nameCountry = "EL SALVADOR";
+        $config->save();
+        return redirect()->route('config.index');
     }
 
     /**
@@ -94,7 +106,7 @@ class ConfigController extends Controller
      * @param  \App\Models\Config  $config
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Config $config)
+    public function destroy($id)
     {
         $config = Config::find(base64_decode($id));
         $config->delete();

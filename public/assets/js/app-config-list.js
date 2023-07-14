@@ -4,7 +4,6 @@
 
 "use strict";
 
-$(function () {
     const select2 = $(".select2"),
         selectPicker = $(".selectpicker");
 
@@ -24,25 +23,34 @@ $(function () {
             });
         });
     }
-    //Get companies avaibles
-    var iduser = $("#iduser").val();
-    $.ajax({
-        url: "/company/getCompanybyuser/" + iduser, 
-        method: "GET",
-        success: function (response) {
-            $("#company").append('<option value="0">Seleccione</option>');
-            $.each(response, function (index, value) {
-                $("#company").append(
-                    '<option value="' +
-                        value.id +
-                        '">' +
-                        value.name.toUpperCase() +
-                        "</option>"
-                );
-            });
-        },
-    });
 
+$( document ).ready(function() {
+        //Get companies avaibles
+var iduser = $("#iduser").val();
+$.ajax({
+    url: "/company/getCompanybyuser/" + iduser,
+    method: "GET",
+    success: function (response) {
+        $("#company").append('<option value="0">Seleccione</option>');
+        $.each(response, function (index, value) {
+            $("#company").append(
+                '<option value="' +
+                    value.id +
+                    '">' +
+                    value.name.toUpperCase() +
+                    "</option>"
+            );
+            $("#companyedit").append(
+                '<option value="' +
+                    value.id +
+                    '">' +
+                    value.name.toUpperCase() +
+                    "</option>"
+            );
+        });
+    },
+});
+});
     var selectdambiente = $(".select2ambiente");
 
     if (selectdambiente.length) {
@@ -63,98 +71,12 @@ $(function () {
         });
     }
 
-    function editconfig(id){
-        //Get data edit Products
-        $.ajax({
-            url: "getconfigid/"+btoa(id),
-            method: "GET",
-            success: function(response){
-                console.log(response);
-                $.each(response[0], function(index, value) {
-                        $('#'+index+'edit').val(value);
-                        if(index=='image'){
-                            $('#imageview').html("<img src='http://inetv4.test/assets/img/products/"+value+"' alt='image' width='180px'><input type='hidden' name='imageeditoriginal' id='imageeditoriginal'/>");
-                            $('#imageeditoriginal').val(value);
-                        }
-                        if(index=='provider_id'){
-                            $("#provideredit option[value='"+ value  +"']").attr("selected", true);
-                        }
-                        if(index=='cfiscal'){
-                            $("#cfiscaledit option[value='"+ value  +"']").attr("selected", true);
-                        }
-                        if(index=='type'){
-                            $("#typeedit option[value='"+ value  +"']").attr("selected", true);
-                        }
-    
-                  });
-                  $("#updateProductModal").modal("show");
-            }
-        });
-       }
-    
-       function deleteconfig(id){
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success',
-              cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-          })
-    
-          swalWithBootstrapButtons.fire({
-            title: '¿Eliminar?',
-            text: "Esta accion no tiene retorno",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Si, Eliminarlo!',
-            cancelButtonText: 'No, Cancelar!',
-            reverseButtons: true
-          }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "destroy/"+btoa(id),
-                    method: "GET",
-                    success: function(response){
-                            if(response.res==1){
-                                Swal.fire({
-                                    title: 'Eliminado',
-                                    icon: 'success',
-                                    confirmButtonText: 'Ok'
-                                  }).then((result) => {
-                                    /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {
-                                      location.reload();
-                                    }
-                                  })
-    
-                            }else if(response.res==0){
-                                swalWithBootstrapButtons.fire(
-                                    'Problemas!',
-                                    'Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.',
-                                    'success'
-                                  )
-                            }
-                }
-                });
-            } else if (
-              /* Read more about handling dismissals below */
-              result.dismiss === Swal.DismissReason.cancel
-            ) {
-              swalWithBootstrapButtons.fire(
-                'Cancelado',
-                'No hemos hecho ninguna accion :)',
-                'error'
-              )
-            }
-          })
-       }
-});
 
 
 // Datatable (jquery)
 $(function () {
     let borderColor, bodyBg, headingColor;
-  
+
     if (isDarkStyle) {
       borderColor = config.colors_dark.borderColor;
       bodyBg = config.colors_dark.bodyBg;
@@ -164,10 +86,10 @@ $(function () {
       bodyBg = config.colors.bodyBg;
       headingColor = config.colors.headingColor;
     }
-  
+
     // Variable declaration for table
     var dt_user_table = $('.datatables-config');
-  
+
     // Client datatable
     if (dt_user_table.length) {
       var dt_user = dt_user_table.DataTable({
@@ -182,7 +104,8 @@ $(function () {
             render: function (data, type, full, meta) {
               return '';
             }
-          }
+          },
+          { responsivePriority: 1, targets: 11 }
         ],
         order: [[2, 'desc']],
         dom:
@@ -378,18 +301,101 @@ $(function () {
                       '</tr>'
                   : '';
               }).join('');
-  
+
               return data ? $('<table class="table"/><tbody />').append(data) : false;
             }
           }
         }
       });
     }
-  
+
     // Filter form control to default size
     // ? setTimeout used for multilingual table initialization
     setTimeout(() => {
       $('.dataTables_filter .form-control').removeClass('form-control-sm');
       $('.dataTables_length .form-select').removeClass('form-select-sm');
     }, 300);
+
   });
+
+  function editconfig(id){
+    //Get data edit Products
+    $.ajax({
+        url: "getconfigid/"+btoa(id),
+        method: "GET",
+        success: function(response){
+            console.log(response);
+            $.each(response, function(index, value) {
+                    $('#versionedit').val(value.version);
+                    $("#companyedit option[value="+ value.company_id +"]").attr("selected",true);
+                    $('#typemodeledit').val(value.typeModel);
+                    $('#typetransmissionedit').val(value.typeTransmission);
+                    $('#typecontingenciaedit').val(value.typeContingencia);
+                    $("#versionjsonedit option[value="+ value.versionJson +"]").attr("selected",true);
+                    $('#passprivatekeyedit').val(value.passPrivateKey);
+                    $('#passpublickeyedit').val(value.passkeyPublic);
+                    $('#passmhedit').val(value.passMH);
+              });
+              $("#updateConfigModal").modal("show");
+        }
+    });
+   }
+
+   function deleteconfig(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: '¿Eliminar?',
+        text: "Esta accion no tiene retorno",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Eliminarlo!',
+        cancelButtonText: 'No, Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "destroy/"+btoa(id),
+                method: "GET",
+                success: function(response){
+                        if(response.res==1){
+                            Swal.fire({
+                                title: 'Eliminado',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                  location.reload();
+                                }
+                              })
+
+                        }else if(response.res==0){
+                            swalWithBootstrapButtons.fire(
+                                'Problemas!',
+                                'Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.',
+                                'success'
+                              )
+                        }
+            }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+   }
+
+

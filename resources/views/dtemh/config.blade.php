@@ -58,9 +58,9 @@
                         <th>EMPRESA</th>
                         <th>VERSION</th>
                         <th>AMBIENTE</th>
-                        <th>TIPO MODELO</th>
+                        <!--<th>TIPO MODELO</th>
                         <th>TIPO TRANSMISION</th>
-                        <th>TIPO CONTINGENCIA</th>
+                        <th>TIPO CONTINGENCIA</th>-->
                         <th>VERSION JSON</th>
                         <th>PASS_PRIVATE_KEY</th>
                         <th>PASS_PUBLIC_KEY</th>
@@ -79,9 +79,9 @@
                                 <td>{{ $config->name_company }}</td>
                                 <td>{{ $config->version }}</td>
                                 <td>{{ $config->ambiente }}</td>
-                                <td>{{ $config->typeModel }}</td>
-                                <td>{{ $config->typeTransmission }}</td>
-                                <td>{{ $config->typeContingencia }}</td>
+                                <!--<td></td>
+                                <td></td>
+                                <td></td>-->
                                 <td>{{ $config->versionJson }}</td>
                                 <td>{{ $config->passPrivateKey }}</td>
                                 <td>{{ $config->passkeyPublic }}</td>
@@ -104,10 +104,10 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
+                                    <!--><td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td></td>-->
                                     <td></td>
                                     <td></td>
                                     <td>No hay datos</td>
