@@ -68,7 +68,8 @@ class ProductController extends Controller
         $product->type = $request->type;
         $product->price = $request->price;
         $product->provider_id = $request->provider;
-        $product->description = $request->description;
+        $product->description = ($request->description=="" ? "N/A":$request->description);
+        $nombre = "none.jpg";
         if($request->hasFile("image")){
             $imagen = $request->file("image");
             $nombre =  time()."_".$imagen->getClientOriginalName();
@@ -114,9 +115,10 @@ class ProductController extends Controller
         $product->name = $request->nameedit;
         $product->cfiscal = $request->cfiscaledit;
         $product->type = $request->typeedit;
-        $product->price = $request->priceedit;
+        //$product->price = $request->priceedit;
         $product->provider_id = $request->provideredit;
         $product->description = $request->descriptionedit;
+        $nombre = "none.jpg";
         if($request->hasFile("image")){
             $imagen = $request->file("image");
             if($imagen->getClientOriginalName()!=$request->imageeditoriginal){

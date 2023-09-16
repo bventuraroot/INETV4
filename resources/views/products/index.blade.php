@@ -131,8 +131,8 @@
             </div>
             <div class="mb-3 col-12">
                 <label class="form-label" for="description">Descripcion</label>
-                <input type="text" id="description" class="form-control" placeholder="Descripcion"
-                    aria-label="Descripcion" name="description" />
+                <!--<input type="text" id="description" style="height: 130%" class="form-control" placeholder="Descripcion" aria-label="Descripcion" name="description" />-->
+                <textarea id="description" class="form-control" aria-label="Descripcion" name="description" rows="3" cols="46"></textarea>
             </div>
             <div class="mb-3 col-12">
                 <label for="provider" class="form-label">Proveedor</label>
@@ -196,8 +196,8 @@
             </div>
             <div class="mb-3 col-12">
                 <label class="form-label" for="descriptionedit">Descripcion</label>
-                <input type="text" id="descriptionedit" class="form-control" placeholder="Descripcion"
-                    aria-label="Descripcion" name="descriptionedit" />
+                <!--<input type="text" id="descriptionedit" class="form-control" placeholder="Descripcion" aria-label="Descripcion" name="descriptionedit" />-->
+                <textarea id="descriptionedit" class="form-control" aria-label="Descripcion" name="descriptionedit" rows="3" cols="46"></textarea>
             </div>
             <div class="mb-3 col-12">
                 <label for="provideredit" class="form-label">Proveedor</label>
@@ -225,8 +225,7 @@
             </div>
             <div class="mb-3 col-6">
                 <label class="form-label" for="priceedit">Precio</label>
-                <input type="text" id="priceedit" class="form-control" placeholder="$"
-                    aria-label="Precio $" name="priceedit" />
+                <input type="text" id="priceedit" class="form-control" placeholder="$" aria-label="Precio $" name="priceedit" disabled/>
             </div>
             <div class="mb-3 col-6" id="imageview">
             </div>

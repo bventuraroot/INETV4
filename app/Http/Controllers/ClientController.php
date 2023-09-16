@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Client;
+use App\Models\Company;
 use App\Models\Phone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -22,13 +23,22 @@ class ClientController extends Controller
     public function index($company="0")
     {
         //dd(Client::where('company_id', base64_decode($company))->get());
+        $id_user = auth()->user()->id;
+        $company_user = Company::join('permission_company', 'companies.id', '=', 'permission_company.company_id')
+        ->where('permission_company.user_id', '=', $id_user)
+        ->pluck('companies.id')
+        ->first();
+        //dd($company_user);
         if($company!=0){
             return view('client.index', array(
                 "clients" => Client::where('company_id', base64_decode($company))->get(),
                 "companyselected" =>base64_decode($company)
             ));
         }else{
-            return view('client.index');
+            return view('client.index', array(
+                "clients" => Client::where('company_id', $company_user)->get(),
+                "companyselected" =>$company_user));
+            //return view('client.index');
         }
 
     }

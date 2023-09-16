@@ -33,6 +33,7 @@
     <script src="{{ asset('assets/vendor/libs/jquery-timepicker/jquery-timepicker.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/pickr/pickr.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js" integrity="sha512-efAcjYoYT0sXxQRtxGY37CKYmqsFVOIwMApaEbrxJr4RwqVVGw8o+Lfh/+59TU07+suZn1BWq4fDl5fdgyCNkw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 
 @section('page-script')
@@ -306,12 +307,12 @@
                                     <option value="0" selected>Seleccione</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" style="display: none;">
                                 <label class="form-label" for="giro">GIRO</label>
                                 <input type="text" id="giro" class="form-control" placeholder="giro"
                                     aria-label="giro" name="giro" />
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" style="display: none;">
                                 <label class="form-label" for="empresa">Nombre Comercial</label>
                                 <input type="text" id="empresa" class="form-control" placeholder="Nombre Comercial"
                                     aria-label="empresa" name="empresa" />

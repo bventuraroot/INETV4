@@ -4,6 +4,17 @@
 
 'use strict';
 $(document).ready(function (){
+
+    $("#name").on("keyup", function () {
+        var valor = $(this).val();
+        $(this).val(valor.toUpperCase());
+    });
+
+    $("#name-edit").on("keyup", function () {
+        var valor = $(this).val();
+        $(this).val(valor.toUpperCase());
+    });
+
     //Get providers avaibles
     var iduser = $('#iduser').val();
     $.ajax({

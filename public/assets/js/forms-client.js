@@ -4,6 +4,13 @@
 
 'use strict';
 $(document).ready(function (){
+
+    $("#tel1").inputmask("9999-9999");
+    $("#tel2").inputmask("9999-9999");
+
+    $("#tel1edit").inputmask("9999-9999");
+    $("#tel2edit").inputmask("9999-9999");
+
     //Get companies avaibles
     $.ajax({
         url: "/company/getCompany",

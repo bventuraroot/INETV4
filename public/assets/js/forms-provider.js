@@ -4,6 +4,28 @@
 
 'use strict';
 $(document).ready(function (){
+
+    //input mask
+    $("#ncr").inputmask("999999-9");
+    $("#nit").inputmask("99999999-9");
+    $("#tel1").inputmask("9999-9999");
+    $("#tel2").inputmask("9999-9999");
+
+    $("#email").on("keyup", function () {
+        var valor = $(this).val();
+        $(this).val(valor.toLowerCase());
+    });
+
+    //input mask
+    $("#ncredit").inputmask("999999-9");
+    $("#nitedit").inputmask("99999999-9");
+    $("#tel1edit").inputmask("9999-9999");
+    $("#tel2edit").inputmask("9999-9999");
+
+    $("#email-edit").on("keyup", function () {
+        var valor = $(this).val();
+        $(this).val(valor.toLowerCase());
+    });
     //Get companies avaibles
     var iduser = $('#iduser').val();
     $.ajax({
