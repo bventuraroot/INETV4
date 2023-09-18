@@ -50,6 +50,7 @@ Route::group(['prefix' => 'client', 'as' => 'client.'], function(){
     Route::get('view/{client}', [CompanyController::class, 'show'])->name('view');
     Route::get('edit/{client}', [ClientController::class, 'edit'])->name('edit');
     Route::get('getClientid/{client}', [ClientController::class, 'getClientid'])->name('getClientid');
+    Route::get('keyclient/{num}/{tpersona}', [ClientController::class, 'keyclient'])->name('keyclient');
     Route::get('gettypecontri/{client}', [ClientController::class, 'gettypecontri'])->name('gettypecontri');
     Route::patch('update', [ClientController::class, 'update'])->name('update');
     Route::get('create', [ClientController::class, 'create'])->name('create');

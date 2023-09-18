@@ -59,7 +59,7 @@
                         <th>Primer Nombre</th>
                         <th>Segundo Nombre</th>
                         <th>Tipo</th>
-                        <th>Contribuyente</th>
+                        <th>Contri</th>
                         <th>Tipo Contribuyente</th>
                         <th>Nombre Comercial</th>
                         <th>Representante Legal</th>
@@ -102,11 +102,11 @@
                                         @default
                                     @endswitch
                                 </td>
-                                <td>
+                                <td align="center">
                                 @if ($client->contribuyente=="1")
-                                    TRUE
+                                <img src="{{ asset('assets/img/icons/misc/accept.png') }}" alt="image" width="25px">
                                 @else
-                                FALSE
+
                                 @endif
                                 </td>
                                 <td class="text-center">
@@ -229,7 +229,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="email">Correo</label>
-                            <input type="text" id="email" class="form-control" placeholder="john.doe@example.com"
+                            <input type="email" id="email" class="form-control" placeholder="john.doe@example.com"
                                 aria-label="john.doe@example.com" name="email" />
                         </div>
                         <div class="mb-3">
@@ -318,12 +318,12 @@
                                     aria-label="empresa" name="empresa" />
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="nacimientof">
                             <label for="birthday" class="form-label">Fecha de Nacimiento</label>
                             <input type="text" class="form-control" placeholder="DD-MM-YY" id="birthday" name="birthday" />
                         </div>
 
-                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Guardar</button>
+                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btnsavenewclient">Guardar</button>
                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancelar</button>
                     </form>
                 </div>

@@ -63,6 +63,21 @@ class ClientController extends Controller
         return response()->json($contribuyente);
     }
 
+    public function keyclient($num, $tpersona){
+        $tpersona = base64_decode($tpersona);
+        if($tpersona=="N"){
+            $cliente = Client::where('nit', base64_decode($num))->first();
+        }
+        elseif($tpersona=="J"){
+            $cliente = Client::where('ncr', base64_decode($num))->first();
+        }
+        if ($cliente) {
+            return response()->json(['val' => true, 'message' => 'El cliente ya existe']);
+        } else {
+            return response()->json(['val' => false, 'message' => 'El cliente no existe']);
+        }
+    }
+
     public function getClientid($id)
     {
         $Client = Client::join('addresses', 'clients.address_id', '=', 'addresses.id')

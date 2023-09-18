@@ -5,11 +5,76 @@
 'use strict';
 $(document).ready(function (){
 
+    $( "#btnsavenewclient" ).prop( "disabled", true );
+    $("#ncr").inputmask("999999-9");
+    $("#nit").inputmask("99999999-9");
     $("#tel1").inputmask("9999-9999");
     $("#tel2").inputmask("9999-9999");
 
+    $("#ncredit").inputmask("999999-9");
+    $("#nitedit").inputmask("99999999-9");
     $("#tel1edit").inputmask("9999-9999");
     $("#tel2edit").inputmask("9999-9999");
+
+    $('#nit').change(function() {
+        var key;
+        var tpersona = $('#tpersona').val();
+        if(tpersona=="N"){
+        key = $('#nit').val();
+        }else if(tpersona=="J"){
+            key = $('#ncr').val();
+        }
+        $.ajax({
+            url: "/client/keyclient/" + btoa(key) +"/"+btoa(tpersona),
+            method: "GET",
+            success: function(response){
+                $.each(response, function(index, value) {
+                    if(index=='val'){
+                        if(value){
+                            Swal.fire(
+                                'Alerta',
+                                'Cliente ya se existe',
+                                'info'
+                              );
+                            $( "#btnsavenewclient" ).prop( "disabled", true );
+                        }else{
+                            $( "#btnsavenewclient" ).prop( "disabled", false );
+                        }
+                    }
+                  });
+            }
+        });
+    });
+
+    $('#ncr').change(function() {
+        var key;
+        var tpersona = $('#tpersona').val();
+        if(tpersona=="N"){
+        key = $('#nit').val();
+        }else if(tpersona=="J"){
+            key = $('#ncr').val();
+        }
+        $.ajax({
+            url: "/client/keyclient/" + btoa(key) +"/"+btoa(tpersona),
+            method: "GET",
+            success: function(response){
+                $.each(response, function(index, value) {
+                    if(index=='val'){
+                        if(value){
+                            Swal.fire(
+                                'Alerta',
+                                'Cliente ya se existe',
+                                'info'
+                              );
+                            $( "#btnsavenewclient" ).prop( "disabled", true );
+                        }else{
+                            $( "#btnsavenewclient" ).prop( "disabled", false );
+                        }
+                    }
+                  });
+            }
+        });
+    });
 
     //Get companies avaibles
     $.ajax({
@@ -172,6 +237,7 @@ if(type=='N'){
     $('#fields_juridico').css('display','none');
     $('#contribuyentelabel').css('display','');
     $('#siescontri').css('display','none');
+    $('#nacimientof').css('display','');
 }else{
     $('#contribuyentelabel').css('display','none');
     $('#siescontri').css('display','');
@@ -179,6 +245,7 @@ if(type=='N'){
 if(type=='J'){
     $('#fields_juridico').css('display','');
     $('#fields_natural').css('display','none');
+    $('#nacimientof').css('display','none');
 }
    }
    function typepersonedit(type){
@@ -187,9 +254,11 @@ if(type=='N'){
     $('#contribuyentelabeledit').css('display','');
     $('#siescontriedit').css('display','none');
     validarchecked();
+    $('#nacimientof').css('display','');
 }else{
     $('#contribuyentelabeledit').css('display','none');
     $('#siescontriedit').css('display','');
+    $('#nacimientof').css('display','none');
 }
    }
 
