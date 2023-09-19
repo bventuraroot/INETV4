@@ -350,25 +350,34 @@
                                 aria-label="Seleccionar opcion" onchange="typepersonedit(this.value)">
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="firstnameedit">Primer Nombre</label>
-                            <input type="text" class="form-control" id="firstnameedit" placeholder="Primer Nombre"
-                                name="firstnameedit" aria-label="Primer Nombre" />
+                        <div id="fields_natural_edit">
+                            <div class="mb-3">
+                                <label class="form-label" for="firstnameedit">Primer Nombre</label>
+                                <input type="text" class="form-control" id="firstnameedit" placeholder="Primer Nombre"
+                                    name="firstnameedit" aria-label="Primer Nombre" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="secondnameedit">Segundo Nombre</label>
+                                <input type="text" class="form-control" id="secondnameedit" placeholder="Segundo Nombre"
+                                    name="secondnameedit" aria-label="Segundo Nombre" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="firstlastnameedit">Primer Apellido</label>
+                                <input type="text" class="form-control" id="firstlastnameedit" placeholder="Primer Apellido"
+                                    name="firstlastnameedit" aria-label="Primer Apellido" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="secondlastnameedit">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="secondlastnameedit" placeholder="Segundo Apellido"
+                                    name="secondlastnameedit" aria-label="Segundo Apellido" />
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="secondnameedit">Segundo Nombre</label>
-                            <input type="text" class="form-control" id="secondnameedit" placeholder="Segundo Nombre"
-                                name="secondnameedit" aria-label="Segundo Nombre" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="firstlastnameedit">Primer Apellido</label>
-                            <input type="text" class="form-control" id="firstlastnameedit" placeholder="Primer Apellido"
-                                name="firstlastnameedit" aria-label="Primer Apellido" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="secondlastnameedit">Segundo Apellido</label>
-                            <input type="text" class="form-control" id="secondlastnameedit" placeholder="Segundo Apellido"
-                                name="secondlastnameedit" aria-label="Segundo Apellido" />
+                        <div id="fields_juridico_edit">
+                            <div class="mb-3">
+                                <label class="form-label" for="empresaedit">Nombre Comercial</label>
+                                <input type="text" id="empresaedit" class="form-control" placeholder="Nombre Comercial"
+                                    aria-label="empresa" name="empresaedit" />
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="tel1edit">Teléfono</label>
@@ -429,7 +438,7 @@
                             </label>
                             <input type="hidden" value="0" name="contribuyenteeditvalor" id="contribuyenteeditvalor">
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="dui_fields">
                             <label class="form-label" for="nitedit">DUI/NIT</label>
                             <input type="text" id="nitedit" class="form-control" placeholder="xxxxxxxx-x"
                                 aria-label="nit" name="nitedit" />
@@ -463,18 +472,13 @@
                                     <option value="0"  selected>Seleccione</option>
                                 </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" style="display: none;">
                                 <label class="form-label" for="giroedit">GIRO</label>
                                 <input type="text" id="giroedit" class="form-control" placeholder="giro" aria-label="giro"
                                     name="giroedit" />
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label" for="empresaedit">Nombre Comercial</label>
-                                <input type="text" id="empresaedit" class="form-control" placeholder="Nombre Comercial"
-                                    aria-label="empresa" name="empresaedit" />
-                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" id="DOB_field">
                             <label for="birthdayedit" class="form-label">Fecha de Nacimiento</label>
                             <input type="text" class="form-control" placeholder="DD-MM-YY" id="birthdayedit" name="birthdayedit" />
                         </div>

@@ -333,9 +333,17 @@ if(type=='N'){
                         var selectedJ="";
                         if(value=='J'){
                             selectedJ='selected';
+                            $('#fields_natural_edit').css('display','none');
+                            $('#fields_juridico_edit').css('display','');
+                            $('#dui_fields').css('display','none');
+                            $('#DOB_field').css('display','none');
                         }else if(value=='N'){
                             selectedN='selected';
                             $('#contribuyentelabeledit').css('display','');
+                            $('#fields_natural_edit').css('display','');
+                            $('#fields_juridico_edit').css('display','none');
+                            $('#dui_fields').css('display','');
+                            $('#DOB_field').css('display','');
                         }
                         $('#tpersonaedit').empty();
                         $('#tpersonaedit').append('<option value="N" '+selectedN+'>NATURAL</option>');
