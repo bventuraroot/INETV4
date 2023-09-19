@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ambiente;
+use App\Models\Company;
 use App\Models\Dte;
 use App\Models\Sale;
 use App\Models\Config;
@@ -141,7 +143,10 @@ return view('sales.impdoc', array("corr"=>$corr));
         $config = Config::where('company_id', $idempresa);
 
         $idambiente = Ambiente::where('cod',$config->ambiente);
-
+        $tipoDte ="";
+        $tipoModelo = "";
+        $tipoTransmision = "";
+        $tipoContingencia = "";
         $dtecreate = new Dte();
         $dtecreate->versionJson = $config->versionJson;
         $dtecreate->ambiente_id = $idambiente;

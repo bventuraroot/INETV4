@@ -58,11 +58,11 @@
                         <th>IMAGEN</th>
                         <th>CODIGO</th>
                         <th>NOMBRE</th>
+                        <th>PRECIO</th>
                         <th>PROVEEDOR</th>
                         <th>C. FISCAL</th>
                         <th>TIPO</th>
                         <th>ESTADO</th>
-                        <th>PRECIO</th>
                         <th>DESCRIPCION</th>
                         <th>ACCIONES</th>
                     </tr>
@@ -75,11 +75,11 @@
                                 <td><img src="{{ asset('assets/img/products/' . $product->image) }}" alt="image" width="150px">
                                 <td>{{ $product->code }}</td>
                                 <td>{{ $product->name }}</td>
+                                <td>$ {{ $product->price }}</td>
                                 <td>{{ $product->nameprovider }}</td>
                                 <td>{{ $product->cfiscal }}</td>
                                 <td>{{ $product->type }}</td>
                                 <td>{{ $product->state }}</td>
-                                <td>{{ $product->price }}</td>
                                 <td>{{ $product->description }}</td>
                                 <td><div class="d-flex align-items-center">
                                     <a href="javascript: editproduct({{ $product->id }});" class="dropdown-item"><i

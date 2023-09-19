@@ -52,21 +52,21 @@
             </div>
         </div>
         <div class="card-datatable table-responsive">
-            <table class="table datatables-client border-top">
+            <table class="table datatables-client border-top nowrap">
                 <thead>
                     <tr>
                         <th>Ver</th>
-                        <th>Primer Nombre</th>
-                        <th>Segundo Nombre</th>
+                        <th>Nombre</th>
                         <th>Tipo</th>
                         <th>Contri</th>
-                        <th>Tipo Contribuyente</th>
-                        <th>Nombre Comercial</th>
-                        <th>Representante Legal</th>
-                        <th>GIRO</th>
+                        <th>Tipo</th>
+                        <th>Legal</th>
                         <th>NIT</th>
                         <th>NCR</th>
+                        <th>Telefono</th>
                         <th>Email</th>
+                        <th>Direccion</th>
+                        <th>Fecha Nacimiento</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -77,13 +77,11 @@
                                 <td></td>
                                 @switch( Str::lower($client->tpersona) )
                                         @case('j')
-                                        <td>{{ $client->comercial_name }}</td>
-                                        <td>{{ $client->empresa }}</td>
+                                        <td>{{ $client->comercial_name }} {{ $client->empresa }}</td>
                                         @break
 
                                         @case('n')
-                                        <td>{{ $client->firstname }}</td>
-                                        <td>{{ $client->secondname }}</td>
+                                        <td>{{ $client->firstname }} {{ $client->secondname }}</td>
                                         @break
 
                                         @default
@@ -103,7 +101,7 @@
                                     @endswitch
                                 </td>
                                 <td align="center">
-                                @if ($client->contribuyente=="1")
+                                @if ($client->contribuyente=="1" || Str::lower($client->tpersona)=='j')
                                 <img src="{{ asset('assets/img/icons/misc/accept.png') }}" alt="image" width="25px">
                                 @else
 
@@ -129,12 +127,13 @@
                                         @default
                                     @endswitch
                                 </td>
-                                <td>{{ $client->empresa }}</td>
-                                <td>{{ $client->legal }}</td>
-                                <td>{{ $client->giro }}</td>
+                                <td style="width: 16%">{{ $client->legal }}</td>
                                 <td>{{ $client->nit }}</td>
                                 <td>{{ $client->ncr }}</td>
+                                <td>Cel: {{ $client->phone }} <br> Fijo: {{ $client->phone_fijo }}</td>
                                 <td>{{ $client->email }}</td>
+                                <td>{{ Str::upper($client->pais  . ', ' . $client->departamento . ', ' . $client->municipioname . ', ' . $client->address)}}</td>
+                                <td>{{ $client->birthday }}</td>
                                 <td><div class="d-flex align-items-center">
                                     <a href="javascript: editClient({{ $client->id }});" class="dropdown-item"><i
                                         class="ti ti-edit ti-sm me-2"></i>Editar</a>
@@ -150,6 +149,7 @@
                             </tr>
                             @empty
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

@@ -31,12 +31,50 @@ class ClientController extends Controller
         //dd($company_user);
         if($company!=0){
             return view('client.index', array(
-                "clients" => Client::where('company_id', base64_decode($company))->get(),
+                "clients" => Client::join('addresses', 'clients.address_id', '=', 'addresses.id')
+                ->join('countries', 'addresses.country_id' , '=', 'countries.id')
+                ->join('departments', 'addresses.department_id' , '=', 'departments.id')
+                ->join('municipalities', 'addresses.municipality_id' , '=', 'municipalities.id')
+                ->join('economicactivities', 'clients.economicactivity_id' , '=', 'economicactivities.id')
+                ->join('phones', 'clients.phone_id' , '=', 'phones.id')
+                ->select('clients.*',
+                'countries.name as pais',
+                'departments.name as departamento',
+                'municipalities.name as municipioname',
+                'economicactivities.name as econo',
+                'addresses.reference as address',
+                'phones.phone',
+                'phones.phone_fijo',
+                'addresses.country_id as country',
+                'addresses.department_id as departament',
+                'addresses.municipality_id as municipio',
+                'clients.economicactivity_id as acteconomica')
+                ->where('company_id', base64_decode($company))
+                ->get(),
                 "companyselected" =>base64_decode($company)
             ));
         }else{
             return view('client.index', array(
-                "clients" => Client::where('company_id', $company_user)->get(),
+                "clients" => Client::join('addresses', 'clients.address_id', '=', 'addresses.id')
+                ->join('countries', 'addresses.country_id' , '=', 'countries.id')
+                ->join('departments', 'addresses.department_id' , '=', 'departments.id')
+                ->join('municipalities', 'addresses.municipality_id' , '=', 'municipalities.id')
+                ->join('economicactivities', 'clients.economicactivity_id' , '=', 'economicactivities.id')
+                ->join('phones', 'clients.phone_id' , '=', 'phones.id')
+                ->select('clients.*',
+                'countries.name as pais',
+                'departments.name as departamento',
+                'municipalities.name as municipio',
+                'economicactivities.name as econo',
+                'addresses.reference as address',
+                'phones.phone',
+                'phones.phone_fijo',
+                'addresses.country_id as country',
+                'addresses.department_id as departament',
+                'addresses.municipality_id as municipio',
+                'clients.economicactivity_id as acteconomica')
+                ->where('company_id', $company_user)
+                ->get(),
                 "companyselected" =>$company_user));
             //return view('client.index');
         }
