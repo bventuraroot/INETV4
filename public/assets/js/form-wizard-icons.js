@@ -448,7 +448,7 @@ function getclientbycompanyurl(idcompany) {
         success: function (response) {
             $("#client").append('<option value="0">Seleccione</option>');
             $.each(response, function (index, value) {
-                console.log(value);
+                //console.log(value);
                 if(value.tpersona=='J'){
                     $("#client").append(
                         '<option value="' +
@@ -598,7 +598,7 @@ function getinfodoc(){
         async: false,
         success: function (response) {
             salida = true;
-            console.log(response);
+            //console.log(response);
             $('#logodocfinal').attr('src', '../assets/img/logo/' + response[0].logo);
             $('#addressdcfinal').empty();
             $('#addressdcfinal').html('' + response[0].country_name.toUpperCase() + ', ' + response[0].department_name + ', ' + response[0].municipality_name + '</br>' + response[0].address);
@@ -694,13 +694,13 @@ function creardocuments(){
                     method: "GET",
                     async: false,
                     success: function (response) {
+                        console.log(response);
                         if (response.res == 1) {
                             Swal.fire({
                                 title: "Creado",
                                 icon: "success",
                                 confirmButtonText: "Ok",
                             }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
                                 if (result.isConfirmed) {
                                     //$("#pro" + id).remove();
                                     //$('#resultados').load(location.href + " #resultados");

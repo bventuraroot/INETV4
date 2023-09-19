@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dte', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->integer('versionJson');
             $table->foreignId('ambiente_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('tipoDte');
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('descriptionMessage')->nullable();
             $table->string('detailsMessage')->nullable();
             $table->timestamps();
-            $table->string('created_by');
+            $table->string('created_by')->nullable();
         });
     }
 

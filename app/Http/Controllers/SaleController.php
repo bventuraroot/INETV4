@@ -20,26 +20,30 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
-        ->join('clients', 'clients.id', '=', 'sales.client_id')
-        ->join('companies', 'companies.id', '=', 'sales.company_id')
-        ->select('sales.*',
-        'typedocuments.description AS document_name',
-        'clients.firstname',
-        'clients.firstlastname',
-        'clients.comercial_name',
-        'clients.tpersona',
-        'companies.name AS company_name')
-        ->get();
+            ->join('clients', 'clients.id', '=', 'sales.client_id')
+            ->join('companies', 'companies.id', '=', 'sales.company_id')
+            ->select(
+                'sales.*',
+                'typedocuments.description AS document_name',
+                'clients.firstname',
+                'clients.firstlastname',
+                'clients.comercial_name',
+                'clients.tpersona',
+                'companies.name AS company_name'
+            )
+            ->get();
         return view('sales.index', array(
             "sales" => $sales
         ));
     }
 
-    public function impdoc($corr){
-return view('sales.impdoc', array("corr"=>$corr));
+    public function impdoc($corr)
+    {
+        return view('sales.impdoc', array("corr" => $corr));
     }
 
-    public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago){
+    public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago)
+    {
         $sale = Sale::find($idsale);
         $sale->client_id = $clientid;
         $sale->acuenta = $acuenta;
@@ -61,10 +65,10 @@ return view('sales.impdoc', array("corr"=>$corr));
             "res" => "1",
             "idsaledetail" => $saledetails['id']
         ));
-
     }
 
-    public function newcorrsale($idempresa, $iduser, $iddoc){
+    public function newcorrsale($idempresa, $iduser, $iddoc)
+    {
         $corr = new Sale();
         $corr->company_id = $idempresa;
         $corr->typedocument_id = $iddoc;
@@ -76,7 +80,8 @@ return view('sales.impdoc', array("corr"=>$corr));
         return response()->json($corr['id']);
     }
 
-    public function destroysaledetail($idsaledetail){
+    public function destroysaledetail($idsaledetail)
+    {
         $saledetails = Salesdetail::find(base64_decode($idsaledetail));
         $saledetails->delete();
         return response()->json(array(
@@ -84,53 +89,60 @@ return view('sales.impdoc', array("corr"=>$corr));
         ));
     }
 
-    public function getdatadocbycorr($corr){
+    public function getdatadocbycorr($corr)
+    {
         $saledetails = Sale::join('companies', 'companies.id', '=', 'sales.company_id')
-        ->join('iva', 'iva.company_id', '=', 'companies.id')
-        ->leftJoin('clients', 'clients.id', '=', 'sales.client_id')
-        ->select('sales.*',
-        'companies.*',
-        'clients.id AS client_id',
-        'clients.firstname AS client_firstname',
-        'clients.secondname AS client_secondname',
-        'clients.tipoContribuyente AS client_contribuyente',
-        'iva.valor AS iva',
-        'iva.valor_entre AS iva_entre')
-        ->where('sales.id', '=', base64_decode($corr))
-        ->get();
+            ->join('iva', 'iva.company_id', '=', 'companies.id')
+            ->leftJoin('clients', 'clients.id', '=', 'sales.client_id')
+            ->select(
+                'sales.*',
+                'companies.*',
+                'clients.id AS client_id',
+                'clients.firstname AS client_firstname',
+                'clients.secondname AS client_secondname',
+                'clients.tipoContribuyente AS client_contribuyente',
+                'iva.valor AS iva',
+                'iva.valor_entre AS iva_entre'
+            )
+            ->where('sales.id', '=', base64_decode($corr))
+            ->get();
         return response()->json($saledetails);
     }
 
-    public function getdatadocbycorr2($corr){
+    public function getdatadocbycorr2($corr)
+    {
         $saledetails = Sale::join('companies', 'companies.id', '=', 'sales.company_id')
-        ->join('addresses', 'addresses.id', '=', 'companies.address_id')
-        ->join('countries', 'countries.id', '=', 'addresses.country_id')
-        ->join('departments', 'departments.id', '=', 'addresses.department_id')
-        ->join('municipalities', 'municipalities.id', '=', 'addresses.municipality_id')
-        ->join('phones', 'phones.id', '=', 'companies.phone_id')
-        ->join('clients', 'clients.id', '=', 'sales.client_id')
-        ->join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
-        ->select('sales.*',
-        'companies.*',
-        'companies.ncr AS NCR',
-        'companies.nit AS NIT',
-        'countries.name AS country_name',
-        'departments.name AS department_name',
-        'municipalities.name AS municipality_name',
-        'addresses.reference AS address',
-        'phones.*',
-        'typedocuments.description AS document_name',
-        'clients.id AS client_id',
-        'clients.firstname AS client_firstname',
-        'clients.secondname AS client_secondname',
-        'clients.tipoContribuyente AS client_contribuyente',
-        'sales.id AS corr')
-        ->where('sales.id', '=', base64_decode($corr))
-        ->get();
+            ->join('addresses', 'addresses.id', '=', 'companies.address_id')
+            ->join('countries', 'countries.id', '=', 'addresses.country_id')
+            ->join('departments', 'departments.id', '=', 'addresses.department_id')
+            ->join('municipalities', 'municipalities.id', '=', 'addresses.municipality_id')
+            ->join('phones', 'phones.id', '=', 'companies.phone_id')
+            ->join('clients', 'clients.id', '=', 'sales.client_id')
+            ->join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
+            ->select(
+                'sales.*',
+                'companies.*',
+                'companies.ncr AS NCR',
+                'companies.nit AS NIT',
+                'countries.name AS country_name',
+                'departments.name AS department_name',
+                'municipalities.name AS municipality_name',
+                'addresses.reference AS address',
+                'phones.*',
+                'typedocuments.description AS document_name',
+                'clients.id AS client_id',
+                'clients.firstname AS client_firstname',
+                'clients.secondname AS client_secondname',
+                'clients.tipoContribuyente AS client_contribuyente',
+                'sales.id AS corr'
+            )
+            ->where('sales.id', '=', base64_decode($corr))
+            ->get();
         return response()->json($saledetails);
     }
 
-    public function createdocument($corr, $amount){
+    public function createdocument($corr, $amount)
+    {
         $amount = substr($amount, 1);
         $salesave = Sale::find(base64_decode($corr));
         $salesave->totalamount = $amount;
@@ -140,13 +152,13 @@ return view('sales.impdoc', array("corr"=>$corr));
         $idempresa = $salesave->company_id;
         $company = Company::find($idempresa);
 
-        $config = Config::where('company_id', $idempresa);
+        $config = Config::where('company_id', $idempresa)->first();
 
-        $idambiente = Ambiente::where('cod',$config->ambiente);
-        $tipoDte ="";
-        $tipoModelo = "";
-        $tipoTransmision = "";
-        $tipoContingencia = "";
+        $idambiente = Ambiente::where('cod', $config->ambiente)->first();
+        $tipoDte = 0;
+        $tipoModelo = 0;
+        $tipoTransmision = 0;
+        $tipoContingencia = 0;
         $dtecreate = new Dte();
         $dtecreate->versionJson = $config->versionJson;
         $dtecreate->ambiente_id = $idambiente;
@@ -183,12 +195,15 @@ return view('sales.impdoc', array("corr"=>$corr));
         ));
     }
 
-    public function getdetailsdoc($corr){
+    public function getdetailsdoc($corr)
+    {
         $saledetails = Salesdetail::leftJoin('products', 'products.id', '=', 'salesdetails.product_id')
-        ->select('salesdetails.*',
-        'products.name AS product_name')
-        ->where('sale_id', '=', base64_decode($corr))
-        ->get();
+            ->select(
+                'salesdetails.*',
+                'products.name AS product_name'
+            )
+            ->where('sale_id', '=', base64_decode($corr))
+            ->get();
         return response()->json($saledetails);
     }
 
