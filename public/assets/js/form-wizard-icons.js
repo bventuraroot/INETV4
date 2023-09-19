@@ -169,7 +169,7 @@ function agregarp() {
     var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
     var ventatotaltotal =  parseFloat(ventatotal) + parseFloat(iva13) + parseFloat(ivaretenido);
     var totaltemptotal = parseFloat(
-        ($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) + ($.isNumeric(ivarete)? ivarete: 0)
+        ($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) - ($.isNumeric(ivarete)? ivarete: 0)
     );
     if(!$.isNumeric(ivarete)){
         ivarete = 0;
@@ -323,13 +323,13 @@ function searchproduct(idpro) {
                 //validar si es gran contribuyente el cliente vs la empresa
                 if (typecontricompany == "GRA") {
                     if (typecontriclient == "GRA") {
-                        retencion = 0.0;
+                        retencion = 0.01;
                     } else if (
                         typecontriclient == "MED" ||
                         typecontriclient == "PEQ" ||
                         typecontriclient == "OTR"
                     ) {
-                        retencion = 0.01;
+                        retencion = 0.00;
                     }
                 }
                 if(typecontriclient==""){
