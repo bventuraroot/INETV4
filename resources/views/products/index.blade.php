@@ -151,11 +151,10 @@
             </div>
             <div class="mb-3 col-6">
                 <label for="type" class="form-label">Tipo</label>
-                <select class="select2type form-select" id="type" name="type"
-                    aria-label="Seleccionar opcion">
+                <select class="select2type form-select" id="type" name="type" aria-label="Seleccionar opcion">
                     <option selected>Seleccione</option>
-                    <option value="gravado">Directo</option>
-                    <option value="exento">Tercero</option>
+                    <option value="directo">Directo</option>
+                    <option value="tercero">Tercero</option>
                 </select>
             </div>
             <div class="mb-3 col-6">

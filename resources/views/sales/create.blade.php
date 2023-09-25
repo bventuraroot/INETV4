@@ -402,7 +402,7 @@
                             table.sample {
                                 margin: 2%;
                             }
-                            .details_products_documents{
+                            .details_products_documents{ 
                                 width: 100%
                             }
                             .table_details{

@@ -130,11 +130,11 @@
             </div>
             <div class="mb-3 col-6">
                 <label class="form-label" for="ncr">NCR</label>
-                <input type="text" id="ncr" class="form-control" aria-label="ncr" name="ncr" />
+                <input type="text" id="ncr" class="form-control" onkeyup="NRCMask(this);" maxlength="15" aria-label="ncr" name="ncr" />
             </div>
             <div class="mb-3 col-6">
                 <label class="form-label" for="nit">DUI/NIT</label>
-                <input type="text" id="nit" class="form-control" aria-label="nit" name="nit" />
+                <input type="text" id="nit" class="form-control" onkeyup="nitDuiMask(this);" aria-label="nit" maxlength="25" name="nit" />
             </div>
             <div class="mb-3 col-12">
                 <label class="form-label" for="email">Correo</label>

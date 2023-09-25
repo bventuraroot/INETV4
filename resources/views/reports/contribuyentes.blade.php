@@ -85,6 +85,9 @@ $configData = Helper::appClasses();
                 <div class="col-4">
                     <div class="row g-3">
                         <select class="form-control" name="period" id="period">
+                            <?php if(empty($period)){
+                                $period = date('m')-1;
+                            } ?>
                             <option value="01" <?php echo (@$period == '01') ? "selected" : "" ?>>Enero</option>
                             <option value="02" <?php echo (@$period == '02') ? "selected" : "" ?>>Febrero</option>
                             <option value="03" <?php echo (@$period == '03') ? "selected" : "" ?>>Marzo</option>

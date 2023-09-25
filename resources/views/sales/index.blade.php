@@ -55,14 +55,12 @@
                     <tr>
                         <th>Ver</th>
                         <th>CORRELATIVO</th>
-                        <th>A CUENTA DE</th>
                         <th>FECHA</th>
                         <th>TIPO</th>
                         <th>CLIENTE</th>
-                        <th>EMPRESA</th>
-                        <th>FORMA DE PAGO</th>
-                        <th>ESTADO</th>
                         <th>TOTAL</th>
+                        <th>ESTADO</th>
+                        <th>FORMA DE PAGO</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -72,7 +70,6 @@
                             <tr>
                                 <td></td>
                                 <td>{{ $sale->id }}</td>
-                                <td>{{ $sale->acuenta }}</td>
                                 <td>{{ $sale->date }}</td>
                                 <td>{{ $sale->document_name }}</td>
                                 <td>
@@ -81,30 +78,14 @@
                                     {{$sale->firstname . ' ' . $sale->firstlastname}}
                                             @break
                                         @case('J')
-                                    {{$sale->comercial_name}}
+                                    {{$sale->nameClient}}
                                         @break
 
                                         @default
 
                                     @endswitch
                                 </td>
-                                <td>{{ $sale->company_name }}</td>
-                                <td>
-                                    @switch($sale->waytopay)
-                                        @case(1)
-                                            CONTADO
-                                        @break
-
-                                        @case(2)
-                                            CRÉDITO
-                                        @break
-
-                                        @case(3)
-                                            OTRO
-                                        @break
-
-                                        @default
-                                    @endswitch</td>
+                                <td>$ {{ $sale->totalamount }}</td>
                                 <td>
                                     @switch($sale->state)
                                         @case(0)
@@ -125,7 +106,22 @@
 
                                         @default
                                     @endswitch</td>
-                                <td>$ {{ $sale->totalamount }}</td>
+                                    <td>
+                                        @switch($sale->waytopay)
+                                            @case(1)
+                                                CONTADO
+                                            @break
+
+                                            @case(2)
+                                                CRÉDITO
+                                            @break
+
+                                            @case(3)
+                                                OTRO
+                                            @break
+
+                                            @default
+                                        @endswitch</td>
                                 <td>
                                     @switch($sale->typesale)
                                         @case(1)
@@ -145,6 +141,11 @@
                                         <div class="d-flex align-items-center">
                                             <a href="javascript: retomarsale({{ $sale->id }}, {{ $sale->typedocument_id}});" class="dropdown-item"><i
                                                 class="ti ti-edit ti-sm me-2"></i>Retomar</a>
+                                        </div>
+                                        @break
+                                        @case(0)
+                                        <div class="d-flex align-items-center">
+
                                         </div>
                                         @break
 

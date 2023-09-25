@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('firstlastname')->nullable();
             $table->string('secondlastname')->nullable();
             $table->string('comercial_name')->nullable();
+            $table->string('name_contribuyente')->nullable();
             $table->string('email');
             $table->string('ncr')->nullable();
             $table->string('giro')->nullable();

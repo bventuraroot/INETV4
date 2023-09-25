@@ -9,6 +9,7 @@ use App\Models\Sale;
 use App\Models\Config;
 use App\Models\Salesdetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SaleController extends Controller
 {
@@ -27,7 +28,7 @@ class SaleController extends Controller
                 'typedocuments.description AS document_name',
                 'clients.firstname',
                 'clients.firstlastname',
-                'clients.comercial_name',
+                'clients.name_contribuyente as nameClient',
                 'clients.tpersona',
                 'companies.name AS company_name'
             )
@@ -134,7 +135,9 @@ class SaleController extends Controller
                 'clients.firstname AS client_firstname',
                 'clients.secondname AS client_secondname',
                 'clients.tipoContribuyente AS client_contribuyente',
-                'sales.id AS corr'
+                'sales.id AS corr',
+                'clients.tpersona',
+                'clients.name_contribuyente'
             )
             ->where('sales.id', '=', base64_decode($corr))
             ->get();
@@ -200,7 +203,7 @@ class SaleController extends Controller
         $saledetails = Salesdetail::leftJoin('products', 'products.id', '=', 'salesdetails.product_id')
             ->select(
                 'salesdetails.*',
-                'products.name AS product_name'
+                DB::raw('CONCAT(products.name, " - ", products.description) as product_name')
             )
             ->where('sale_id', '=', base64_decode($corr))
             ->get();
@@ -268,8 +271,15 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $Sale
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sale $Sale)
+    public function destroy($id)
     {
-        //
+        //dd($id);
+        $anular = Sale::find(base64_decode($id));
+        $anular->state = 0;
+        $anular->typesale = 0;
+        $anular->save();
+        return response()->json(array(
+            "res" => "1"
+        ));
     }
 }

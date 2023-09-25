@@ -175,8 +175,9 @@ class ClientController extends Controller
         $client->firstname = (is_null($request->firstname)? 'N/A': $request->firstname);
         $client->secondname = (is_null($request->firstname)? 'N/A': $request->secondname);
         $client->firstlastname = (is_null($request->firstlastname)? 'N/A': $request->firstlastname);
-        $client->secondlastname = (is_null($request->secondlastname)? 'N/A': $request->secondlastname);
-        $client->comercial_name = (is_null($request->comercial_name)? 'N/A': $request->comercial_name);
+        $client->secondlastname = (is_null($request->secondlastname) ? 'N/A': $request->secondlastname);
+        $client->comercial_name = (is_null($request->comercial_name) ? 'N/A': $request->comercial_name);
+        $client->name_contribuyente = (is_null($request->name_contribuyente)? 'N/A': $request->name_contribuyente);
         $client->email = $request->email;
         if($request->contribuyente=='on'){
             $contri='1';
@@ -259,6 +260,7 @@ class ClientController extends Controller
         $client->firstlastname = $request->firstlastnameedit;
         $client->secondlastname = $request->secondlastnameedit;
         $client->comercial_name = $request->comercial_nameedit;
+        $client->name_contribuyente = $request->name_contribuyenteedit;
         $client->email = $request->emailedit;
         $client->ncr = $request->ncredit;
         $client->giro = $request->giroedit;

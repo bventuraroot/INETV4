@@ -316,7 +316,7 @@ function searchproduct(idpro) {
                     pricevalue = parseFloat(value.price/iva_entre);
                 }
                 $("#precio").val(pricevalue.toFixed(2));
-                $("#productname").val(value.name);
+                $("#productname").val(value.productname);
                 $("#productid").val(value.id);
                 $("#productdescription").val(value.description);
                 $("#productunitario").val(value.id);
@@ -454,7 +454,7 @@ function getclientbycompanyurl(idcompany) {
                         '<option value="' +
                             value.id +
                             '">' +
-                            value.comercial_name.toUpperCase() +
+                            value.name_contribuyente.toUpperCase() +
                             "</option>"
                     );
                 }else if (value.tpersona=='N'){
@@ -607,7 +607,11 @@ function getinfodoc(){
             $('#emaildocfinal').empty();
             $('#emaildocfinal').html(response[0].email);
             $('#name_client').empty();
-            $('#name_client').html(response[0].client_firstname + ' ' + response[0].client_secondname);
+            if(response[0].tpersona == 'J'){
+                $('#name_client').html(response[0].name_contribuyente);
+            }else if (response[0].tpersona == 'N'){
+                $('#name_client').html(response[0].client_firstname + ' ' + response[0].client_secondname);
+            }
             $('#date_doc').empty();
             var dateformat = response[0].date.split('-');
             $('#date_doc').html(dateformat[2] + '/' + dateformat[1] + '/' + dateformat[0]);

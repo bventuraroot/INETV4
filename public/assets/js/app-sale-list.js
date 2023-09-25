@@ -40,7 +40,7 @@ $(function () {
         },
         {
             responsivePriority: 1,
-            targets: 10
+            targets: 8
           }
       ],
       order: [[2, 'desc']],
@@ -258,6 +258,62 @@ function retomarsale(corr, document){
     window.location.href ="create?corr=" + corr + "&draft=true&typedocument=" + document +"&operation=delete";
   }
 
+  function cancelsale(id){
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Anular?',
+        text: "Esta accion no tiene retorno",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Anular!',
+        cancelButtonText: 'No, Cancelar!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/sale/destroy/"+btoa(id),
+                method: "GET",
+                success: function(response){
+                        if(response.res==1){
+                            Swal.fire({
+                                title: 'Anulado',
+                                icon: 'success',
+                                confirmButtonText: 'Ok'
+                              }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                  location.reload();
+                                }
+                              })
+
+                        }else if(response.res==0){
+                            swalWithBootstrapButtons.fire(
+                                'Problemas!',
+                                'Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.',
+                                'success'
+                              )
+                        }
+            }
+            });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelado',
+            'No hemos hecho ninguna accion :)',
+            'error'
+          )
+        }
+      })
+   }
 
   function printsale(corr){
     var url = 'impdoc/'+corr;

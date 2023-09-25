@@ -77,7 +77,7 @@
                                 <td></td>
                                 @switch( Str::lower($client->tpersona) )
                                         @case('j')
-                                        <td>{{ $client->comercial_name }} {{ $client->empresa }}</td>
+                                        <td>{{ $client->name_contribuyente }} ( {{ $client->comercial_name }} )</td>
                                         @break
 
                                         @case('n')
@@ -216,6 +216,11 @@
                                     <input type="text" class="form-control" id="comercial_name" placeholder="Nombre Comercial"
                                         name="comercial_name" aria-label="Nombre Comercial" />
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="name_contribuyente">Nombre Contribuyente</label>
+                                    <input type="text" class="form-control" id="name_contribuyente" placeholder="Nombre Contribuyente"
+                                        name="name_contribuyente" aria-label="Nombre Contribuyente" />
+                                </div>
                             </div>
                         <div class="mb-3">
                             <label class="form-label" for="tel1">Teléfono</label>
@@ -275,8 +280,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="nit">DUI/NIT</label>
-                            <input type="text" id="nit" class="form-control" placeholder="xxxxxxxx-x"
-                                aria-label="nit" name="nit" />
+                            <input type="text" id="nit" class="form-control" placeholder="xxxxxxxx-x" onkeyup="nitDuiMask(this);" maxlength="25" aria-label="nit" name="nit" />
                         </div>
                         <div id="siescontri" style="display: none;">
                             <div class="mb-3">
@@ -285,9 +289,8 @@
                                     aria-label="legal" name="legal" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="ncr">NCR</label>
-                                <input type="text" id="ncr" class="form-control" placeholder="xxxxxx-x"
-                                    aria-label="ncr" name="ncr" />
+                                <label class="form-label" for="ncr">NRC</label>
+                                <input type="text" id="ncr" class="form-control" placeholder="xxxxxx-x" onkeyup="NRCMask(this);" maxlength="15" aria-label="ncr" name="ncr" />
                             </div>
                             <div class="mb-3">
                                 <label for="tipocontribuyente" class="form-label">Tipo de contribuyente</label>
@@ -320,7 +323,7 @@
                         </div>
                         <div class="mb-3" id="nacimientof">
                             <label for="birthday" class="form-label">Fecha de Nacimiento</label>
-                            <input type="text" class="form-control" placeholder="DD-MM-YY" id="birthday" name="birthday" />
+                            <input type="date" class="form-control" placeholder="DD-MM-YY" id="birthday" name="birthday" />
                         </div>
 
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" id="btnsavenewclient">Guardar</button>
@@ -374,9 +377,14 @@
                         </div>
                         <div id="fields_juridico_edit">
                             <div class="mb-3">
-                                <label class="form-label" for="empresaedit">Nombre Comercial</label>
-                                <input type="text" id="empresaedit" class="form-control" placeholder="Nombre Comercial"
-                                    aria-label="empresa" name="empresaedit" />
+                                <label class="form-label" for="comercial_nameedit">Nombre Comercial</label>
+                                <input type="text" id="comercial_nameedit" class="form-control" placeholder="Nombre Comercial"
+                                    aria-label="empresa" name="comercial_nameedit" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="name_contribuyenteedit">Nombre Contribuyente</label>
+                                <input type="text" class="form-control" id="name_contribuyenteedit" placeholder="Nombre Contribuyente"
+                                    name="name_contribuyenteedit" aria-label="Nombre Contribuyente" />
                             </div>
                         </div>
                         <div class="mb-3">
@@ -440,8 +448,7 @@
                         </div>
                         <div class="mb-3" id="dui_fields">
                             <label class="form-label" for="nitedit">DUI/NIT</label>
-                            <input type="text" id="nitedit" class="form-control" placeholder="xxxxxxxx-x"
-                                aria-label="nit" name="nitedit" />
+                            <input type="text" id="nitedit" class="form-control" placeholder="xxxxxxxx-x"  onkeyup="nitDuiMask(this);" maxlength="25" aria-label="nit" name="nitedit" />
                         </div>
                         <div id="siescontriedit" style="display: none;">
                             <div class="mb-3">
@@ -450,8 +457,8 @@
                                     aria-label="legal" name="legaledit" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="ncredit">NCR</label>
-                                <input type="text" id="ncredit" class="form-control" placeholder="xxxxxx-x"
+                                <label class="form-label" for="ncredit">NRC</label>
+                                <input type="text" id="ncredit" class="form-control" onkeyup="NRCMask(this);" maxlength="15" placeholder="xxxxxx-x"
                                     aria-label="ncr" name="ncredit" />
                             </div>
                             <div class="mb-3">
@@ -480,7 +487,7 @@
                         </div>
                         <div class="mb-3" id="DOB_field">
                             <label for="birthdayedit" class="form-label">Fecha de Nacimiento</label>
-                            <input type="text" class="form-control" placeholder="DD-MM-YY" id="birthdayedit" name="birthdayedit" />
+                            <input type="date" class="form-control" placeholder="DD-MM-YY" id="birthdayedit" name="birthdayedit" />
                         </div>
                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Guardar</button>
                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancelar</button>
