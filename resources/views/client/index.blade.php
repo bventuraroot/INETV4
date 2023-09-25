@@ -155,8 +155,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td>No hay datos</td>
+                                    <td>No data</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

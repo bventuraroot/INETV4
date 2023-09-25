@@ -20,7 +20,7 @@ class PurchaseController extends Controller
         ->select("purchases.id AS idpurchase",
             "typedocuments.description AS namedoc",
             "purchases.number",
-            "purchases.datedoc",
+            "purchases.date",
             "purchases.exenta",
             "purchases.gravada",
             "purchases.iva",

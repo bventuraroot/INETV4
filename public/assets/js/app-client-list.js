@@ -141,7 +141,7 @@ $(function () {
             return '';
           }
         },
-        { responsivePriority: 1, targets: 12 }
+        { responsivePriority: 1, targets: 3 }
       ],
       order: [[2, 'desc']],
       dom:
@@ -345,7 +345,7 @@ $(function () {
       initComplete: function () {
         // Adding plan filter once table initialized
         this.api()
-          .columns(15)
+          .columns(2)
           .every(function () {
             var column = this;
             var select = $(
