@@ -123,6 +123,8 @@ if (valcorrdoc != "" && valdraftdoc == "true") {
     var draft = draftdocument(valcorrdoc, valdraftdoc);
 }
 
+
+
 function agregarp() {
     var typedoc = $('#typedocument').val();
     var clientid = $("#client").val();
@@ -167,9 +169,8 @@ function agregarp() {
         iva13temp = 0;
     }
     var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
-    var ventatotaltotal =  parseFloat(ventatotal) + parseFloat(iva13) + parseFloat(ivaretenido);
-    var totaltemptotal = parseFloat(
-        ($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) - ($.isNumeric(ivarete)? ivarete: 0)
+    var ventatotaltotal =  parseFloat(ventatotal); //+ parseFloat(iva13) + parseFloat(ivaretenido);
+    var totaltemptotal = parseFloat(($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) - ($.isNumeric(ivarete)? ivarete: 0)
     );
     if(!$.isNumeric(ivarete)){
         ivarete = 0;
@@ -287,13 +288,45 @@ function agregarp() {
                         currency: "USD",
                     })
                 );
+                $('#ventatotallhidden').val(ventatotall);
                 $("#ventatotal").val(ventatotall);
             } else if (response == 0) {
             }
         },
     });
+    $('#precio').val(0.00);
+    $('#ivarete13').val(0.00);
+    $('#ivarete').val(0.00);
+    $("#psearch").val("0").trigger("change.select2");
 }
 
+$('#precio').on('change', function() {
+    var typecontricompany = $("#typecontribuyente").val();
+    var typecontriclient = $("#typecontribuyenteclient").val();
+    var typedoc = $('#typedocument').val();
+    var iva = parseFloat($("#iva").val());
+    var valor = parseFloat($('#precio').val());
+    var retencion;
+    if (typecontricompany == "GRA") {
+        if (typecontriclient == "GRA") {
+            retencion = 0.01;
+        } else if (
+            typecontriclient == "MED" ||
+            typecontriclient == "PEQ" ||
+            typecontriclient == "OTR"
+        ) {
+            retencion = 0.00;
+        }
+    }
+    if(typedoc=='6'){
+        $("#ivarete13").val(0);
+    }else{
+        $("#ivarete13").val(parseFloat(valor.toFixed(2) * iva).toFixed(2));
+    }
+    $("#ivarete").val(
+        parseFloat(valor.toFixed(2) * retencion).toFixed(2)
+    );
+  });
 function searchproduct(idpro) {
     //Get products by id avaibles
     var typedoc = $('#typedocument').val();
@@ -692,7 +725,7 @@ function creardocuments(){
         .then((result) => {
             if (result.isConfirmed) {
                 var corr = $('#valcorr').val();
-                var totalamount = $('#ventatotall').html();
+                var totalamount = $('#ventatotallhidden').val();
                 $.ajax({
                     url: "createdocument/" + btoa(corr) + '/' + totalamount,
                     method: "GET",

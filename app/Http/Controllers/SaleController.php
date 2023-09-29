@@ -191,7 +191,7 @@ class SaleController extends Controller
         $dtecreate->claMessage = null;
         $dtecreate->descriptionMessage = null;
         $dtecreate->detailsMessage = null;
-        $dtecreate->save();
+        //$dtecreate->save();
 
         return response()->json(array(
             "res" => "1"

@@ -292,6 +292,7 @@
                                         <tr>
                                             <td class="text-right">Venta Total</td>
                                             <td class="text-center" id="ventatotall">$ 0.00</td>
+                                            <input type="hidden" class="text-center" id="ventatotallhidden"/>
                                             <td class="quitar_documents"></td>
                                         </tr>
                                     </tfoot>
@@ -402,7 +403,7 @@
                             table.sample {
                                 margin: 2%;
                             }
-                            .details_products_documents{ 
+                            .details_products_documents{
                                 width: 100%
                             }
                             .table_details{
