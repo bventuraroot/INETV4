@@ -139,7 +139,7 @@ class CompanyController extends Controller
      */
     public function show($id)
     {
-        return view('Company.view', array(
+        return view('company.view', array(
             "company" => Company::join('addresses', 'companies.address_id', '=', 'addresses.id')
             ->join('countries', 'addresses.country_id' , '=', 'countries.id')
             ->join('departments', 'addresses.department_id' , '=', 'departments.id')
