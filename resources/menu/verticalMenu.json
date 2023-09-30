@@ -72,6 +72,12 @@
             "slug": "purchase.index"
         },
         {
+            "url": "/credit/index",
+            "name": "Creditos",
+            "icon": "menu-icon fa-solid fa-credit-card",
+            "slug": "credit.index"
+        },
+        {
             "url": "/report/index",
             "name": "Reportes",
             "icon": "menu-icon fa-solid fa-line-chart",

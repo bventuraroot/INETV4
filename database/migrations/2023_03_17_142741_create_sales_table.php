@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('acuenta')->nullable();
             $table->boolean('state')->nullable();
+            $table->boolean('state_credit')->default(0)->nullable();
             $table->decimal('totalamount',5,2)->nullable();
             $table->string('waytopay')->nullable();
             $table->string('typesale')->default('2')->nullable();

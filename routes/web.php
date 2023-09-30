@@ -7,6 +7,7 @@ use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CreditController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
@@ -154,6 +155,15 @@ Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
         Route::patch('update', [PurchaseController::class, 'update'])->name('update');
         Route::get('getpurchaseid/{id}', [PurchaseController::class, 'getpurchaseid'])->name('getpurchaseid');
         Route::get('destroy/{id}', [PurchaseController::class, 'destroy'])->name('destroy');
+    });
+
+
+    Route::group(['prefix' => 'credit', 'as' => 'credit.'], function(){
+        Route::get('index', [CreditController::class, 'index'])->name('index');
+        Route::post('store', [CreditController::class, 'store'])->name('store');
+        Route::patch('update', [CreditController::class, 'update'])->name('update');
+        Route::get('getpurchaseid/{id}', [CreditController::class, 'getpurchaseid'])->name('getpurchaseid');
+        Route::get('destroy/{id}', [CreditController::class, 'destroy'])->name('destroy');
     });
 
 Route::group(['prefix' => 'report', 'as' => 'report.'], function(){

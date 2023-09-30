@@ -210,6 +210,7 @@
                                 <input type="hidden" id="ventasnosujetas" value="0" name="ventasnosujetas">
                                 <input type="hidden" id="ventasexentas" value="0" name="ventasexentas">
                                 <input type="hidden" id="ventatotal" value="0" name="ventatotal">
+                                <input type="hidden" id="ventatotallhidden" value="0" name="ventatotallhidden">
                             </div>
                             <div class="col-sm-1">
                                 <label class="form-label" for="cantidad">Cantidad</label>
@@ -292,7 +293,6 @@
                                         <tr>
                                             <td class="text-right">Venta Total</td>
                                             <td class="text-center" id="ventatotall">$ 0.00</td>
-                                            <input type="hidden" class="text-center" id="ventatotallhidden"/>
                                             <td class="quitar_documents"></td>
                                         </tr>
                                     </tfoot>

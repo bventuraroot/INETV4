@@ -726,6 +726,8 @@ function creardocuments(){
             if (result.isConfirmed) {
                 var corr = $('#valcorr').val();
                 var totalamount = $('#ventatotallhidden').val();
+                totalamount = 0+totalamount;
+                //alert(totalamount);
                 $.ajax({
                     url: "createdocument/" + btoa(corr) + '/' + totalamount,
                     method: "GET",
@@ -881,6 +883,7 @@ function agregarfacdetails(corr) {
                         currency: "USD",
                     })
                 );
+                $("#ventatotallhidden").val(ventatotall);
                 $("#ventatotal").val(ventatotall);
             });
         },

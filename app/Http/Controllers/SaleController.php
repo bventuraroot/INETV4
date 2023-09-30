@@ -150,6 +150,7 @@ class SaleController extends Controller
         $salesave = Sale::find(base64_decode($corr));
         $salesave->totalamount = $amount;
         $salesave->typesale = 1;
+        //dd($amount);
         $salesave->save();
 
         $idempresa = $salesave->company_id;
