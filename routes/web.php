@@ -162,7 +162,8 @@ Route::group(['prefix' => 'purchase', 'as' => 'purchase.'], function(){
         Route::get('index', [CreditController::class, 'index'])->name('index');
         Route::post('store', [CreditController::class, 'store'])->name('store');
         Route::patch('update', [CreditController::class, 'update'])->name('update');
-        Route::get('getpurchaseid/{id}', [CreditController::class, 'getpurchaseid'])->name('getpurchaseid');
+        Route::patch('addpay', [CreditController::class, 'addpay'])->name('addpay');
+        Route::get('getinfocredit/{id}', [CreditController::class, 'getinfocredit'])->name('getinfocredit');
         Route::get('destroy/{id}', [CreditController::class, 'destroy'])->name('destroy');
     });
 

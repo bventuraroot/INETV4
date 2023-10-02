@@ -21,6 +21,7 @@ class CreditController extends Controller
     ->leftJoin('credits', 'credits.sale_id', '=', 'sales.id')
     ->where('waytopay', 2)
     ->select(
+        'sales.id as idsale',
         'sales.date',
         'clients.id AS client_id',
         'clients.firstname AS client_firstname',
@@ -52,6 +53,45 @@ class CreditController extends Controller
         return view('credits.index', array(
             "credits" => $credit
         ));
+    }
+
+    public function getinfocredit($idcredit) {
+        $findcredit = Credit::where('credits.sale_id', '=', base64_decode($idcredit))->get();
+        $findsale = Sale::find(base64_decode($idcredit));
+
+        if (!$findcredit->isEmpty()) {
+            // La consulta de crédito trajo datos
+            $saldo = $findcredit->first()->current; // Obtén el primer resultado
+        } else {
+            // La consulta de crédito no trajo datos
+            $saldo = $findsale->totalamount;
+        }
+
+        return response()->json($saldo);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function addpay(Request $request){
+
+        $initialamount = Sale::find($request->idsale)->get();
+        $currentamount = Credit::where('credits.sale_id', '=', $request->idsale)->get();
+        
+        if(!$currentamount->isEmpty()){
+            $newamount = ($initialamount->totalamount)-$request->amountpay;
+        }else{
+            $newamount=($currentamount->current)-($request->amountpay);
+        }
+        $addcredit = new Credit();
+        $addcredit->sale_id = $request->idsale;
+        $addcredit->date_pay = date('Y-m-d H:i:s');
+        $addcredit->current = $newamount;
+        $addcredit->initial = $initialamount->totalamount;
     }
 
     /**

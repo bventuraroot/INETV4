@@ -90,8 +90,8 @@
                                 <td>$ {{ $credit->totalamount }}</td>
                                 <td>$ {{ $credit->current == "" ? $credit->totalamount : $credit->current }}</td>
                                 <td><div class="d-flex align-items-center">
-                                    <a href="javascript: editcredit({{ $credit->id }});" class="dropdown-item"><i
-                                        class="ti-credit-card ti-sm me-2"></i>Abonar</a>
+                                    <a href="javascript: paycredit({{ $credit->idsale }});" class="dropdown-item"><i
+                                        class="ti ti-credit-card ti-sm me-2"></i>Abonar</a>
 
                                     </div>
                                 </div></td>
@@ -115,4 +115,31 @@
                 </table>
             </div>
     </div>
+       <!-- Pay Credits Modal -->
+<div class="modal fade" id="PayCreditsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="p-3 modal-content p-md-5">
+        <button type="button" class="btn-close btn-pinned" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body">
+          <div class="mb-4 text-center">
+            <h3 class="mb-2">Abonar a crédito</h3>
+            <h4 class="mb-1 bg-label-danger">Saldo: $<span id="pendingamount"></span></h4>
+          </div>
+          <form id="paycreditForm" class="row" action="{{Route('credit.addpay')}}" method="POST" enctype="multipart/form-data">
+            @csrf @method('PATCH')
+            <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
+            <input type="hidden" name="idsale" id="idsale">
+            <div class="mb-3 col-12">
+              <label class="form-label" for="amountpay">Monto a abonar</label>
+              <input type="number" step="any" min="0.00" value="0.00" id="amountpay" name="amountpay" class="form-control" autofocus required/>
+            </div>
+            <div class="text-center col-12 demo-vertical-spacing">
+              <button type="submit" class="btn btn-primary me-sm-3 me-1">Abonar</button>
+              <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
     @endsection
