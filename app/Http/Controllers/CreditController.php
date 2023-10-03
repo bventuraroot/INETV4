@@ -32,7 +32,7 @@ class CreditController extends Controller
         'clients.name_contribuyente',
         'companies.name as NameCompany',
         'sales.totalamount',
-        DB::raw('SUM(credits.current) as current'),
+        DB::raw('SUM(credits.amountpay) as current'),
         DB::raw('(CASE WHEN sales.state_credit = 0 THEN "MORA" ELSE "PAGADO" END) AS state_credit')
     )
     ->groupBy([
@@ -56,12 +56,12 @@ class CreditController extends Controller
     }
 
     public function getinfocredit($idcredit) {
-        $findcredit = Credit::where('credits.sale_id', '=', base64_decode($idcredit))->get();
+        $findcredit = Credit::where('credits.sale_id', '=', base64_decode($idcredit))->latest()->first();
         $findsale = Sale::find(base64_decode($idcredit));
 
-        if (!$findcredit->isEmpty()) {
+        if ($findcredit) {
             // La consulta de crédito trajo datos
-            $saldo = $findcredit->first()->current; // Obtén el primer resultado
+            $saldo = $findcredit->current; // Obtén el primer resultado
         } else {
             // La consulta de crédito no trajo datos
             $saldo = $findsale->totalamount;
@@ -79,19 +79,32 @@ class CreditController extends Controller
 
     public function addpay(Request $request){
 
-        $initialamount = Sale::find($request->idsale)->get();
-        $currentamount = Credit::where('credits.sale_id', '=', $request->idsale)->get();
-        
-        if(!$currentamount->isEmpty()){
-            $newamount = ($initialamount->totalamount)-$request->amountpay;
+        $initialamount = Sale::find($request->idsale);
+        $currentamount = Credit::where('credits.sale_id', '=', $request->idsale)->latest()->first();
+
+        if($currentamount){
+            $newamount = ($currentamount->current)-($request->amountpay);
         }else{
-            $newamount=($currentamount->current)-($request->amountpay);
+            $newamount = ($initialamount->totalamount)-$request->amountpay;
         }
+
         $addcredit = new Credit();
         $addcredit->sale_id = $request->idsale;
         $addcredit->date_pay = date('Y-m-d H:i:s');
         $addcredit->current = $newamount;
         $addcredit->initial = $initialamount->totalamount;
+        $addcredit->amountpay = $request->amountpay;
+        $addcredit->save();
+
+        if($newamount==0){
+        $updatesalecredit = Sale::find($request->idsale);
+        $updatesalecredit->state_credit = 1;
+        $updatesalecredit->save();
+        }
+
+
+
+        return redirect()->route('credit.index');
     }
 
     /**

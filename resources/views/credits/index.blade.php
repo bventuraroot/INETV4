@@ -81,20 +81,20 @@
                                 @case('n')
                                 <td>{{ $credit->client_firstname }} {{ $credit->client_secondname }}</td>
                                 @break
-
                                 @default
                             @endswitch
-
                                 <td>{{ $credit->NameCompany }}</td>
                                 <td>{{ $credit->state_credit }}</td>
                                 <td>$ {{ $credit->totalamount }}</td>
-                                <td>$ {{ $credit->current == "" ? $credit->totalamount : $credit->current }}</td>
+                                <td>$ {{ number_format($credit->current == "" ? $credit->totalamount : ($credit->totalamount)-($credit->current),2,'.',',') }}</td>
+                                @if($credit->state_credit=="PAGADO")
+                                <td></td>
+                                @else
                                 <td><div class="d-flex align-items-center">
                                     <a href="javascript: paycredit({{ $credit->idsale }});" class="dropdown-item"><i
                                         class="ti ti-credit-card ti-sm me-2"></i>Abonar</a>
-
-                                    </div>
                                 </div></td>
+                                @endif
                             </tr>
                             @empty
                                 <tr>
@@ -129,12 +129,13 @@
             @csrf @method('PATCH')
             <input type="hidden" name="iduser" id="iduser" value="{{Auth::user()->id}}">
             <input type="hidden" name="idsale" id="idsale">
+            <input type="hidden" name="currentamount" id="currentamount" value="0">
             <div class="mb-3 col-12">
               <label class="form-label" for="amountpay">Monto a abonar</label>
               <input type="number" step="any" min="0.00" value="0.00" id="amountpay" name="amountpay" class="form-control" autofocus required/>
             </div>
             <div class="text-center col-12 demo-vertical-spacing">
-              <button type="submit" class="btn btn-primary me-sm-3 me-1">Abonar</button>
+              <button type="submit" class="btn btn-primary me-sm-3 me-1" disabled id="savepay">Abonar</button>
               <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Descartar</button>
             </div>
           </form>
