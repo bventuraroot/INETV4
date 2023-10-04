@@ -33,7 +33,7 @@ $(document).ready(function (){
                         if(value){
                             Swal.fire(
                                 'Alerta',
-                                'Cliente ya se existe',
+                                'Cliente ya se encuentra ingresado, favor validar la información',
                                 'info'
                               );
                             $( "#btnsavenewclient" ).prop( "disabled", true );
