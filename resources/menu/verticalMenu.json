@@ -113,6 +113,11 @@
                     "url": "/report/bookpurchases",
                     "name": "Libro de Compras",
                     "slug": "report.bookpurchases"
+                },
+                {
+                    "url": "/report/reportyear",
+                    "name": "Ventas y compras por año",
+                    "slug": "report.reportyear"
                 }
             ]
         },

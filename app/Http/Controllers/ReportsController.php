@@ -66,6 +66,9 @@ class ReportsController extends Controller
     public function contribuyentes(){
             return view('reports.contribuyentes');
     }
+    public function reportyear(){
+            return view('reports.reportyear');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -93,6 +96,42 @@ class ReportsController extends Controller
             "heading" => $Company,
             "yearB" => $request['year'],
             "period" => $request['period'],
+            "sales" => $sales
+        ));
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function yearsearch(Request $request){
+        $Company = Company::find($request['company']);
+        $sales = Sale::join('salesdetails','salesdetails.sale_id', '=','sales.id')
+        ->join('iva','iva.company_id', '=', 'sales.company_id')
+        ->selectRaw("SUM((CASE sales.typedocument_id WHEN 3 THEN
+        CASE WHEN salesdetails.exempt<>'0' THEN ROUND((salesdetails.exempt),2) WHEN salesdetails.exempt='0' THEN ROUND(((salesdetails.pricesale)/1.13),2) END
+        WHEN 6 THEN
+        CASE WHEN salesdetails.exempt<>'0' THEN ROUND((salesdetails.exempt),2) WHEN salesdetails.exempt='0' THEN  ROUND((salesdetails.pricesale)/1.13,2) END END)) as GRAVADAS")
+        ->selectRaw("SUM((CASE sales.typedocument_id WHEN 3 THEN
+        CASE WHEN salesdetails.exempt<>'0' THEN 0 WHEN salesdetails.exempt='0' THEN ROUND(salesdetails.pricesale-salesdetails.pricesale/1.13,2) END
+        WHEN 6 THEN CASE WHEN salesdetails.exempt<>'0' THEN 0 WHEN salesdetails.exempt='0' THEN ROUND((salesdetails.pricesale-(salesdetails.pricesale)/1.13),2) END END)) DEBITO")
+        ->selectRaw("SUM((CASE sales.typedocument_id WHEN 3 THEN
+        CASE WHEN salesdetails.exempt<>'0' THEN ROUND(salesdetails.exempt,2) WHEN salesdetails.exempt='0' THEN ROUND(salesdetails.pricesale/1.13+(salesdetails.pricesale-(salesdetails.pricesale)/1.13),2) END
+         WHEN 6 THEN
+         CASE WHEN salesdetails.exempt<>'0' THEN ROUND(salesdetails.exempt,2) WHEN salesdetails.exempt='0' THEN ROUND(salesdetails.pricesale/1.13+(salesdetails.pricesale-(salesdetails.pricesale)/1.13),2) END END)) TOTALV")
+        ->selectRaw("YEAR(sales.date) as yearsale")
+        ->selectRaw("MONTH(sales.date) as monthsale")
+        ->where('sales.company_id', '=', $request['company'])
+        ->where('sales.state', '<>', 0)
+        ->groupBy([
+            'yearsale',
+            'monthsale'
+        ])
+        ->orderBy('monthsale', 'asc')
+         ->get();
+        return view('reports.reportyear', array(
+            "heading" => $Company,
+            "yearB" => $request['year'],
             "sales" => $sales
         ));
     }
