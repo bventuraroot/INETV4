@@ -177,14 +177,31 @@ $mesesDelAnoMayuscula = array_map('strtoupper', $mesesDelAno);
             </thead>
             <tbody>
                 @for ($i = 1; $i <= 12; $i++)
-                <tr>
-                    <th>{{ $meses[$i-1]}}</th>
-                    @if ($sales->monthsale==$i)
-                    <th>{{$sales['GRAVADAS']}}</th>
-                    <th>{{$sales['DEBITO']}}</th>
-                    <th>{{$sales['TOTALV']}}</th>
-                    @endif
-                </tr>
+                    <tr>
+                        <th>{{ $meses[$i-1] }}</th>
+                        @foreach ($sales as $sale)
+                            @if ($sale->monthsale == $i)
+                                <th>$ {{ number_format($sale->GRAVADAS, 2) }}</th>
+                                <th>$ {{ number_format($sale->DEBITO, 2) }}</th>
+                                <th>$ {{ number_format($sale->TOTALV, 2) }}</th>
+                                @else
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                            @endif
+                        @endforeach
+                        @foreach ($purchases as $purchase)
+                            @if ($purchase->monthpurchase == $i)
+                                <th>$ {{ number_format($purchase->INTERNASPU, 2) }}</th>
+                                <th>$ {{ number_format($purchase->CREDITOPU, 2) }}</th>
+                                <th>$ {{ number_format($purchase->TOTALC, 2) }}</th>
+                                @else
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                            @endif
+                        @endforeach
+                    </tr>
                 @endfor
             </tbody>
         </table>

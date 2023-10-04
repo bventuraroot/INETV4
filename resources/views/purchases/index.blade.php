@@ -74,7 +74,7 @@
                                 <td></td>
                                 <td>{{ $purchase->number }}</td>
                                 <td>{{ $purchase->namedoc }}</td>
-                                <td>{{ date('d-M-Y', strtotime($purchase->datedoc)) }}</td>
+                                <td>{{ date('d-M-Y', strtotime($purchase->date)) }}</td>
                                 <td>{{ ($purchase->exenta=="" ? "0.00" : $purchase->exenta) }}</td>
                                 <td>{{ ($purchase->gravada=="" ? "0.00" : $purchase->gravada)  }}</td>
                                 <td>{{ ($purchase->iva=="" ? "0.00" : $purchase->iva)  }}</td>
@@ -165,8 +165,8 @@
                 </select>
             </div>
             <div class="mb-3 col-4">
-                <label for="datedoc" class="form-label">Fecha de Comprobante</label>
-                <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="datedoc" name="datedoc" />
+                <label for="date" class="form-label">Fecha de Comprobante</label>
+                <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="date" name="date" />
             </div>
             <div class="mb-3 col-4">
                 <label for="provider" class="form-label">Proveedor</label>
@@ -273,8 +273,8 @@
                             </select>
                         </div>
                         <div class="mb-3 col-4">
-                            <label for="datedocedit" class="form-label">Fecha de Comprobante</label>
-                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="datedocedit" name="datedocedit" />
+                            <label for="dateedit" class="form-label">Fecha de Comprobante</label>
+                            <input type="text" class="form-control" placeholder="DD-MM-YYYY" id="dateedit" name="dateedit" />
                         </div>
                         <div class="mb-3 col-4">
                             <label for="provideredit" class="form-label">Proveedor</label>

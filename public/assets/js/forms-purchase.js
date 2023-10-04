@@ -187,8 +187,8 @@ function sumaedit(){
    (function () {
     // Flat Picker
     // --------------------------------------------------------------------
-    const flatpickrDate = document.querySelector('#datedoc')
-    const flatpickrDateedit = document.querySelector('#datedocedit')
+    const flatpickrDate = document.querySelector('date')
+    const flatpickrDateedit = document.querySelector('#dateedit')
 
     // Date
     if (flatpickrDate) {

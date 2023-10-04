@@ -56,9 +56,9 @@ class PurchaseController extends Controller
         $purchase->provider_id = $request->provider;
         $purchase->company_id = $request->company;
         $purchase->number = $request->number;
-        $daterequest = strtotime($request->datedoc);
+        $daterequest = strtotime($request->date);
         $new_date = date('Y-m-d', $daterequest);
-        $purchase->datedoc = $new_date;
+        $purchase->date = $new_date;
         $purchase->exenta = $request->exenta;
         $purchase->gravada = $request->gravada;
         $purchase->iva = $request->iva;
@@ -115,9 +115,9 @@ class PurchaseController extends Controller
         $purchase->provider_id = $request->provideredit;
         $purchase->company_id = $request->companyedit;
         $purchase->number = $request->numberedit;
-        $daterequest = strtotime($request->datedocedit);
+        $daterequest = strtotime($request->dateedit);
         $new_date = date('Y-m-d', $daterequest);
-        $purchase->datedoc = $new_date;
+        $purchase->date = $new_date;
         $purchase->exenta = $request->exentaedit;
         $purchase->gravada = $request->gravadaedit;
         $purchase->iva = $request->ivaedit;

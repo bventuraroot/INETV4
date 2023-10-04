@@ -129,9 +129,21 @@ class ReportsController extends Controller
         ])
         ->orderBy('monthsale', 'asc')
          ->get();
+         $purchases = Purchase::selectRaw("YEAR(purchases.date) as yearpuchase")
+         ->selectRaw("SUM(purchases.gravada+purchases.exenta) INTERNASPU")
+         ->selectRaw("SUM(purchases.iva) CREDITOPU")
+         ->selectRaw("SUM(purchases.gravada+purchases.iva+purchases.exenta) TOTALC")
+         ->selectRaw("MONTH(purchases.date) as monthpurchase")
+         ->groupBy([
+            'yearpuchase',
+            'monthpurchase'
+        ])
+        ->orderBy('monthpurchase', 'asc')
+         ->get();
         return view('reports.reportyear', array(
             "heading" => $Company,
             "yearB" => $request['year'],
+            "purchases" => $purchases,
             "sales" => $sales
         ));
     }
@@ -181,13 +193,13 @@ class ReportsController extends Controller
 
         $purchases = Purchase::join('providers AS pro', 'pro.id', '=', 'purchases.provider_id')
         ->select('*')
-        ->selectRaw("DATE_FORMAT(purchases.datedoc, '%d/%m/%Y') AS dateF")
-        ->whereRaw('YEAR(purchases.datedoc)=?', $request['year'])
-        ->whereRaw('MONTH(purchases.datedoc)=?', $request['period'])
-        ->WhereRaw('DAY(purchases.datedoc) BETWEEN "01" AND "31"')
+        ->selectRaw("DATE_FORMAT(purchases.date, '%d/%m/%Y') AS dateF")
+        ->whereRaw('YEAR(purchases.date)=?', $request['year'])
+        ->whereRaw('MONTH(purchases.date)=?', $request['period'])
+        ->WhereRaw('DAY(purchases.date) BETWEEN "01" AND "31"')
         ->where('purchases.company_id', '=', $request['company'])
-        ->orderByRaw('MONTH(purchases.datedoc)')
-        ->orderBy('purchases.datedoc')
+        ->orderByRaw('MONTH(purchases.date)')
+        ->orderBy('purchases.date')
         ->get();
         return view('reports.bookpurchases', array(
             "heading" => $Company,
