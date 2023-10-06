@@ -139,7 +139,7 @@ class ReportsController extends Controller
             'monthpurchase'
         ])
         ->orderBy('monthpurchase', 'asc')
-         ->get(); 
+         ->get();
         return view('reports.reportyear', array(
             "heading" => $Company,
             "yearB" => $request['year'],

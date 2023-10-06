@@ -177,72 +177,92 @@ $mesesDelAnoMayuscula = array_map('strtoupper', $mesesDelAno);
             </thead>
             <!-- ... Tu código HTML anterior ... -->
 
-<tbody>
-    @php
-        $totalVentas = 0;
-        $totalCompras = 0;
-    @endphp
-    @for ($i = 1; $i <= 12; $i++)
-        <tr>
-            <th>{{ $meses[$i-1] }}</th>
-            @php
-                $ventasMes = 0;
-                $comprasMes = 0;
-            @endphp
+            <tbody>
+                @php
+                    $totalgravadas = 0;
+                    $totaldebito = 0;
+                    $totalventas = 0;
+                    $totalinternas = 0;
+                    $totalcredito = 0;
+                    $totalcompras = 0;
+                    $totaldiferencia = 0;
+                @endphp
+                @for ($i = 1; $i <= 12; $i++)
+                    <tr>
+                        <th>{{ $meses[$i-1] }}</th>
+                        @php
+                            $ventasMes = 0;
+                            $comprasMes = 0;
 
-            @foreach ($sales as $sale)
-                @if ($sale->monthsale == $i)
-                    <th>$ {{ number_format($sale->GRAVADAS, 2) }}</th>
-                    <th>$ {{ number_format($sale->DEBITO, 2) }}</th>
-                    <th>$ {{ number_format($sale->TOTALV, 2) }}</th>
-                    @php
-                        $ventasMes += $sale->TOTALV;
-                    @endphp
-                @else
-                    <th>$ 0.00</th>
-                    <th>$ 0.00</th>
-                    <th>$ 0.00</th>
-                @endif
-            @endforeach
+                                $ventasEncontrados = $sales->filter(function($sale) use ($i) {
+                                    return $sale->monthsale == $i;
+                                });
+                            @endphp
 
-            @foreach ($purchases as $purchase)
-                @if ($purchase->monthpurchase == $i)
-                    <th>$ {{ number_format($purchase->INTERNASPU, 2) }}</th>
-                    <th>$ {{ number_format($purchase->CREDITOPU, 2) }}</th>
-                    <th>$ {{ number_format($purchase->TOTALC, 2) }}</th>
-                    @php
-                        $comprasMes += $purchase->TOTALC;
-                    @endphp
-                @else
-                    <th>$ 0.00</th>
-                    <th>$ 0.00</th>
-                    <th>$ 0.00</th>
-                @endif
-            @endforeach
+                            @if (!$ventasEncontrados->isEmpty())
+                                @foreach ($ventasEncontrados as $sale)
+                                    <th>$ {{ number_format($sale->GRAVADAS, 2) }}</th>
+                                    <th>$ {{ number_format($sale->DEBITO, 2) }}</th>
+                                    <th>$ {{ number_format($sale->TOTALV, 2) }}</th>
+                                    @php
+                                        $totalgravadas += $sale->GRAVADAS;
+                                        $totaldebito += $sale->DEBITO;
+                                        $totalventas += $sale->TOTALV;
+                                        $ventasMes += $sale->TOTALV;
+                                    @endphp
+                                @endforeach
+                            @else
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                            @endif
 
-            <!-- Celda de diferencia para este mes -->
-            <th>$ {{ number_format($ventasMes - $comprasMes, 2) }}</th>
+                            @php
+                                $comprasEncontradas = $purchases->filter(function($purchase) use ($i) {
+                                    return $purchase->monthpurchase == $i;
+                                });
+                            @endphp
 
-            <!-- Actualizar totales generales -->
-            @php
-                $totalVentas += $ventasMes;
-                $totalCompras += $comprasMes;
-            @endphp
-        </tr>
-    @endfor
+                            @if (!$comprasEncontradas->isEmpty())
+                                @foreach ($comprasEncontradas as $purchase)
+                                    <th>$ {{ number_format($purchase->INTERNASPU, 2) }}</th>
+                                    <th>$ {{ number_format($purchase->CREDITOPU, 2) }}</th>
+                                    <th>$ {{ number_format($purchase->TOTALC, 2) }}</th>
+                                    @php
+                                        $totalinternas += $purchase->INTERNASPU;
+                                        $totalcredito += $purchase->CREDITOPU;
+                                        $totalcompras += $purchase->TOTALC;
+                                        $comprasMes += $purchase->TOTALC;
+                                    @endphp
+                                @endforeach
+                            @else
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                                <th>$ 0.00</th>
+                            @endif
 
-    <!-- Fila de totales generales -->
-    <tr>
-        <th>TOTALES</th>
-        <th>$ {{ number_format($totalVentas, 2) }}</th>
-        <th>$ 0.00</th>
-        <th>$ {{ number_format($totalVentas, 2) }}</th>
-        <th>$ {{ number_format($totalCompras, 2) }}</th>
-        <th>$ 0.00</th>
-        <th>$ {{ number_format($totalCompras, 2) }}</th>
-        <th>$ {{ number_format($totalVentas - $totalCompras, 2) }}</th>
-    </tr>
-</tbody>
+                        <!-- Celda de diferencia para este mes -->
+                        <th>$ {{ number_format($ventasMes - $comprasMes, 2) }}</th>
+
+                        <!-- Actualizar totales generales -->
+                        @php
+                            $totaldiferencia += ($ventasMes - $comprasMes);
+                        @endphp
+                    </tr>
+                @endfor
+
+                <!-- Fila de totales generales -->
+                <tr style="color: yellow; background-color: black;">
+                    <th>TOTALES</th>
+                    <th>$ {{ number_format($totalgravadas, 2) }}</th>
+                    <th>$ {{ number_format($totaldebito, 2) }}</th>
+                    <th>$ {{ number_format($totalventas, 2) }}</th>
+                    <th>$ {{ number_format($totalinternas, 2) }}</th>
+                    <th>$ {{ number_format($totalcredito, 2) }}</th>
+                    <th>$ {{ number_format($totalcompras, 2) }}</th>
+                    <th>$ {{ number_format($totaldiferencia, 2) }}</th>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>
