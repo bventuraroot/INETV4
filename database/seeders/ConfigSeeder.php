@@ -16,8 +16,6 @@ class ConfigSeeder extends Seeder
     public function run()
     {
         Config::create([
-            'cod'=>'00',
-            'company_id'=>'1',
             'version'=>'3',
             'ambiente'=>'01',
             'typeModel'=>'1',
