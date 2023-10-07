@@ -158,14 +158,14 @@ class SaleController extends Controller
 
         $config = Config::where('company_id', $idempresa)->first();
 
-        $idambiente = Ambiente::where('cod', $config->ambiente)->first();
+        //$idambiente = Ambiente::where('cod', $config->ambiente)->first();
         $tipoDte = 0;
         $tipoModelo = 0;
         $tipoTransmision = 0;
         $tipoContingencia = 0;
         $dtecreate = new Dte();
-        $dtecreate->versionJson = $config->versionJson;
-        $dtecreate->ambiente_id = $idambiente;
+        //$dtecreate->versionJson = $config->versionJson;
+        //$dtecreate->ambiente_id = $idambiente;
         $dtecreate->tipoDte = $tipoDte;
         $dtecreate->tipoModelo = $tipoModelo;
         $dtecreate->tipoTransmision = $tipoTransmision;

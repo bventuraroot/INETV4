@@ -725,7 +725,7 @@ function creardocuments(){
         .then((result) => {
             if (result.isConfirmed) {
                 var corr = $('#valcorr').val();
-                var totalamount = $('#ventatotallhidden').val();
+                var totalamount = $('#ventatotallhidden').val(); 
                 totalamount = 0+totalamount;
                 //alert(totalamount);
                 $.ajax({

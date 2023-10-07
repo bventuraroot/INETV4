@@ -14,12 +14,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- Volcando estructura de base de datos para inet
-DROP DATABASE IF EXISTS `inet`;
-CREATE DATABASE IF NOT EXISTS `inet` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `inet`;
-
 -- Volcando estructura para tabla inet.addresses
 DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE IF NOT EXISTS `addresses` (
@@ -39,8 +33,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   CONSTRAINT `addresses_municipality_id_foreign` FOREIGN KEY (`municipality_id`) REFERENCES `municipalities` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.addresses: ~20 rows (aproximadamente)
-DELETE FROM `addresses`;
+-- Volcando datos para la tabla inet.addresses: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla inet.ambientes
 DROP TABLE IF EXISTS `ambientes`;
@@ -58,8 +51,7 @@ CREATE TABLE IF NOT EXISTS `ambientes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.ambientes: ~0 rows (aproximadamente)
-DELETE FROM `ambientes`;
+-- Volcando datos para la tabla inet.ambientes: ~1 rows (aproximadamente)
 INSERT INTO `ambientes` (`id`, `cod`, `description`, `url_credencial`, `url_envio`, `url_invalidacion`, `url_contingencia`, `url_firmador`, `created_at`, `updated_at`) VALUES
 	(1, '00', 'Modo Test', 'https://apitest.dtes.mh.gob.sv/seguridad/auth', 'https://apitest.dtes.mh.gob.sv/fesv/recepciondte', 'https://apitest.dtes.mh.gob.sv/fesv/anulardte', 'https://apitest.dtes.mh.gob.sv/fesv/contingencia', 'http://localhost:8113/firmardocumento/', '2023-10-06 20:20:05', '2023-10-06 20:20:05');
 
@@ -79,7 +71,6 @@ CREATE TABLE IF NOT EXISTS `catdetails` (
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.catdetails: ~131 rows (aproximadamente)
-DELETE FROM `catdetails`;
 INSERT INTO `catdetails` (`id`, `codecat`, `code`, `description`, `catlist_id`, `created_at`, `updated_at`) VALUES
 	(1, 'CAT-001', '00', 'Modo prueba', 1, '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, 'CAT-001', '01', 'Modo produccion', 1, '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
@@ -226,7 +217,6 @@ CREATE TABLE IF NOT EXISTS `catlists` (
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.catlists: ~31 rows (aproximadamente)
-DELETE FROM `catlists`;
 INSERT INTO `catlists` (`id`, `code`, `namefield`, `description`, `created_at`, `updated_at`) VALUES
 	(1, 'CAT-001', 'ambiente', 'Ambiente de destino', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, 'CAT-002', 'tipoDoc', 'Tipo de Documento', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
@@ -300,8 +290,7 @@ CREATE TABLE IF NOT EXISTS `clients` (
   CONSTRAINT `clients_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.clients: ~1 rows (aproximadamente)
-DELETE FROM `clients`;
+-- Volcando datos para la tabla inet.clients: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla inet.companies
 DROP TABLE IF EXISTS `companies`;
@@ -333,8 +322,7 @@ CREATE TABLE IF NOT EXISTS `companies` (
   CONSTRAINT `companies_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.companies: ~1 rows (aproximadamente)
-DELETE FROM `companies`;
+-- Volcando datos para la tabla inet.companies: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla inet.config
 DROP TABLE IF EXISTS `config`;
@@ -359,8 +347,7 @@ CREATE TABLE IF NOT EXISTS `config` (
   CONSTRAINT `config_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.config: ~0 rows (aproximadamente)
-DELETE FROM `config`;
+-- Volcando datos para la tabla inet.config: ~1 rows (aproximadamente)
 INSERT INTO `config` (`id`, `company_id`, `version`, `ambiente`, `typeModel`, `typeTransmission`, `typeContingencia`, `versionJson`, `passPrivateKey`, `passkeyPublic`, `passMH`, `codeCountry`, `nameCountry`, `created_at`, `updated_at`) VALUES
 	(1, NULL, 3, '01', '1', '1', '0', '3', 'pass', 'pass', 'pass', '9300', 'EL SALVADOR', '2023-10-06 20:20:05', '2023-10-06 20:20:05');
 
@@ -376,7 +363,6 @@ CREATE TABLE IF NOT EXISTS `countries` (
 ) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.countries: ~253 rows (aproximadamente)
-DELETE FROM `countries`;
 INSERT INTO `countries` (`id`, `code`, `name`, `created_at`, `updated_at`) VALUES
 	(1, '9300', 'El Salvador', '2023-10-06 20:20:00', '2023-10-06 20:20:00'),
 	(2, '9483', 'Guatemala', '2023-10-06 20:20:00', '2023-10-06 20:20:00'),
@@ -651,8 +637,7 @@ CREATE TABLE IF NOT EXISTS `credits` (
   CONSTRAINT `credits_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.credits: ~8 rows (aproximadamente)
-DELETE FROM `credits`;
+-- Volcando datos para la tabla inet.credits: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla inet.departments
 DROP TABLE IF EXISTS `departments`;
@@ -670,7 +655,6 @@ CREATE TABLE IF NOT EXISTS `departments` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.departments: ~14 rows (aproximadamente)
-DELETE FROM `departments`;
 INSERT INTO `departments` (`id`, `code`, `name`, `zone`, `country_id`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'AHUACHAPÁN', 'ZOC', 1, '2023-10-06 20:20:01', '2023-10-06 20:20:01'),
 	(2, '2', 'SANTA ANA', 'ZOC', 1, '2023-10-06 20:20:01', '2023-10-06 20:20:01'),
@@ -730,7 +714,6 @@ CREATE TABLE IF NOT EXISTS `dte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.dte: ~0 rows (aproximadamente)
-DELETE FROM `dte`;
 
 -- Volcando estructura para tabla inet.economicactivities
 DROP TABLE IF EXISTS `economicactivities`;
@@ -747,7 +730,6 @@ CREATE TABLE IF NOT EXISTS `economicactivities` (
 ) ENGINE=InnoDB AUTO_INCREMENT=773 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.economicactivities: ~772 rows (aproximadamente)
-DELETE FROM `economicactivities`;
 INSERT INTO `economicactivities` (`id`, `code`, `name`, `country_id`, `created_at`, `updated_at`) VALUES
 	(1, '1111', 'CULTIVO DE CEREALES EXCEPTO ARROZ Y PARA FORRAJES', 1, '2023-10-06 20:20:02', '2023-10-06 20:20:02'),
 	(2, '1112', 'CULTIVO DE LEGUMBRES', 1, '2023-10-06 20:20:02', '2023-10-06 20:20:02'),
@@ -1537,7 +1519,6 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.failed_jobs: ~0 rows (aproximadamente)
-DELETE FROM `failed_jobs`;
 
 -- Volcando estructura para procedimiento inet.get_voucher_dte
 DROP PROCEDURE IF EXISTS `get_voucher_dte`;
@@ -1756,8 +1737,7 @@ CREATE TABLE IF NOT EXISTS `iva` (
   CONSTRAINT `iva_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.iva: ~1 rows (aproximadamente)
-DELETE FROM `iva`;
+-- Volcando datos para la tabla inet.iva: ~0 rows (aproximadamente)
 
 -- Volcando estructura para tabla inet.migrations
 DROP TABLE IF EXISTS `migrations`;
@@ -1768,8 +1748,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.migrations: ~26 rows (aproximadamente)
-DELETE FROM `migrations`;
+-- Volcando datos para la tabla inet.migrations: ~27 rows (aproximadamente)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(132, '2014_10_12_000000_create_users_table', 1),
 	(133, '2014_10_12_100000_create_password_resets_table', 1),
@@ -1811,7 +1790,6 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.model_has_permissions: ~0 rows (aproximadamente)
-DELETE FROM `model_has_permissions`;
 
 -- Volcando estructura para tabla inet.model_has_roles
 DROP TABLE IF EXISTS `model_has_roles`;
@@ -1824,8 +1802,7 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla inet.model_has_roles: ~0 rows (aproximadamente)
-DELETE FROM `model_has_roles`;
+-- Volcando datos para la tabla inet.model_has_roles: ~1 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\User', 1);
 
@@ -1847,7 +1824,6 @@ CREATE TABLE IF NOT EXISTS `municipalities` (
 ) ENGINE=InnoDB AUTO_INCREMENT=263 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.municipalities: ~262 rows (aproximadamente)
-DELETE FROM `municipalities`;
 INSERT INTO `municipalities` (`id`, `code`, `name`, `district`, `title`, `zipcode`, `department_id`, `created_at`, `updated_at`) VALUES
 	(1, '01', 'AHUACHAPÁN', 'Ahuachapán', 'Ciudad', 'CP 2101', 1, '2023-10-06 20:20:01', '2023-10-06 20:20:01'),
 	(2, '02', 'APANECA', 'Ahuachapán', 'Villa', 'CP 2102', 1, '2023-10-06 20:20:01', '2023-10-06 20:20:01'),
@@ -2122,7 +2098,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.password_resets: ~0 rows (aproximadamente)
-DELETE FROM `password_resets`;
 
 -- Volcando estructura para tabla inet.permissions
 DROP TABLE IF EXISTS `permissions`;
@@ -2137,7 +2112,6 @@ CREATE TABLE IF NOT EXISTS `permissions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.permissions: ~30 rows (aproximadamente)
-DELETE FROM `permissions`;
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'dashboard.index', 'web', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, 'dashboard.store', 'web', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
@@ -2187,7 +2161,6 @@ CREATE TABLE IF NOT EXISTS `permission_company` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.permission_company: ~0 rows (aproximadamente)
-DELETE FROM `permission_company`;
 
 -- Volcando estructura para tabla inet.personal_access_tokens
 DROP TABLE IF EXISTS `personal_access_tokens`;
@@ -2208,7 +2181,6 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.personal_access_tokens: ~0 rows (aproximadamente)
-DELETE FROM `personal_access_tokens`;
 
 -- Volcando estructura para tabla inet.phones
 DROP TABLE IF EXISTS `phones`;
@@ -2222,7 +2194,6 @@ CREATE TABLE IF NOT EXISTS `phones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.phones: ~0 rows (aproximadamente)
-DELETE FROM `phones`;
 
 -- Volcando estructura para tabla inet.products
 DROP TABLE IF EXISTS `products`;
@@ -2248,7 +2219,6 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.products: ~0 rows (aproximadamente)
-DELETE FROM `products`;
 
 -- Volcando estructura para tabla inet.providers
 DROP TABLE IF EXISTS `providers`;
@@ -2276,7 +2246,6 @@ CREATE TABLE IF NOT EXISTS `providers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.providers: ~0 rows (aproximadamente)
-DELETE FROM `providers`;
 
 -- Volcando estructura para tabla inet.purchases
 DROP TABLE IF EXISTS `purchases`;
@@ -2310,7 +2279,6 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.purchases: ~0 rows (aproximadamente)
-DELETE FROM `purchases`;
 
 -- Volcando estructura para tabla inet.roles
 DROP TABLE IF EXISTS `roles`;
@@ -2325,7 +2293,6 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.roles: ~4 rows (aproximadamente)
-DELETE FROM `roles`;
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', 'web', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, 'Contabilidad', 'web', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
@@ -2344,7 +2311,6 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.role_has_permissions: ~32 rows (aproximadamente)
-DELETE FROM `role_has_permissions`;
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(1, 1),
 	(2, 1),
@@ -2408,7 +2374,6 @@ CREATE TABLE IF NOT EXISTS `sales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.sales: ~0 rows (aproximadamente)
-DELETE FROM `sales`;
 
 -- Volcando estructura para tabla inet.salesdetails
 DROP TABLE IF EXISTS `salesdetails`;
@@ -2433,7 +2398,6 @@ CREATE TABLE IF NOT EXISTS `salesdetails` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.salesdetails: ~0 rows (aproximadamente)
-DELETE FROM `salesdetails`;
 
 -- Volcando estructura para tabla inet.typedocuments
 DROP TABLE IF EXISTS `typedocuments`;
@@ -2456,7 +2420,6 @@ CREATE TABLE IF NOT EXISTS `typedocuments` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.typedocuments: ~11 rows (aproximadamente)
-DELETE FROM `typedocuments`;
 INSERT INTO `typedocuments` (`id`, `company_id`, `type`, `description`, `codemh`, `versionjson`, `versionjsoncontingencia`, `contingencia`, `ambiente`, `invalidation`, `periodinvalidation`, `versionjsoncontingenciainvalidation`, `created_at`, `updated_at`) VALUES
 	(1, '1', 'CDN', 'COMPROBANTE DE DONACION', '15', '1', '0', '0', '0', '0', '0', '0', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, '1', 'CLQ', 'COPROBANTE DE LIQUIDACION', '8', '1', '0', '0', '0', '0', '0', '0', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
@@ -2488,7 +2451,6 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla inet.users: ~10 rows (aproximadamente)
-DELETE FROM `users`;
 INSERT INTO `users` (`id`, `name`, `email`, `image`, `state`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(1, 'Brian Ventura', 'bventura@admin.com', NULL, 'Active', NULL, '$2y$10$vlk8pmkZCfoseYzQ7ugsEuLFrXBI1F6V8YeF9xf9MuDhQmR3XebaO', NULL, '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
 	(2, 'Alec Heller', 'sammie30@example.com', NULL, 'Active', '2023-10-06 20:20:04', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'f81LLE0YSe', '2023-10-06 20:20:04', '2023-10-06 20:20:04'),
