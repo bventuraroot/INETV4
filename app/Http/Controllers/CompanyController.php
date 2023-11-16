@@ -194,6 +194,7 @@ class CompanyController extends Controller
            }else{
                 $nombre = $request->logoeditoriginal;
            }
+           //dd($request);
         $Company = Company::find($request->idedit);
         $Company->name = $request->nameedit;
         $Company->email = $request->emailedit;
@@ -201,7 +202,7 @@ class CompanyController extends Controller
         $Company->ncr = $request->ncredit;
         $Company->giro = $request->giroedit;
         $Company->cuenta_no = $request->cuenta_noedit;
-        $Company->tipoContribuyente = $request->tipoContribuyenteedit;
+        $Company->tipoContribuyente = $request->tipocontribuyenteedit;
         $Company->tipoEstablecimiento = $request->tipoEstablecimientoedit;
         $Company->address_id = $request->addresseditid;
         $Company->economicactivity_id = $request->acteconomicaedit;

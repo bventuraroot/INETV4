@@ -168,6 +168,33 @@ getmunicipio(departamento, 'edit', municipio);
                     if(index=='address_id'){
                         $('#addresseditid').val(value);
                     }
+                    if(index=='tipoContribuyente'){
+                        var opciones = ['GRA', 'MED', 'PEQU', 'OTR'];
+                        var labels = ['GRANDE', 'MEDIANO', 'PEQUEÑO', 'OTRO'];
+                        $('#tipocontribuyenteedit').empty();
+                        var y = 0;
+                        opciones.forEach(function(opcion) {
+                            $('#tipocontribuyenteedit').append('<option value="' + opcion + '">' + labels[y] + '</option>');
+                            if (value === opcion) {
+                                $('#tipocontribuyenteedit option[value="' + opcion + '"]').prop('selected', true);
+                            }
+                            y++;
+                        });
+                    }
+                    if(index=='tipoEstablecimiento'){
+                        var opciones = ['01', '02', '04', '07', '20'];
+                        var labels = ['SUCURSAL/AGENCIA', 'CASA MATRIZ', 'BODEGA', 'PREDIO y/o PATIO', 'OTRO'];
+                        $('#tipoEstablecimientoedit').empty();
+                        var y = 0;
+                        opciones.forEach(function(opcion) {
+                            $('#tipoEstablecimientoedit').append('<option value="' + opcion + '">' + labels[y] + '</option>');
+                            if (value === opcion) {
+                                $('#tipoEstablecimientoedit option[value="' + opcion + '"]').prop('selected', true);
+                            }
+                            y++;
+                        });
+                    }
+
                     $('#'+index+'edit').val(value);
                 }
               });

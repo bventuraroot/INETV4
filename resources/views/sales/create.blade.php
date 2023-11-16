@@ -218,7 +218,7 @@
                             </div>
                             <div class="col-sm-1">
                                 <label class="form-label" for="precio">Precio</label>
-                                <input type="number" id="precio" name="precio" step="0.01" min="1" max="10000" placeholder="0.00" class="form-control">
+                                <input type="number" id="precio" name="precio" step="0.01" min="0" max="10000" placeholder="0.00" class="form-control">
                             </div>
                             <div class="col-sm-2">
                                 <label class="form-label" for="typesale">Tipo de venta</label>

@@ -45,7 +45,7 @@
 @section('content')
     <div class="card">
         <div class="card-datatable table-responsive">
-            <table class="datatables-company table border-top">
+            <table class="table datatables-company border-top">
                 <thead>
                     <tr>
                         <th>Ver</th>
@@ -130,8 +130,8 @@
                                         <a href="{{ route('company.view',$company->id)}}" class="dropdown-item"><i
                                             class="ti ti-eye ti-sm me-2"></i>Ver</a>
                                         <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-end m-0">
+                                            data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
+                                        <div class="m-0 dropdown-menu dropdown-menu-end">
                                             <a href="javascript: editCompany({{ $company->id }});" class="dropdown-item"><i
                                                 class="ti ti-edit ti-sm me-2"></i>Editar</a>
                                             <a href="javascript:deleteCompany({{ $company->id }});" class="dropdown-item"><i
@@ -168,8 +168,8 @@
                     <h5 id="offcanvasAddCompanyLabel" class="offcanvas-title">Nueva Empresa</h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                    <form class="add-new-user pt-0" id="addNewClientForm" action="{{ route('company.store') }}" method="POST"
+                <div class="flex-grow-0 pt-0 mx-0 offcanvas-body h-100">
+                    <form class="pt-0 add-new-user" id="addNewClientForm" action="{{ route('company.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf @method('POST')
                         <div class="mb-3">
@@ -280,8 +280,8 @@
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                         aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                    <form class="add-new-user pt-0" id="addNewUpdateForm" action="{{ route('company.update') }}"
+                <div class="flex-grow-0 pt-0 mx-0 offcanvas-body h-100">
+                    <form class="pt-0 add-new-user" id="addNewUpdateForm" action="{{ route('company.update') }}"
                         method="POST" enctype="multipart/form-data">
                         @csrf @method('PATCH')
                         <input type="hidden" name="idedit" id="idedit">
@@ -346,22 +346,12 @@
                         <label for="tipocontribuyenteedit" class="form-label">Tipo de contribuyente</label>
                         <select class="select2tipocontriedit form-select" id="tipocontribuyenteedit" name="tipocontribuyenteedit"
                             aria-label="Seleccionar opcion">
-                            <option selected>Seleccione</option>
-                            <option value="GRA">Gran Contribuyente</option>
-                            <option value="MED">Mediano</option>
-                            <option value="PEQU">Pequeño</option>
-                            <option value="OTR">Otro</option>
                         </select>
                         <div class="mb-3">
                             <label for="tipoEstablecimientoedit" class="form-label">Tipo de Establecimiento</label>
                             <select class="select2tipoesedit form-select" id="tipoEstablecimientoedit"
                                 name="tipoEstablecimientoedit" aria-label="Seleccionar opcion">
-                                <option>Seleccione</option>
-                                <option value="01">Sucursal/Agencia</option>
-                                <option value="02">Casa Matriz</option>
-                                <option value="04">Bodega</option>
-                                <option value="07">Predio y/o Patio</option>
-                                <option value="20">Otro</option>
+
                             </select>
                         </div>
                         <div class="mb-3">

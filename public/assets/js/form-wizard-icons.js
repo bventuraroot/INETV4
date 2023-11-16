@@ -335,7 +335,7 @@ function searchproduct(idpro) {
     var iva = parseFloat($("#iva").val());
     var iva_entre = parseFloat($("#iva_entre").val());
     var typecontriclient = $("#typecontribuyenteclient").val();
-    var retencion;
+    var retencion=0.00;
     var pricevalue;
     $.ajax({
         url: "/product/getproductid/" + btoa(idpro),
@@ -354,6 +354,7 @@ function searchproduct(idpro) {
                 $("#productdescription").val(value.description);
                 $("#productunitario").val(value.id);
                 //validar si es gran contribuyente el cliente vs la empresa
+
                 if (typecontricompany == "GRA") {
                     if (typecontriclient == "GRA") {
                         retencion = 0.01;
@@ -703,7 +704,7 @@ function getinfodoc(){
     return salida;
 }
 
-function creardocuments(){
+function creardocuments() {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: "btn btn-success",
@@ -721,54 +722,50 @@ function creardocuments(){
             confirmButtonText: "Si, Crear!",
             cancelButtonText: "No, espera!",
             reverseButtons: true,
+            showLoaderOnConfirm: true, // Agrega un ícono de espera en el botón de confirmación
+            preConfirm: () => {
+                return new Promise((resolve) => {
+                    var corr = $('#valcorr').val();
+                    var totalamount = $('#ventatotallhidden').val();
+                    totalamount = 0 + totalamount;
+
+                    $.ajax({
+                        url: "createdocument/" + btoa(corr) + '/' + totalamount,
+                        method: "GET",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.res == 1) {
+                                resolve(response); // Resuelve la promesa si la solicitud es exitosa
+                            } else if (response.res == 0) {
+                                reject("Algo salió mal"); // Rechaza la promesa si hay un problema
+                            }
+                        },
+                    });
+                });
+            },
         })
         .then((result) => {
-            if (result.isConfirmed) {
-                var corr = $('#valcorr').val();
-                var totalamount = $('#ventatotallhidden').val(); 
-                totalamount = 0+totalamount;
-                //alert(totalamount);
-                $.ajax({
-                    url: "createdocument/" + btoa(corr) + '/' + totalamount,
-                    method: "GET",
-                    async: false,
-                    success: function (response) {
-                        console.log(response);
-                        if (response.res == 1) {
-                            Swal.fire({
-                                title: "Creado",
-                                icon: "success",
-                                confirmButtonText: "Ok",
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    //$("#pro" + id).remove();
-                                    //$('#resultados').load(location.href + " #resultados");
-                                    //var details = agregarfacdetails($('#valcorr').val());
-                                    //location.reload(true);
-                                    window.location.href ="index";
-                                }
-                            });
-                        } else if (response.res == 0) {
-                            swalWithBootstrapButtons.fire(
-                                "Problemas!",
-                                "Algo sucedio y documento no crerado, favor comunicarse con el administrador.",
-                                "success"
-                            );
-                        }
-                    },
+            if (result.value) {
+                Swal.fire({
+                    title: "Creado",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index";
+                    }
                 });
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    "Cancelado",
-                    "No hemos hecho ninguna accion :)",
-                    "error"
-                );
             }
+        })
+        .catch((error) => {
+            swalWithBootstrapButtons.fire(
+                "Problemas!",
+                "Algo sucedió y el documento no fue creado, favor comunicarse con el administrador.",
+                "success"
+            );
         });
 }
+
 
 function agregarfacdetails(corr) {
     $.ajax({

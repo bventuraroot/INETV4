@@ -37,7 +37,7 @@ return new class extends Migration
             $table->string('codigoGeneracion')->nullable();
             $table->string('selloRecibido')->nullable();
             $table->dateTime('fhRecibido')->nullable();
-            $table->string('estadoHacienda')->nullable();
+            $table->string('json')->nullable();
             $table->string('nSends')->nullable();
             $table->string('codeMessage')->nullable();
             $table->string('claMessage')->nullable();
