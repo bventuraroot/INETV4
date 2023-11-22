@@ -160,7 +160,8 @@ function agregarp() {
     if (type == "gravada") {
         pricegravada = parseFloat(price * cantidad);
         totaltempgravado = parseFloat(pricegravada);
-        iva13temp = parseFloat(ivarete13).toFixed(2);
+        iva13temp = parseFloat(pricegravada * 0.13).toFixed(2);
+        //iva13temp = parseFloat(ivarete13 * cantidad).toFixed(2);
     } else if (type == "exenta") {
         priceexenta = parseFloat(price * cantidad);
         iva13temp = 0;
@@ -168,13 +169,18 @@ function agregarp() {
         pricenosujeta = parseFloat(price * cantidad);
         iva13temp = 0;
     }
-    var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
-    var ventatotaltotal =  parseFloat(ventatotal); //+ parseFloat(iva13) + parseFloat(ivaretenido);
-    var totaltemptotal = parseFloat(($.isNumeric(pricegravada)? pricegravada: 0) + ($.isNumeric(priceexenta)? priceexenta: 0) + ($.isNumeric(pricenosujeta)? pricenosujeta: 0) + ($.isNumeric(ivarete13)? ivarete13: 0) - ($.isNumeric(ivarete)? ivarete: 0)
-    );
     if(!$.isNumeric(ivarete)){
         ivarete = 0;
     }
+    var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
+    var ventatotaltotal =  parseFloat(ventatotal); //+ parseFloat(iva13) + parseFloat(ivaretenido);
+    var totaltemptotal = parseFloat(
+    ($.isNumeric(pricegravada)? pricegravada: 0) +
+    ($.isNumeric(priceexenta)? priceexenta: 0) +
+    ($.isNumeric(pricenosujeta)? pricenosujeta: 0) +
+    ($.isNumeric(iva13temp)? parseFloat(iva13temp): 0) -
+    ($.isNumeric(ivarete)? ivarete: 0));
+
     //enviar a temp factura
     $.ajax({
         url:
@@ -747,7 +753,7 @@ function creardocuments() {
         .then((result) => {
             if (result.value) {
                 Swal.fire({
-                    title: "Creado",
+                    title: "DTE Creado correctamente",
                     icon: "success",
                     confirmButtonText: "Ok",
                 }).then((result) => {

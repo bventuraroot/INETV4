@@ -166,12 +166,19 @@ if (!function_exists('enviar_correo_prueba')) {
 
 
 if (!function_exists('convertir_json')) {
-    function convertir_json($compro_procesar)
+    function convertir_json($compro_procesar, $codTransaccion="01")
     {
         //var_dump($compro_procesar);
         $compro = $compro_procesar;
-        //dd($compro);
-        $tipo_comprobante = $compro["documento"][0]->tipodocumento;
+        //dd(is_array($compro));
+        //dd($compro["documento"][0]["tipodocumento"]);
+        if ($codTransaccion=="02") {
+            $tipo_comprobante = $compro["documento"][0]["tipodocumento"];
+        } else if($codTransaccion=="05") {
+            $tipo_comprobante = $compro["documento"][0]["tipodocumento"];
+        } else {
+            $tipo_comprobante = $compro["documento"][0]->tipodocumento;
+        }
         //dd($tipo_comprobante);
         $retorno = [];
         $uuid_generado = strtoupper(Str::uuid()->toString());
@@ -211,7 +218,7 @@ if (!function_exists('convertir_json')) {
 if (!function_exists('crf')) {
     function crf($comprobante_procesar, $uuid_generado)
     {
-
+        $comprobante = [];
         $encabezado = $comprobante_procesar["documento"][0];
         $emisor_data = $comprobante_procesar["emisor"];
         $cliente = $comprobante_procesar["cliente"];
@@ -249,6 +256,7 @@ if (!function_exists('crf')) {
             "municipio"     => $emisor_data[0]->municipio,
             "complemento"   => $emisor_data[0]->direccion
         ];
+        //dd($emisor_data);
         $emisor = [
             "nit"                   => str_replace('-', '', $emisor_data[0]->nit),
             "nrc"                   => str_replace('-', '', $emisor_data[0]->ncr),
@@ -259,13 +267,14 @@ if (!function_exists('crf')) {
             "tipoEstablecimiento"   => $emisor_data[0]->tipoEstablecimiento,
             "direccion"             => $direccion_emisor,
             "telefono"              => $emisor_data[0]->telefono,
-
+            "correo"                 => $emisor_data[0]->correo,
             "codEstableMH"          => $emisor_data[0]->codEstableMH,
             "codEstable"            => $emisor_data[0]->codEstable,
             "codPuntoVentaMH"       => $emisor_data[0]->codPuntoVentaMH,
-            "codPuntoVenta"         => $emisor_data[0]->codPuntoVenta,
-            "correo"                => $emisor_data[0]->correo
+            "codPuntoVenta"         => $emisor_data[0]->codPuntoVenta
         ];
+
+        //dd($emisor);
 
         $direccion_receptor = [];
         $direccion_receptor = [
@@ -273,18 +282,22 @@ if (!function_exists('crf')) {
             "municipio"     => $cliente[0]->municipio,
             "complemento"   => $cliente[0]->direccion
         ];
-
+        if (!empty($cliente[0]->codActividad)) {
+            if (strlen($cliente[0]->codActividad) <= 4)
+            {$codeActivity = '0' . $cliente[0]->codActividad;}
+            else{ $codeActivity = $cliente[0]->codActividad; }
+        }
         $receptor = [
             "nit"                   => str_replace("-", "", $cliente[0]->nit),
             "nrc"                   => str_replace("-", "", $cliente[0]->ncr),
             "nombre"                => $cliente[0]->nombre,
-            "codActividad"          => $cliente[0]->codActividad,
+            "codActividad"          => $codeActivity,
             "descActividad"         => $cliente[0]->descActividad,
             "nombreComercial"       => $cliente[0]->nombreComercial,
             "direccion"             => $direccion_receptor
 
         ];
-
+        //dd($receptor);
         if ($cliente[0]->telefono != '') {
             $receptor["telefono"] = $cliente[0]->telefono;
         }
@@ -336,7 +349,7 @@ if (!function_exists('crf')) {
                 "tipoItem"          => intval($item->tipo_item),  //Bienes y Servicios
                 "numeroDocumento"   => null,
                 "cantidad"          => intval($item->cantidad),
-                "codigo"            => $item->id_producto,
+                "codigo"            => "P0".$item->id_producto,
                 "codTributo"        => null,
                 "uniMedida"         => intval($item->uniMedida),
                 "descripcion"       => $item->descripcion,
@@ -354,7 +367,7 @@ if (!function_exists('crf')) {
 
             $items_cuerpoDocumento[] = $properties_items_cuerpoDocumento;
         }
-
+        //dd($items_cuerpoDocumento);
         $cuerpoDocumento = $items_cuerpoDocumento;
 
         $properties_items_tributo_resumen = [
@@ -384,9 +397,9 @@ if (!function_exists('crf')) {
             $properties_items_pagos[] = [
                 "codigo"        => "13",
                 "montoPago"     => (float)"0.00",
-                "referencia"    => "",
+                "referencia"    => "Credito",
                 "plazo"         => "01",
-                "periodo"       => intval($encabezado["periodo"])
+                "periodo"       => 15
             ];
         }
 
@@ -394,8 +407,8 @@ if (!function_exists('crf')) {
         if ($totales["condicionOperacion"] == "03") {
             $properties_items_pagos[] = [
                 "codigo"        => "03",
-                "montoPago"     => (float)$totales["totalPagar"],
-                "referencia"    => $encabezado["referencia_tarjeta"],
+                "montoPago"     => round((float)$totales["totalPagar"],2),
+                "referencia"    => "Otro",
                 "plazo"         => null,
                 "periodo"       => null
             ];
@@ -444,17 +457,17 @@ if (!function_exists('crf')) {
             "numPagoElectronico"    => ""
         ];
 
-
+        //dd($resumen);
 
         $es_mayor = ($totales["totalPagar"] >= 11428.57);
 
         $extension = [
-            "nombEntrega"   => ($es_mayor) ? $encabezado["nombEntrega"] : null,
-            "docuEntrega"   => ($es_mayor) ? $encabezado["docuEntrega"] : null,
-            "nombRecibe"    => ($es_mayor) ? $encabezado["nombRecibe"] : null,
-            "docuRecibe"    => ($es_mayor) ? $encabezado["docuRecibe"] : null,
-            "observaciones" => ($es_mayor) ? $encabezado["observaciones"] : null,
-            "placaVehiculo" => ($es_mayor) ? $encabezado["placaVehiculo"] : null
+            "nombEntrega"   => ($es_mayor) ? $encabezado->NombreUsuario : null,
+            "docuEntrega"   => ($es_mayor) ? str_replace("-", "", $encabezado->docUser) : null,
+            "nombRecibe"    => ($es_mayor) ? $cliente[0]->nombre : null,
+            "docuRecibe"    => ($es_mayor) ? str_replace("-", "", $cliente[0]->nit) : null,
+            "observaciones" => ($es_mayor) ? null : null,
+            "placaVehiculo" => ($es_mayor) ? null : null
         ];
 
         $apendice = null;
@@ -471,6 +484,7 @@ if (!function_exists('crf')) {
         $comprobante["extension"]                = $extension;
         $comprobante["apendice"]                 = $apendice;
         //echo '<br>'. var_dump($comprobante) . '<br>';
+        //dd($comprobante);
         return ($comprobante);
     }
 }
@@ -546,12 +560,18 @@ if (!function_exists('fac')) {
             "complemento"   => $cliente[0]->direccion
         ];
 
+        if (!empty($cliente[0]->codActividad)) {
+            if (strlen($cliente[0]->codActividad) <= 4)
+            {$codeActivity = '0' . $cliente[0]->codActividad;}
+            else{ $codeActivity = $cliente[0]->codActividad; }
+        }
+
         $receptor = [
             "tipoDocumento"         => ($cliente[0]->ncr == '' or is_null($cliente[0]->ncr) ) ? $cliente[0]->tipoDocumento : "36",
             "numDocumento"          => ($cliente[0]->ncr == '' or is_null($cliente[0]->ncr)) ? str_replace("-","",$cliente[0]->numDocumento) : str_replace("-", "", $cliente[0]->nit),
             "nrc"                   => ($cliente[0]->ncr == 'N/A') ? null : str_replace("-","",$cliente[0]->ncr),
             "nombre"                => $cliente[0]->nombre,
-            "codActividad"          => ($cliente[0]->codActividad == '') ? null : $cliente[0]->codActividad,
+            "codActividad"          => ($cliente[0]->codActividad == '') ? null : $codeActivity,
             "descActividad"         => ($cliente[0]->descActividad == '') ? null : $cliente[0]->descActividad,
 
         ];
@@ -595,6 +615,8 @@ if (!function_exists('fac')) {
 
             $properties_items_cuerpoDocumento = array();
 
+            $iva_calculadofac = round(($item->iva/$item->cantidad),2);
+
             $properties_items_cuerpoDocumento = [
                 "numItem"           => $i, //intval($item["corr"]),
                 "tipoItem"          => intval($item->tipo_item),
@@ -606,11 +628,11 @@ if (!function_exists('fac')) {
                 "descripcion"       => $item->descripcion,
 
 
-                "precioUni"         => round((float)($item->precio_unitario), 2),
+                "precioUni"         => round((float)($item->precio_unitario + $iva_calculadofac), 2),
                 "montoDescu"        => 0.00,
                 "ventaNoSuj"        => (float)$item->no_sujetas,
                 "ventaExenta"       => (float)$item->exentas,
-                "ventaGravada"      => round((float)($item->gravadas), 2),
+                "ventaGravada"      => round((float)($item->gravadas + $item->iva), 2),
                 "tributos"          =>  null,
                 "psv"               => (float)"0.00",
                 "noGravado"         => (float)$item->no_imponible,
@@ -660,8 +682,8 @@ if (!function_exists('fac')) {
         if ($totales["condicionOperacion"] == "03") {
             $properties_items_pagos[] = [
                 "codigo"        => "03",
-                "montoPago"     => (float)$totales["totalPagar"],
-                "referencia"    => $encabezado["referencia_tarjeta"],
+                "montoPago"     => round((float)($totales["totalPagar"]- $totales["reteRenta"]),2),
+                "referencia"    => "Otro",
                 "plazo"         => null,
                 "periodo"       => null
             ];
@@ -742,76 +764,77 @@ if (!function_exists('fan')) {
     function fan($comprobante_procesar, $uuid_generado){
         date_default_timezone_set('America/El_Salvador');
         $comprobante = [];
-        $encabezado = $comprobante_procesar["encabezado"][0];
+        $encabezado = $comprobante_procesar["documento"][0];
+        $emisor_data = $comprobante_procesar["emisor"];
+        $cliente = $comprobante_procesar["cliente"];
         //dd($encabezado);
         $cuerpo = $comprobante_procesar["detalle"];
         //dd($cuerpo);
         $uuid = $uuid_generado;
         $numero_documento = CerosIzquierda($encabezado["nu_doc"], 15);
         $tipo_documento = $encabezado["tipoDteOriginal"];
-        $caja = $encabezado["cod_establecimiento"];// "0001";
+        $caja = "0001";
         $tipo_establecimiento = CerosIzquierda($encabezado["tipo_establecimiento"], 4);
-        $empresa = $comprobante_procesar["empresa"][0];
+        $empresa = $encabezado;
         $identificacion = [
             "version"           => intval($encabezado["version"]),
             "ambiente"          => $empresa["ambiente"],
             "codigoGeneracion"  => $uuid,
-            "fecAnula"          => $encabezado["fecAnulado"],
-            "horAnula"          => $encabezado["horAnulado"]
+            "fecAnula" => date("Y-m-d"),  // Fecha actual en formato "año-mes-día"
+            "horAnula" => date("H:i:s"),
+            //"fecAnula"          => $encabezado["fecAnulado"],
+            //"horAnula"          => $encabezado["horAnulado"]
         ];
         $comprobante = [
             "identificacion" => $identificacion
         ];
-
         $documentoRelacionado = null;
-
+        //dd($emisor_data);
         $emisor = [
-            "nit"                   => $encabezado["nit_emisor"],
-            "nombre"                => trim($encabezado["nombre_empresa"]),
-            "tipoEstablecimiento"   => $encabezado["tipo_establecimiento"],
+            "nit"                   => str_replace('-', '', $emisor_data[0]->nit),
+            "nombre"                => trim($emisor_data[0]->nombre),
+            "tipoEstablecimiento"   => $emisor_data[0]->tipoEstablecimiento,
             "nomEstablecimiento"    => "casa matriz", //cambiar
-            "codEstableMH"          => $encabezado["codEstableMH"],
-            "codEstable"            => $encabezado["codEstable"],
-            "codPuntoVentaMH"       => $encabezado["codPuntoVentaMH"],
-            "codPuntoVenta"         => $encabezado["codPuntoVenta"],
-            "telefono"              => $encabezado["telefono"],
-            "correo"                => $encabezado["correo"],
+            "codEstableMH"          => $emisor_data[0]->codEstableMH,
+            "codEstable"            => $emisor_data[0]->codEstable,
+            "codPuntoVentaMH"       => $emisor_data[0]->codPuntoVentaMH,
+            "codPuntoVenta"         => $emisor_data[0]->codPuntoVenta,
+            "telefono"              => $emisor_data[0]->telefono,
+            "correo"                => $emisor_data[0]->correo,
 
 
         ];
 
+        //dd($encabezado);
         $documento = [
             "tipoDte"               => $encabezado["tipoDteOriginal"],
             "codigoGeneracion"      => $encabezado["codigoGeneracionOriginal"],
             "selloRecibido"         => $encabezado["selloRecibidoOriginal"],
-            "numeroControl"         => "DTE-" . $tipo_documento . "-" . $tipo_establecimiento . $caja . "-" . $numero_documento,
+            "numeroControl"         => $encabezado["id_doc"],
             "fecEmi"                => $encabezado["fecEmiOriginal"],
             "montoIva"              => (float)($encabezado["total_iva"]),
             "codigoGeneracionR"     => null,
-            "tipoDocumento"         => $encabezado["tipoDocumento"],
+            "tipoDocumento"         => "36",
             "numDocumento"          => $encabezado["numDocumento"],
             "nombre"                => $encabezado["nombre"],
 
         ];
-        if ($encabezado["telefono_receptor"] != '') {
-            $documento["telefono"] = $encabezado["telefono_receptor"];
-        }
-        if ($encabezado["correo_receptor"] != '') {
-            $documento["correo"] = $encabezado["correo_receptor"];
-        }
+            $documento["telefono"] = $cliente[0]->telefono;
+
+
+            $documento["correo"] = $cliente[0]->correo;
 
        $motivo = [
             "tipoAnulacion"         => intval("2"),
             "motivoAnulacion"       => "Rescindir de la operacion realizada.",
-            "nombreResponsable"     => $encabezado["nombEntrega"],
+            "nombreResponsable"     => $encabezado["nombre"],
             "tipDocResponsable"    => "13",
-            "numDocResponsable"     => "03839534-0", ///$encabezado["docuEntrega"],
-            "nombreSolicita"        => $encabezado["nombreSolicita"],
-            "tipDocSolicita"        => $encabezado["tipDocSolicita"],
-            "numDocSolicita"        => $encabezado["numDocSolicita"]
+            "numDocResponsable"     => "05095294-8", ///$encabezado["docuEntrega"],
+            "nombreSolicita"        => $cliente[0]->nombre,
+            "tipDocSolicita"        => "36",
+            "numDocSolicita"        => str_replace('-','', $cliente[0]->numDocumento)
 
        ];
-
 
 
         $comprobante["emisor"]      = $emisor;
@@ -819,6 +842,7 @@ if (!function_exists('fan')) {
         $comprobante["motivo"]      = $motivo;
 
         //$comprobante2 = [];
+        //dd($comprobante);
         return ($comprobante);
     }
 }
@@ -1266,20 +1290,21 @@ if (!function_exists('fex')) {
 if (!function_exists('ncr')) {
     function ncr($comprobante_procesar, $uuid_generado)
     {
-        //dd($comprobante_procesar);
-        $encabezado = $comprobante_procesar["encabezado"][0];
+        $encabezado = $comprobante_procesar["documento"][0];
+        $emisor_data = $comprobante_procesar["emisor"];
+        $cliente = $comprobante_procesar["cliente"];
+        $totales = $comprobante_procesar["totales"];
+        $cuerpo =  $comprobante_procesar["detalle"];
         //dd($encabezado);
-        $cuerpo = $comprobante_procesar["detalle"];
-        //dd($cuerpo);
         $uuid = $uuid_generado;
         $numero_documento = CerosIzquierda($encabezado["nu_doc"], 15);
-        $tipo_documento = $encabezado["cod_tipo_documento"];
-        $caja = $encabezado["cod_establecimiento"];// "0001";
+        $tipo_documento = $encabezado["tipodocumento"];
+        $caja = "0001";
         $tipo_establecimiento = CerosIzquierda($encabezado["tipo_establecimiento"], 4);
-        $empresa = $comprobante_procesar["empresa"][0];
+        $empresa = $comprobante_procesar["emisor"];
         $identificacion = [
             "version"           => intval($encabezado["version"]),
-            "ambiente"          => $empresa["ambiente"],
+            "ambiente"          => $encabezado["ambiente"],
             "tipoDte"           => $tipo_documento,
             "numeroControl"     => "DTE-" . $tipo_documento . "-" . $tipo_establecimiento . $caja . "-" . $numero_documento, //Cambiar
             "codigoGeneracion"  => $uuid,
@@ -1288,82 +1313,84 @@ if (!function_exists('ncr')) {
             "tipoContingencia"  => null,
             "motivoContin"      => null,
             "fecEmi"            => date('Y-m-d'), // "2022-07-23", //$encabezado["fecEmi"],    //Cambiar
-            "horEmi"            => $encabezado["horEmi"],      //Cambiar
+            "horEmi"            => date("H:i:s"),      //Cambiar
             "tipoMoneda"        => "USD"            //Cambiar
         ];
         $comprobante = [
             "identificacion" => $identificacion
         ];
-        //dd($comprobante);
-        $documentoRelacionado = null;
-        $docRelacionado = (isset($comprobante_procesar["Documentosrelacionados"]))? $comprobante_procesar["Documentosrelacionados"]: [];
-        //dd($docRelacionado);
-        foreach ($docRelacionado as $dr) {
-            $documentoRelacionado[] = [
-                "tipoDocumento"     =>  $dr["tipoDodocumento"],
-                "tipoGeneracion"    => intval($dr["tipoGeneracion"]),
-                "numeroDocumento"   => $dr["nuDocRelacionado"],
-                "fechaEmision"       => $dr["fechaEmision"],
-            ];
-        }
+        $documentoRelacionado[] = [
+            "tipoDocumento"     => $encabezado["tipoDteOriginal"],
+            "tipoGeneracion"    => 2,
+            "numeroDocumento"   => $encabezado["numeroOriginal"],
+            "fechaEmision"      => $encabezado["fecEmiOriginal"],
+        ];
         //dd($documentoRelacionado);
-
         $direccion_emisor = [
-            "departamento"  => $encabezado["departamento_emisor"],
-            "municipio"     => $encabezado["municipio_emisor"],
-            "complemento"   => $encabezado["complemento_emisor"]
+            "departamento"  => $emisor_data[0]->departamento,
+            "municipio"     => $emisor_data[0]->municipio,
+            "complemento"   => $emisor_data[0]->direccion
         ];
 
         $emisor = [
-            "nit"                   => $encabezado["nit_emisor"],
-            "nrc"                   => $encabezado["nrc_emisor"],
-            "nombre"                => $encabezado["nombre_empresa"],
-            "codActividad"          => $encabezado["codActividad"],
-            "descActividad"         => $encabezado["descActividad"],
-            "nombreComercial"       => $encabezado["nombreComercial"],
-            "tipoEstablecimiento"   => $encabezado["tipo_establecimiento"],
+            "nit"                   => str_replace('-', '', $emisor_data[0]->nit),
+            "nrc"                   => str_replace('-', '', $emisor_data[0]->ncr),
+            "nombre"                => trim($emisor_data[0]->nombre),
+            "codActividad"          => $emisor_data[0]->codActividad,
+            "descActividad"         => $emisor_data[0]->descActividad,
+            "nombreComercial"       => $emisor_data[0]->nombreComercial,
+            "tipoEstablecimiento"   => $emisor_data[0]->tipoEstablecimiento,
             "direccion"             => $direccion_emisor,
-            "telefono"              => $encabezado["telefono"],
-            "correo"                => $encabezado["correo"]
+            "telefono"              => str_replace("-", "",$emisor_data[0]->telefono),
 
+           // "codEstableMH"          => null,
+            //"codEstable"            => null,
+            //"codPuntoVentaMH"       => null,
+            //"codPuntoVenta"         => null,
+            "correo"                => $emisor_data[0]->correo,
         ];
-        //dd($emisor);
+
+        //dd($cliente);
+        $direccion_receptor = [];
         $direccion_receptor = [
-            "departamento"  => $encabezado["departamento_receptor"],
-            "municipio"     => $encabezado["municipio_receptor"],
-            "complemento"   => $encabezado["complemento_receptor"]
+            "departamento"  => $cliente[0]->departamento,
+            "municipio"     => $cliente[0]->municipio,
+            "complemento"   => $cliente[0]->direccion_cliente
         ];
-
+        if (!empty($cliente[0]->codActividad)) {
+            if (strlen($cliente[0]->codActividad) <= 4)
+            {$codeActivity = '0' . $cliente[0]->codActividad;}
+            else{ $codeActivity = $cliente[0]->codActividad; }
+        }
         $receptor = [
-            "nit"                   => $encabezado["nit_receptor"],
-            "nrc"                   => $encabezado["nrc_receptor"],
-            "nombre"                => $encabezado["nombre"],
-            "codActividad"          => $encabezado["codActividad_receptor"],
-            "descActividad"         => $encabezado["descActividad_receptor"],
-            "nombreComercial"       => $encabezado["nombreComercial_receptor"],
+            "nit"                   => str_replace("-", "", $cliente[0]->nit),
+            "nrc"                   => str_replace("-", "", $cliente[0]->ncr),
+            "nombre"                => $cliente[0]->nombre_cliente,
+            "codActividad"          => $codeActivity,
+            "descActividad"         => $cliente[0]->descActividad,
+            "nombreComercial"       => $cliente[0]->nombre_comercial,
             "direccion"             => $direccion_receptor
 
         ];
 
-        if ($encabezado["telefono_receptor"] != '') {
-            $receptor["telefono"] = $encabezado["telefono_receptor"];
+        if ($cliente[0]->telefono_cliente != '') {
+            $receptor["telefono"] = $cliente[0]->telefono_cliente;
         }
-        if ($encabezado["correo_receptor"] != '') {
-            $receptor["correo"] = $encabezado["correo_receptor"];
+        if ($cliente[0]->email_cliente != '') {
+            $receptor["correo"] = $cliente[0]->email_cliente;
         }
         //dd($receptor);
         $ventaTercero = null;
-
-        if (isset($comprobante_procesar["terceros"][0])) {
+        if (isset($comprobante_procesar[3][0])) {
             // dd($comprobante_procesar[2]);
             $ventaTercero = [
-                "nit"       => $comprobante_procesar["terceros"][0]["nit"],
-                "nombre"    => $comprobante_procesar["terceros"][0]["nombre"],
+                "nit"       => $comprobante_procesar[3][0]["nit"],
+                "nombre"    => $comprobante_procesar[3][0]["nombre"],
 
             ];
         }
 
-
+        $otrosDocumentos = null;
 
         $codigos_tributos = [];
         $i = 0;
@@ -1374,49 +1401,48 @@ if (!function_exists('ncr')) {
             $i += 1;
             $tributos_properties_items_cuerpoDocumento = array();
 
-            if ($item["iva"] != 0 and count($codigos_tributos) == 0) {
+            if ($item->iva != 0 and count($codigos_tributos) == 0) {
                 $codigos_tributos = [
                     "codigo"        =>  "20",
                     "descripcion"   =>  "Impuesto al Valor Agregado 13%",
-                    "valor"         => (float)$item["iva"]
+                    "valor"         => round((float)$item->iva, 2)
                 ];
             } else {
-                if ($item["iva"] != 0 and count($codigos_tributos) > 0) {
-                    $iva =  $codigos_tributos["valor"] + $item["iva"];
-                    $codigos_tributos["valor"] = $iva;
+                if ($item->iva != 0 and count($codigos_tributos) > 0) {
+                    $iva = round((float)($codigos_tributos["valor"] + $item->iva), 2);
+                    $codigos_tributos["valor"] = (float)$iva;
                 }
             }
 
-            $tributos_properties_items_cuerpoDocumento = ($item["iva"] != 0) ? "20" : "C3";
+            $tributos_properties_items_cuerpoDocumento = ($item->iva != 0) ? "20" : "C3";
 
             $properties_items_cuerpoDocumento = array();
 
             $properties_items_cuerpoDocumento = [
                 "numItem"           => $i,
-                "tipoItem"          => intval($item["tipoItem"]),  //Bienes y Servicios
-                "numeroDocumento"   => $item["nuDocRelacionado"],
-                "cantidad"          => intval($item["cantidad"]),
-                "codigo"            => $item["id_producto"],
+                "tipoItem"          => intval("2"),  //Bienes y Servicios
+                "numeroDocumento"   => $encabezado["numeroOriginal"],
+                "cantidad"          => intval($item->cantidad),
+                "codigo"            => "P0".$item->id_producto,
                 "codTributo"        => null,
-                "uniMedida"         => intval($item["uniMedida"]),
-                "descripcion"       => $item["descripcion"],
+                "uniMedida"         => 99,
+                "descripcion"       => $item->descripcion,
 
 
-                "precioUni"         => (float)($item["pre_unitario"]),
+                "precioUni"         => (float)($item->precio_unitario),
                 "montoDescu"        => 0.00,
-                "ventaNoSuj"        => (float)($item["no_sujetas"]),
-                "ventaExenta"       => (float)($item["excento"]),
-                "ventaGravada"      => (float)($item["gravado"]),
-                "tributos"          => ($item["gravado"] != 0) ? ["20"] : null,
-
-               // "noGravado"         => (float)$item["imp_int_det"]
+                "ventaNoSuj"        => (float)($item->descuento),
+                "ventaExenta"       => (float)($item->exentas),
+                "ventaGravada"      => round((float)($item->gravadas),2),
+                "tributos"          => ($item->gravadas != 0) ? ["20"] : null,
+                //"psv"               => (float)"0.00",
+                //"noGravado"         => (float)$item["no_imponible"]
             ];
 
             $items_cuerpoDocumento[] = $properties_items_cuerpoDocumento;
         }
-
         $cuerpoDocumento = $items_cuerpoDocumento;
-        //dd($cuerpoDocumento);
+
         $properties_items_tributo_resumen = [
             "codigo"        => "",
             "descripcion"   => "",
@@ -1426,13 +1452,14 @@ if (!function_exists('ncr')) {
         $tributos_resumen = [
             "properties"   => $properties_items_tributo_resumen
         ];
-
+       // dd($cuerpoDocumento);
         $properties_items_pagos = [];
         //contado
-        if ($encabezado["contado"] != 0) {
+        //dd($encabezado);
+        if ($encabezado["condiciones"] == 1) {
             $properties_items_pagos[] = [
                 "codigo"        => "01",
-                "montoPago"     => (float)$encabezado["contado"],
+                "montoPago"     => round((float)($encabezado["totalPagar"]- $encabezado["reteRenta"]),2),
                 "referencia"    => null,
                 "plazo"         => null,
                 "periodo"       => null
@@ -1440,22 +1467,22 @@ if (!function_exists('ncr')) {
         }
 
         //credito
-        if ($encabezado["credito"] != 0) {
+        if ($encabezado["condiciones"] == 2) {
             $properties_items_pagos[] = [
                 "codigo"        => "13",
-                "montoPago"     => (float)$encabezado["credito"],
-                "referencia"    => "",
+                "montoPago"     => (float)"0.00",
+                "referencia"    => "Credito",
                 "plazo"         => "01",
-                "periodo"       => intval($encabezado["periodo"])
+                "periodo"       => 15
             ];
         }
 
         //tarjeta
-        if ($encabezado["tarjeta"] != 0) {
+        if ($encabezado["condiciones"] == 3) {
             $properties_items_pagos[] = [
                 "codigo"        => "03",
-                "montoPago"     => (float)$encabezado["tarjeta"],
-                "referencia"    => $encabezado["referencia_tarjeta"],
+                "montoPago"     => round((float)$totales["totalPagar"],2),
+                "referencia"    => "Otro",
                 "plazo"         => null,
                 "periodo"       => null
             ];
@@ -1467,7 +1494,7 @@ if (!function_exists('ncr')) {
             "valor"         => (float)$encabezado["total_iva"]
         ];
         }*/
-
+        //dd($properties_items_pagos);
         $pagos = $properties_items_pagos;
         if (count($codigos_tributos) > 0) {
             if ($encabezado["tot_gravado"] * 0.13 <> $codigos_tributos["valor"]) {
@@ -1476,7 +1503,7 @@ if (!function_exists('ncr')) {
 
             }
         }
-
+        //dd($codigos_tributos);
         // $codigos_tributos["valor"] = intval($codigos_tributos["valor"]/0.01);
 
         $resumen = [
@@ -1487,9 +1514,9 @@ if (!function_exists('ncr')) {
             "descuNoSuj"            => (float)$encabezado["descuNoSuj"],
             "descuExenta"           => (float)$encabezado["descuExenta"],
             "descuGravada"          => (float)$encabezado["descuGravada"],
-           // "porcentajeDescuento"   => (float)$encabezado["porcentajeDescuento"],
+            // "porcentajeDescuento"   => (float)$encabezado["porcentajeDescuento"],
             "totalDescu"            => (float)$encabezado["totalDescu"],
-            "tributos"              => (!empty($codigos_tributos))?[$codigos_tributos]:null,
+            "tributos"              => [$codigos_tributos],
             "subTotal"              => (float)$encabezado["subTotal"],
             "ivaPerci1"             => (float)$encabezado["ivaPerci1"],
             "ivaRete1"              => (float)$encabezado["ivaRete1"],
@@ -1499,40 +1526,36 @@ if (!function_exists('ncr')) {
             //"totalPagar"            => (float)$encabezado["totalPagar"],
             "totalLetras"           => $encabezado["total_letras"],
             //"saldoFavor"            => (float)$encabezado["saldoFavor"],
-            "condicionOperacion"    => intval($encabezado["condicionOperacion"]),
+            "condicionOperacion"    => (float)$encabezado["condiciones"],
             //"pagos"                 => $pagos,
             //"numPagoElectronico"    => ""
         ];
 
-
-
+        //dd($resumen);
+        //11428.57
         $es_mayor = ($encabezado["totalPagar"] >= 11428.57);
-
         $extension = [
-            "nombEntrega"   => ($es_mayor) ? $encabezado["nombEntrega"] : null,
-            "docuEntrega"   => ($es_mayor) ? $encabezado["docuEntrega"] : null,
-            "nombRecibe"    => ($es_mayor) ? $encabezado["nombRecibe"] : null,
-            "docuRecibe"    => ($es_mayor) ? $encabezado["docuRecibe"] : null,
-            "observaciones" => ($es_mayor) ? $encabezado["observaciones"] : null,
-           // "placaVehiculo" => ($es_mayor) ? $encabezado["placaVehiculo"] : null
+            "nombEntrega"   => ($es_mayor) ? $encabezado["NombreUsuario"] : null,
+            "docuEntrega"   => ($es_mayor) ? str_replace("-", "", $encabezado["docUser"]) : null,
+            "nombRecibe"    => ($es_mayor) ? $cliente[0]->nombre_cliente : null,
+            "docuRecibe"    => ($es_mayor) ? str_replace("-", "", $cliente[0]->nit) : null,
+            "observaciones" => ($es_mayor) ? null : null,
+            //"placaVehiculo" => ($es_mayor) ? null : null
+            // "placaVehiculo" => ($es_mayor) ? $encabezado["placaVehiculo"] : null
         ];
 
-        $apendice[] = [
-            "campo"         => "vendedor",
-            "etiqueta"      => "Vendedor",
-            "valor"         => $encabezado["id_vendedor"]
-        ];
+
         $apendice[] = [
             "campo"         => "cliente",
             "etiqueta"      => "Cliente",
-            "valor"         => $encabezado["id_cliente"]
+            "valor"         => "".$cliente[0]->id_cliente
         ];
-
 
 
         $comprobante["documentoRelacionado"]     = $documentoRelacionado;
         $comprobante["emisor"]                   = $emisor;
         $comprobante["receptor"]                 = $receptor;
+        //$comprobante["otrosDocumentos"]          = $otrosDocumentos;
         $comprobante["ventaTercero"]             = $ventaTercero;
         $comprobante["cuerpoDocumento"]          = $cuerpoDocumento;
         $comprobante["resumen"]                  = $resumen;
@@ -2001,7 +2024,144 @@ if (! function_exists('subfijo')) {
         return $xsub;
     }
 }
+if (!function_exists('numeroletras')) {
+    function numeroletras($xcifra)
+    {
+        $xarray = array(
+            0 => "Cero",
+            1 => "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE",
+            "DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE",
+            "VEINTI", 30 => "TREINTA", 40 => "CUARENTA", 50 => "CINCUENTA", 60 => "SESENTA", 70 => "SETENTA", 80 => "OCHENTA", 90 => "NOVENTA",
+            100 => "CIENTO", 200 => "DOSCIENTOS", 300 => "TRESCIENTOS", 400 => "CUATROCIENTOS", 500 => "QUINIENTOS", 600 => "SEISCIENTOS", 700 => "SETECIENTOS", 800 => "OCHOCIENTOS", 900 => "NOVECIENTOS"
+        );
+        //
+        $xcifra = trim($xcifra);
+        $xlength = strlen($xcifra);
+        $xpos_punto = strpos($xcifra, ".");
+        $xaux_int = $xcifra;
+        $xdecimales = "00";
+        if (!($xpos_punto === false)) {
+            if ($xpos_punto == 0) {
+                $xcifra = "0" . $xcifra;
+                $xpos_punto = strpos($xcifra, ".");
+            }
+            $xaux_int = substr($xcifra, 0, $xpos_punto); // obtengo el entero de la cifra a covertir
+            $xdecimales = substr($xcifra . "00", $xpos_punto + 1, 2); // obtengo los valores decimales
+        }
 
+        $XAUX = str_pad($xaux_int, 18, " ", STR_PAD_LEFT); // ajusto la longitud de la cifra, para que sea divisible por centenas de miles (grupos de 6)
+        $xcadena = "";
+        for ($xz = 0; $xz < 3; $xz++) {
+            $xaux = substr($XAUX, $xz * 6, 6);
+            $xi = 0;
+            $xlimite = 6; // inicializo el contador de centenas xi y establezco el límite a 6 dígitos en la parte entera
+            $xexit = true; // bandera para controlar el ciclo del While
+            while ($xexit) {
+                if ($xi == $xlimite) { // si ya llegó al límite máximo de enteros
+                    break; // termina el ciclo
+                }
+
+                $x3digitos = ($xlimite - $xi) * -1; // comienzo con los tres primeros digitos de la cifra, comenzando por la izquierda
+                $xaux = substr($xaux, $x3digitos, abs($x3digitos)); // obtengo la centena (los tres dígitos)
+                for ($xy = 1; $xy < 4; $xy++) { // ciclo para revisar centenas, decenas y unidades, en ese orden
+                    switch ($xy) {
+                        case 1: // checa las centenas
+                            if (substr($xaux, 0, 3) < 100) { // si el grupo de tres dígitos es menor a una centena ( < 99) no hace nada y pasa a revisar las decenas
+
+                            } else {
+                                $key = (int) substr($xaux, 0, 3);
+                                if (TRUE === array_key_exists($key, $xarray)) {  // busco si la centena es número redondo (100, 200, 300, 400, etc..)
+                                    $xseek = $xarray[$key];
+                                    $xsub = subfijo($xaux); // devuelve el subfijo correspondiente (Millón, Millones, Mil o nada)
+                                    if (substr($xaux, 0, 3) == 100)
+                                        $xcadena = " " . $xcadena . " CIEN " . $xsub;
+                                    else
+                                        $xcadena = " " . $xcadena . " " . $xseek . " " . $xsub;
+                                    $xy = 3; // la centena fue redonda, entonces termino el ciclo del for y ya no reviso decenas ni unidades
+                                } else { // entra aquí si la centena no fue numero redondo (101, 253, 120, 980, etc.)
+                                    $key = (int) substr($xaux, 0, 1) * 100;
+                                    $xseek = $xarray[$key]; // toma el primer caracter de la centena y lo multiplica por cien y lo busca en el arreglo (para que busque 100,200,300, etc)
+                                    $xcadena = " " . $xcadena . " " . $xseek;
+                                } // ENDIF ($xseek)
+                            } // ENDIF (substr($xaux, 0, 3) < 100)
+                            break;
+                        case 2: // checa las decenas (con la misma lógica que las centenas)
+                            if (substr($xaux, 1, 2) < 10) {
+                            } else {
+                                $key = (int) substr($xaux, 1, 2);
+                                if (TRUE === array_key_exists($key, $xarray)) {
+                                    $xseek = $xarray[$key];
+                                    $xsub = subfijo($xaux);
+                                    if (substr($xaux, 1, 2) == 20)
+                                        $xcadena = " " . $xcadena . " VEINTE " . $xsub;
+                                    else
+                                        $xcadena = " " . $xcadena . " " . $xseek . " " . $xsub;
+                                    $xy = 3;
+                                } else {
+                                    $key = (int) substr($xaux, 1, 1) * 10;
+                                    $xseek = $xarray[$key];
+                                    if (20 == substr($xaux, 1, 1) * 10)
+                                        $xcadena = " " . $xcadena . " " . $xseek;
+                                    else
+                                        $xcadena = " " . $xcadena . " " . $xseek . " Y ";
+                                } // ENDIF ($xseek)
+                            } // ENDIF (substr($xaux, 1, 2) < 10)
+                            break;
+                        case 3: // checa las unidades
+                            if (substr($xaux, 2, 1) < 1) { // si la unidad es cero, ya no hace nada
+
+                            } else {
+                                $key = (int) substr($xaux, 2, 1);
+                                $xseek = $xarray[$key]; // obtengo directamente el valor de la unidad (del uno al nueve)
+                                $xsub = subfijo($xaux);
+                                $xcadena = " " . $xcadena . " " . $xseek . " " . $xsub;
+                            } // ENDIF (substr($xaux, 2, 1) < 1)
+                            break;
+                    } // END SWITCH
+                } // END FOR
+                $xi = $xi + 3;
+            } // ENDDO
+
+            if (substr(trim($xcadena), -5, 5) == "ILLON") // si la cadena obtenida termina en MILLON o BILLON, entonces le agrega al final la conjuncion DE
+            $xcadena .= " DE";
+
+            if (substr(trim($xcadena), -7, 7) == "ILLONES") // si la cadena obtenida en MILLONES o BILLONES, entoncea le agrega al final la conjuncion DE
+            $xcadena .= " DE";
+
+            // ----------- esta línea la puedes cambiar de acuerdo a tus necesidades o a tu país -------
+            if (trim($xaux) != "") {
+                switch ($xz) {
+                    case 0:
+                        if (trim(substr($XAUX, $xz * 6, 6)) == "1")
+                            $xcadena .= "UN BILLON ";
+                        else
+                            $xcadena .= " BILLONES ";
+                        break;
+                    case 1:
+                        if (trim(substr($XAUX, $xz * 6, 6)) == "1")
+                            $xcadena .= "UN MILLON ";
+                        else
+                            $xcadena .= " MILLONES ";
+                        break;
+                    case 2:
+
+                            $xcadena .= ""; //
+
+                        break;
+                } // endswitch ($xz)
+            } // ENDIF (trim($xaux) != "")
+            // ------------------      en este caso, para México se usa esta leyenda     ----------------
+            $xcadena = str_replace("VEINTI ", "VEINTI", $xcadena); // quito el espacio para el VEINTI, para que quede: VEINTICUATRO, VEINTIUN, VEINTIDOS, etc
+            $xcadena = str_replace("  ", " ", $xcadena); // quito espacios dobles
+            $xcadena = str_replace("UN UN", "UN", $xcadena); // quito la duplicidad
+            $xcadena = str_replace("  ", " ", $xcadena); // quito espacios dobles
+            $xcadena = str_replace("BILLON DE MILLONES", "BILLON DE", $xcadena); // corrigo la leyenda
+            $xcadena = str_replace("BILLONES DE MILLONES", "BILLONES DE", $xcadena); // corrigo la leyenda
+            $xcadena = str_replace("DE UN", "UN", $xcadena); // corrigo la leyenda
+        } // ENDFOR ($xz)
+        return trim($xcadena);
+    }
+}
 if (! function_exists('numtoletras')) {
     function numtoletras($xcifra)
     {

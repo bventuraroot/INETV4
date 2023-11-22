@@ -283,7 +283,7 @@ function retomarsale(corr, document){
                 success: function(response){
                         if(response.res==1){
                             Swal.fire({
-                                title: 'Anulado',
+                                title: 'Documento Invalidado correctamente',
                                 icon: 'success',
                                 confirmButtonText: 'Ok'
                               }).then((result) => {
@@ -296,7 +296,7 @@ function retomarsale(corr, document){
                         }else if(response.res==0){
                             swalWithBootstrapButtons.fire(
                                 'Problemas!',
-                                'Algo sucedio y no pudo eliminar el cliente, favor comunicarse con el administrador.',
+                                'Algo sucedio y no pudo invalidar el documento, favor comunicarse con el administrador.',
                                 'success'
                               )
                         }
@@ -314,6 +314,65 @@ function retomarsale(corr, document){
         }
       })
    }
+
+
+   function ncr(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger",
+        },
+        buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+        .fire({
+            title: "Nota de Crédito?",
+            text: "Esta accion no tiene retorno",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "Si, Crear!",
+            cancelButtonText: "No, espera!",
+            reverseButtons: true,
+            showLoaderOnConfirm: true, // Agrega un ícono de espera en el botón de confirmación
+            preConfirm: () => {
+                return new Promise((resolve) => {
+                    $.ajax({
+                        url: "/sale/ncr/"+btoa(id),
+                        method: "GET",
+                        success: function (response) {
+                            console.log(response);
+                            if (response.res == 1) {
+                                resolve(response); // Resuelve la promesa si la solicitud es exitosa
+                            } else if (response.res == 0) {
+                                reject("Algo salió mal"); // Rechaza la promesa si hay un problema
+                            }
+                        },
+                    });
+                });
+            },
+        })
+        .then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: 'Nota de Crédito Creado Correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "index";
+                    }
+                });
+            }
+        })
+        .catch((error) => {
+            swalWithBootstrapButtons.fire(
+                "Problemas!",
+                'Algo sucedio y no se creo la nota de crédito, favor comunicarse con el administrador.',
+                "success"
+            );
+        });
+}
 
   function printsale(corr){
     var url = 'impdoc/'+corr;

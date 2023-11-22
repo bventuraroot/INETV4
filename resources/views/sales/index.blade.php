@@ -69,7 +69,12 @@
                         @forelse($sales as $sale)
                             <tr>
                                 <td></td>
+                                @if ($sale->estadoHacienda=='PROCESADO')
+                                <td>{{ $sale->id_doc }}</td>
+                                @else
                                 <td>{{ $sale->id }}</td>
+                                @endif
+
                                 <td>{{ $sale->date }}</td>
                                 <td>{{ $sale->document_name }}</td>
                                 <td>
@@ -78,7 +83,7 @@
                                     {{$sale->firstname . ' ' . $sale->firstlastname}}
                                             @break
                                         @case('J')
-                                    {{$sale->nameClient}}
+                                    {{substr($sale->nameClient,0,30)}}
                                         @break
 
                                         @default
@@ -133,6 +138,10 @@
                                             <div class="m-0 dropdown-menu dropdown-menu-end">
                                                 <a href="javascript:cancelsale({{ $sale->id }});" class="dropdown-item"><i
                                                         class="ti ti-eraser ti-sm me-2"></i>Anular</a>
+                                                        @if ($sale->tipoDte=="03" && $sale->estadoHacienda=='PROCESADO')
+                                                        <a href="javascript:ncr({{ $sale->id }});" class="dropdown-item"><i
+                                                            class="ti ti-pencil ti-sm me-2"></i>Crear Nota de Credito</a>
+                                                        @endif
                                             </div>
                                         </div>
                                         @break

@@ -146,6 +146,7 @@ Route::group(['prefix' => 'sale', 'as' => 'sale.'], function(){
         Route::get('newcorrsale/{idempresa}/{iduser}/{typedocument}', [SaleController::class, 'newcorrsale'])->name('newcorrsale');
         Route::get('getdetailsdoc/{corr}', [SaleController::class, 'getdetailsdoc'])->name('getdetailsdoc');
         Route::get('destroysaledetail/{idsaledetail}', [SaleController::class, 'destroysaledetail'])->name('destroysaledetail');
+        Route::get('ncr/{id_sale}', [SaleController::class, 'ncr'])->name('ncr');
 
     });
 
