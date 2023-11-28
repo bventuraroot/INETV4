@@ -135,6 +135,7 @@ function agregarp() {
     var productname = $("#productname").val();
     var price = parseFloat($("#precio").val());
     var ivarete13 = parseFloat($("#ivarete13").val());
+    var rentarete = parseFloat($("#rentarete").val());
     var ivarete = parseFloat($("#ivarete").val());
     var type = $("#typesale").val();
     var cantidad = parseFloat($("#cantidad").val());
@@ -144,6 +145,7 @@ function agregarp() {
     var pricenosujeta = 0;
     var sumas = parseFloat($("#sumas").val());
     var iva13 = parseFloat($("#13iva").val());
+    var rentarete10 = parseFloat($("#rentaretenido").val());
     var ivaretenido = parseFloat($("#ivaretenido").val());
     var ventasnosujetas = parseFloat($("#ventasnosujetas").val());
     var ventasexentas = parseFloat($("#ventasexentas").val());
@@ -152,10 +154,12 @@ function agregarp() {
     var sumasl = 0;
     var ivaretenidol = 0;
     var iva13l = 0;
+    var renta10l = 0;
     var ventasnosujetasl = 0;
     var ventasexentasl = 0;
     var ventatotall = 0;
     var iva13temp = 0;
+    var renta10temp = 0;
     var totaltempgravado = 0;
     if (type == "gravada") {
         pricegravada = parseFloat(price * cantidad);
@@ -169,9 +173,13 @@ function agregarp() {
         pricenosujeta = parseFloat(price * cantidad);
         iva13temp = 0;
     }
+    if(typedoc=='8'){
+        iva13temp = 0.00;
+    }
     if(!$.isNumeric(ivarete)){
         ivarete = 0;
     }
+    renta10temp = parseFloat(rentarete*cantidad).toFixed(2);
     var totaltemp = parseFloat(parseFloat(pricegravada) + parseFloat(priceexenta) + parseFloat(pricenosujeta));
     var ventatotaltotal =  parseFloat(ventatotal); //+ parseFloat(iva13) + parseFloat(ivaretenido);
     var totaltemptotal = parseFloat(
@@ -179,6 +187,7 @@ function agregarp() {
     ($.isNumeric(priceexenta)? priceexenta: 0) +
     ($.isNumeric(pricenosujeta)? pricenosujeta: 0) +
     ($.isNumeric(iva13temp)? parseFloat(iva13temp): 0) -
+    ($.isNumeric(renta10temp)? parseFloat(renta10temp): 0) -
     ($.isNumeric(ivarete)? ivarete: 0));
 
     //enviar a temp factura
@@ -202,6 +211,8 @@ function agregarp() {
             pricegravada +
             "/" +
             ivarete13 +
+            "/" +
+            rentarete +
             "/" +
             ivarete +
             "/" +
@@ -255,6 +266,7 @@ function agregarp() {
                     })
                 );
                 $("#sumas").val(sumasl);
+                //calculo de iva 13%
                 iva13l = parseFloat(parseFloat(iva13) + parseFloat(iva13temp));
                 $("#13ival").html(
                     iva13l.toLocaleString("en-US", {
@@ -263,6 +275,19 @@ function agregarp() {
                     })
                 );
                 $("#13iva").val(iva13l);
+
+                if($("#typedocument").val() == '8'){
+                    //calculo de retenido 10%
+                renta10l = parseFloat(parseFloat(renta10temp) + parseFloat(rentarete10));
+                $("#10rental").html(
+                    renta10l.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#rentaretenido").val(renta10l);
+                }
+                //calculo del retenido 1%
                 ivaretenidol = ivaretenido + ivarete;
                 $("#ivaretenidol").html(
                     ivaretenidol.toLocaleString("en-US", {
@@ -287,6 +312,7 @@ function agregarp() {
                     })
                 );
                 $("#ventasexentas").val(ventasexentasl);
+
                 ventatotall = parseFloat(ventatotaltotal)  + parseFloat(totaltemptotal);
                 $("#ventatotall").html(
                     parseFloat(ventatotall).toLocaleString("en-US", {
@@ -303,6 +329,7 @@ function agregarp() {
     $('#precio').val(0.00);
     $('#ivarete13').val(0.00);
     $('#ivarete').val(0.00);
+    $('#rentarete').val(0.00);
     $("#psearch").val("0").trigger("change.select2");
 }
 
@@ -324,7 +351,7 @@ $('#precio').on('change', function() {
             retencion = 0.00;
         }
     }
-    if(typedoc=='6'){
+    if(typedoc=='6' || typedoc=='8'){
         $("#ivarete13").val(0);
     }else{
         $("#ivarete13").val(parseFloat(valor.toFixed(2) * iva).toFixed(2));
@@ -332,6 +359,11 @@ $('#precio').on('change', function() {
     $("#ivarete").val(
         parseFloat(valor.toFixed(2) * retencion).toFixed(2)
     );
+    if(typedoc=='8'){
+        $("#rentarete").val(
+            parseFloat(valor.toFixed(2) * 0.10).toFixed(2)
+        );
+    }
   });
 function searchproduct(idpro) {
     //Get products by id avaibles
@@ -349,7 +381,7 @@ function searchproduct(idpro) {
         success: function (response) {
             $.each(response, function (index, value) {
 
-                if(typedoc=='6'){
+                if(typedoc=='6' || typedoc=='8'){
                     pricevalue = parseFloat(value.price);
                 }else{
                     pricevalue = parseFloat(value.price/iva_entre);
@@ -375,7 +407,7 @@ function searchproduct(idpro) {
                 if(typecontriclient==""){
                     retencion = 0.0;
                 }
-                if(typedoc=='6'){
+                if(typedoc=='6' || typedoc=='8'){
                     $("#ivarete13").val(0);
                 }else{
                     $("#ivarete13").val(parseFloat(pricevalue.toFixed(2) * iva).toFixed(2));
@@ -383,6 +415,11 @@ function searchproduct(idpro) {
                 $("#ivarete").val(
                     parseFloat(pricevalue.toFixed(2) * retencion).toFixed(2)
                 );
+                if(typedoc=='8'){
+                    $("#rentarete").val(
+                        parseFloat(pricevalue.toFixed(2) * 0.10).toFixed(2)
+                    );
+                }
             });
         },
     });
@@ -394,16 +431,21 @@ function changetypesale(type){
     var iva = parseFloat($("#iva").val());
 switch(type){
     case 'gravada':
-        if(typedoc=='6'){
+        if(typedoc=='6' || typedoc=='8'){
             $('#ivarete13').val(parseFloat(0));
         }else{
             $('#ivarete13').val(parseFloat(price*iva).toFixed(2));
+        }
+
+        if(typedoc=='8'){
+            $('#rentarete').val(parseFloat(price*0.10).toFixed(2));
         }
 
         break;
     case 'exenta':
         $('#ivarete13').val(0.00);
         $('#ivarete').val(0.00);
+        $('#rentarete').val(0.00);
         break;
     case 'nosujeta':
         $('#ivarete13').val(0.00);
@@ -774,6 +816,7 @@ function creardocuments() {
 
 
 function agregarfacdetails(corr) {
+    var typedoc = $('#typedocument').val()
     $.ajax({
         url: "getdetailsdoc/" + btoa(corr),
         method: "GET",
@@ -783,6 +826,7 @@ function agregarfacdetails(corr) {
             let totaltemptotal = 0;
             let totalsumas = 0;
             let ivarete13total = 0;
+            let rentatotal = 0;
             let ivaretetotal = 0;
             let nosujetatotal = 0;
             let exempttotal = 0;
@@ -790,15 +834,21 @@ function agregarfacdetails(corr) {
             $.each(response, function (index, value) {
                 var totaltemp = (parseFloat(value.nosujeta) + parseFloat(value.exempt) + parseFloat(value.pricesale));
                 totalsumas += totaltemp;
-                ivarete13total += parseFloat(value.detained13);
+                if(typedoc=='6' || typedoc=='8'){
+                    ivarete13total += parseFloat(0.00);
+                }else{
+                    ivarete13total += parseFloat(value.detained13);
+                }
+                rentatotal += parseFloat(value.renta);
                 ivaretetotal += parseFloat(value.detained);
                 nosujetatotal += parseFloat(value.nosujeta);
                 exempttotal += parseFloat(value.exempt);
                 pricesaletotal += parseFloat(value.pricesale);
                 totaltemptotal += (parseFloat(value.nosujeta) + parseFloat(value.exempt) + parseFloat(value.pricesale))
-                + (parseFloat(value.detained13) + parseFloat(value.detained));
+                + (parseFloat(value.detained13) - (parseFloat(value.renta) + (parseFloat(value.detained))));
                 var sumasl = 0;
                 var iva13l = 0;
+                var renta10l = 0;
                 var ivaretenidol = 0;
                 var ventasnosujetasl = 0;
                 var ventasexentasl = 0;
@@ -811,7 +861,7 @@ function agregarfacdetails(corr) {
                     "</td><td>" +
                     value.product_name +
                     "</td><td>" +
-                    parseFloat(value.priceunit).toLocaleString("en-US", {
+                    parseFloat(value.priceunit+(value.detained13/value.amountp)).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
@@ -826,7 +876,7 @@ function agregarfacdetails(corr) {
                         currency: "USD",
                     }) +
                     "</td><td>" +
-                    parseFloat(value.pricesale).toLocaleString("en-US", {
+                    parseFloat(value.pricesale+value.detained13).toLocaleString("en-US", {
                         style: "currency",
                         currency: "USD",
                     }) +
@@ -855,6 +905,14 @@ function agregarfacdetails(corr) {
                     })
                 );
                 $("#13iva").val(iva13l);
+                renta10l = rentatotal;
+                $("#10rental").html(
+                    renta10l.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    })
+                );
+                $("#rentaretenido").val(renta10l);
                 ivaretenidol =  ivaretetotal;
                 $("#ivaretenidol").html(
                     ivaretenidol.toLocaleString("en-US", {

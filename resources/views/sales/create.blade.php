@@ -32,12 +32,12 @@
 </style>
 
 @php
-    switch (request('typedocument') ) {
+    switch (request('typedocument')) {
         case '6':
             $document = 'Factura';
             break;
-        case '9':
-            $document = 'Nota de Crédito';
+        case '8':
+            $document = 'Factura de sujeto excluido';
             break;
         case '3':
             $document = 'Crédito Fiscal';
@@ -196,7 +196,7 @@
                             <small>Agregue los productos necesarios.</small>
                         </div>
                         <div class="row g-3 col-12" style="margin-bottom: 3%">
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <label class="form-label" for="psearch">Buscar Producto</label>
                                 <select class="select2psearch" id="psearch" name="psearch" onchange="searchproduct(this.value)">
                                 </select>
@@ -207,6 +207,7 @@
                                 <input type="hidden" id="sumas" value="0" name="sumas">
                                 <input type="hidden" id="13iva" value="0" name="13iva">
                                 <input type="hidden" id="ivaretenido" value="0" name="ivaretenido">
+                                <input type="hidden" id="rentaretenido" value="0" name="rentaretenido">
                                 <input type="hidden" id="ventasnosujetas" value="0" name="ventasnosujetas">
                                 <input type="hidden" id="ventasexentas" value="0" name="ventasexentas">
                                 <input type="hidden" id="ventatotal" value="0" name="ventatotal">
@@ -236,6 +237,12 @@
                                 <label class="form-label" for="ivarete">Iva Percibido</label>
                                 <input type="number" id="ivarete" name="ivarete" step="0.01" max="10000" placeholder="0.00" class="form-control">
                             </div>
+                            @if(request('typedocument')==8)
+                            <div class="col-sm-1">
+                                <label class="form-label" for="rentarete">Renta 10%</label>
+                                <input type="number" id="rentarete" name="rentarete" step="0.01" max="10000" placeholder="0.00" class="form-control">
+                            </div>
+                            @endif
                             <div class="col-sm-4" style="margin-top: 3%">
                                 <button type="button" class="btn btn-primary" onclick="agregarp()">
                                     <span class="ti ti-playlist-add"></span> &nbsp;&nbsp;&nbsp;Agregar
@@ -271,9 +278,15 @@
                                             <td class="text-center" id="13ival">$ 0.00</td>
                                             <td class="quitar_documents"></td>
                                         </tr>
-
+                                        @if(request('typedocument')==8)
                                         <tr>
-                                            <td class="text-right">(-) IVA Percibido</td>
+                                            <td class="text-right">(-) Renta 10%</td>
+                                            <td class="text-center" id="10rental">$ 0.00</td>
+                                            <td class="quitar_documents"></td>
+                                        </tr>
+                                        @endif
+                                        <tr>
+                                            <td class="text-right">(-) IVA Retenido</td>
                                             <td class="text-center" id="ivaretenidol">$0.00</td>
                                             <td class="quitar_documents"></td>
                                         </tr>

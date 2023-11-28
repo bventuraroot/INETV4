@@ -200,7 +200,7 @@ if (!function_exists('convertir_json')) {
                 $retorno = fex($compro, $uuid_generado);
                 break;
             case '14':  //FSE
-                $retorno = []; //$retorno = fse($compro, $uuid_generado);
+                $retorno = fse($compro, $uuid_generado);
                 break;
             case '99':
                 $retorno = fan($compro, $uuid_generado);
@@ -1289,7 +1289,7 @@ if (!function_exists('fex')) {
 
 if (!function_exists('ncr')) {
     function ncr($comprobante_procesar, $uuid_generado)
-    {
+    { //dd();
         $encabezado = $comprobante_procesar["documento"][0];
         $emisor_data = $comprobante_procesar["emisor"];
         $cliente = $comprobante_procesar["cliente"];
@@ -1571,22 +1571,25 @@ if (!function_exists('ncr')) {
 if (!function_exists('fse')) {
     function fse($comprobante_procesar, $uuid_generado)
     {
-        //dd($comprobante_procesar);
-        $comprobante = [];
-        $encabezado = $comprobante_procesar["encabezado"][0];
-        //dd($encabezado);
 
+        $comprobante = [];
+        $encabezado = $comprobante_procesar["documento"][0];
+        $emisor_data = $comprobante_procesar["emisor"];
+        $cliente = $comprobante_procesar["cliente"];
+        $cuerpo = $comprobante_procesar["detalle"];
+        $totales = $comprobante_procesar["totales"];
         //dd($cuerpo);
         $uuid = $uuid_generado;
-        $numero_documento = CerosIzquierda($encabezado["identificacionNumeroControl"], 15);
-        $tipo_documento = $encabezado["cod_tipo_documento"];
-        $caja = $encabezado["cod_establecimiento"]; //"0001";
-        $tipo_establecimiento = CerosIzquierda($encabezado["identificacionTipoEstablecimiento"], 4);
-        $empresa = $comprobante_procesar["empresa"][0];
+        $numero_documento = CerosIzquierda($encabezado->actual, 15);
+        $tipo_documento = $encabezado->tipodocumento;
+        $caja = "0001";
+        $testablecimiento = "1";
+        $tipo_establecimiento = CerosIzquierda($testablecimiento,4);
+        $empresa = $comprobante_procesar["emisor"];
 
         $identificacion = [
-            "version"           => intval($encabezado["identificacionVersion"]),
-            "ambiente"          => $encabezado["identificacionAmbiente"],
+            "version"           => intval($encabezado->versionJson),
+            "ambiente"          => $encabezado->ambiente,
             "tipoDte"           => $tipo_documento,
             "numeroControl"     => "DTE-" . $tipo_documento . "-" . $tipo_establecimiento . $caja . "-" . $numero_documento, //Cambiar
             "codigoGeneracion"  => $uuid,
@@ -1595,79 +1598,98 @@ if (!function_exists('fse')) {
             "tipoContingencia"  => null,
             "motivoContin"      => null,
             "fecEmi"            => date('Y-m-d'), //"2022-07-20", // $encabezado["fecEmi"],    //Cambiar
-            "horEmi"            => $encabezado["identificacionHorEmi"],      //Cambiar
+            "horEmi"            => date("H:i:s"),      //Cambiar
             "tipoMoneda"        => "USD"            //Cambiar
         ];
         $comprobante = [
             "identificacion" => $identificacion
         ];
-        //dd($comprobante);
+
         $documentoRelacionado = null;
 
         $direccion_emisor = [
-            "departamento"  => $encabezado["emisorDepartamento"],
-            "municipio"     => $encabezado["emisorMunicipio"],
-            "complemento"   => $encabezado["emisorDireccionComplemento"]
+            "departamento"  => $emisor_data[0]->departamento,
+            "municipio"     => $emisor_data[0]->municipio,
+            "complemento"   => $emisor_data[0]->direccion
         ];
-
         $emisor = [
-            "nit"                   => str_replace("-", "",$encabezado["emisorNit"]),
-            "nrc"                   => str_replace("-", "",trim($encabezado["emisorNrc"])),
-            "nombre"                => trim($encabezado["emisorNombre"]),
-            "codActividad"          => $encabezado["emisorCodActividad"],
-            "descActividad"         => $encabezado["emisorDescActividad"],
+            "nit"                   => str_replace('-','', $emisor_data[0]->nit),
+            "nrc"                   => str_replace('-','', $emisor_data[0]->ncr),
+            "nombre"                => trim($emisor_data[0]->nombre),
+            "codActividad"          => $emisor_data[0]->codActividad,
+            "descActividad"         => $emisor_data[0]->descActividad,
             "direccion"             => $direccion_emisor,
-            "telefono"              => $encabezado["emisorTelefono"],
-            "codEstableMH"          => $encabezado["emisorCodEstableMH"],
-            "codEstable"            => $encabezado["emisorCodEstable"],
-            "codPuntoVentaMH"       => $encabezado["emisorCodPUntoVentaMH"],
-            "codPuntoVenta"         => $encabezado["emisorCodPuntoVenta"],
-            "correo"                => $encabezado["emisorCorreo"],
+            "telefono"              => $emisor_data[0]->telefono,
+            "codEstableMH"          => $emisor_data[0]->codEstableMH,
+            "codEstable"            => $emisor_data[0]->codEstable,
+            "codPuntoVentaMH"       => $emisor_data[0]->codPuntoVentaMH,
+            "codPuntoVenta"         => $emisor_data[0]->codPuntoVenta,
+            "correo"                => $emisor_data[0]->correo,
         ];
 
-        //dd($emisor);
+
         $direccion_sujetoExcluido = [
-            "departamento"  => $encabezado["receptorDepartamento"],
-            "municipio"     => $encabezado["receptorMunicipio"],
-            "complemento"   => $encabezado["receptorDireccionComplemento"]
+            "departamento"  => $cliente[0]->departamento,
+            "municipio"     => $cliente[0]->municipio,
+            "complemento"   => $cliente[0]->direccion
         ];
-
+        if (!empty($cliente[0]->codActividad)) {
+            if (strlen($cliente[0]->codActividad) <= 4)
+            {$codeActivity = '0' . $cliente[0]->codActividad;}
+            else{ $codeActivity = $cliente[0]->codActividad; }
+        }
+        //dd($cliente);
         $sujetoExcluido = [
-            "tipoDocumento"         => $encabezado["receptorTipoDocumento"],
-            "numDocumento"          => str_replace("-","",$encabezado["receptorNumDocumento"]),
-            "nombre"                => $encabezado["receptorNombre"],
-            "codActividad"          => $encabezado["receptorCodActividad"],
-            "descActividad"         => ($encabezado["receptorDescActividad"] == '') ? null : $encabezado["receptorDescActividad"],
+            "tipoDocumento"         => ($cliente[0]->ncr == '' or is_null($cliente[0]->ncr) ) ? $cliente[0]->tipoDocumento : "36",
+            "numDocumento"          => ($cliente[0]->ncr == '' or is_null($cliente[0]->ncr)) ? str_replace("-","",$cliente[0]->numDocumento) : str_replace("-", "", $cliente[0]->nit),
+            "nombre"                => $cliente[0]->nombre,
+            "codActividad"          => ($cliente[0]->codActividad == '') ? null : $codeActivity,
+            "descActividad"         => ($cliente[0]->descActividad == '') ? null : $cliente[0]->descActividad,
             "direccion"             => $direccion_sujetoExcluido,
-            "telefono"              => $encabezado["receptorTelefono"],
-            "correo"                => $encabezado["receptorCorreo"]
+            "telefono"              => $cliente[0]->telefono,
+            "correo"                => $cliente[0]->correo
         ];
 
+        if ($cliente[0]->telefono != '') {
+            $receptor["telefono"] = $cliente[0]->telefono;
+        }
+        if ($cliente[0]->correo != '') {
+            $receptor["correo"] = $cliente[0]->correo;
+        }
 
-        //dd($sujetoExcluido);
 
         $codigos_tributos = [];
-
+        $i = 0;
+        //var_dump($cuerpo);
+        //echo '<br>';
+        foreach ($cuerpo as $item) {
+            //var_dump($item);
+            // echo '<br>';
+            $i += 1;
+            // echo $i.'<br>';
             # code...
             //dd($item);
+            $tributos_properties_items_cuerpoDocumento = array();
 
+            $tributos_properties_items_cuerpoDocumento = ($item->iva != 0) ? "20" : "C3";
 
             $properties_items_cuerpoDocumento = array();
-
+            $iva_calculadofac = round(($item->iva/$item->cantidad),2);
             $properties_items_cuerpoDocumento = [
-                "numItem"           => intval($encabezado["cuerpoNumItem"]), //intval($item["corr"]),
-                "tipoItem"          => intval($encabezado["cuerpoTipoItem"]),
-                "cantidad"          => intval($encabezado["cuerpoCantidad"]),
-                "codigo"            => $encabezado["cuerpoCodigo"],
-                "uniMedida"         => intval($encabezado["cuerpoUniMedida"]),
-                "descripcion"       => $encabezado["cuerpoDescripcion"],
-                "precioUni"         => round((float)($encabezado["cuerpoPreciUni"]), 2),
-                "montoDescu"        => (float)$encabezado["cuerpoMontoDescuento"],
-                "compra"            => round((float)($encabezado["cuerpoCompra"] ), 2),
+                "numItem"           => $i, //intval($item["corr"]),
+                "tipoItem"          => intval("2"),
+                //"numeroDocumento"   => null,
+                "cantidad"          => intval($item->cantidad),
+                "codigo"            => "P0".$item->id_producto,
+                "uniMedida"         => 99,
+                "descripcion"       => $item->descripcion,
+                "precioUni"         => round((float)($item->precio_unitario + $iva_calculadofac), 2),
+                "montoDescu"        => 0.00,
+                "compra"            => round((float)($item->gravadas + $item->iva), 2),
             ];
 
             $items_cuerpoDocumento[] = $properties_items_cuerpoDocumento;
-
+        }
 
         $cuerpoDocumento = $items_cuerpoDocumento;
 
@@ -1682,20 +1704,39 @@ if (!function_exists('fse')) {
         ];
 
 
-        //dd($cuerpoDocumento);
+
         $properties_items_pagos = [];
-        //contado
-        if ($encabezado["resumenCondicionOperacion"] == 1) {
+         //contado
+        //dd($totales);
+        if ($totales["condicionOperacion"] == "01") {
             $properties_items_pagos[] = [
-                "codigo"        => $encabezado["resumenPagosCodigo"],
-                "montoPago"     => (float)$encabezado["resumenPagosMontoPago"],
-                "referencia"    => $encabezado["resumenPagosReferencia"],
+                "codigo"        => "01",
+                "montoPago"     => round((float)($totales["totalPagar"]),2),
+                "referencia"    => null,
                 "plazo"         => null,
                 "periodo"       => null
             ];
         }
-
-
+        //credito
+        if ($totales["condicionOperacion"] == "02") {
+            $properties_items_pagos[] = [
+                "codigo"        => "13",
+                "montoPago"     => (float)"0.00",
+                "referencia"    => "Credito",
+                "plazo"         => "01",
+                "periodo"       =>  15 //intval($encabezado["periodo"])
+            ];
+        }
+        //tarjeta
+        if ($totales["condicionOperacion"] == "03") {
+            $properties_items_pagos[] = [
+                "codigo"        => "03",
+                "montoPago"     => round((float)($totales["totalPagar"]),2),
+                "referencia"    => "Otro",
+                "plazo"         => null,
+                "periodo"       => null
+            ];
+        }
 
 
         $pagos = $properties_items_pagos;
@@ -1703,28 +1744,40 @@ if (!function_exists('fse')) {
 
         $resumen = [
 
-            "totalCompra"           => round((float)($encabezado["resumenTotalCompra"]), 2),
-            "descu"                 => (float)$encabezado["resumenDescuento"],
-            "totalDescu"            => (float)$encabezado["resumenTotalDescuento"],
-            "subTotal"              => round((float)($encabezado["resumenSubTotal"] ), 2),
-            "ivaRete1"              => (float)$encabezado["resumenIvaRete1"],
-            "reteRenta"             => (float)$encabezado["resumenReteRenta"],
-            "totalPagar"            => (float)$encabezado["resumenTotalPagar"],
-            "totalLetras"           => $encabezado["resumenTotalLetras"],
-            "condicionOperacion"    => (float)$encabezado["resumenCondicionOperacion"],
+            "totalCompra"           => round((float)($totales["subTotal"] + $totales["totalIva"]), 2),
+            "descu"                 => (float)$totales["descuNoSuj"],
+            "totalDescu"            => (float)$totales["totalDescu"],
+            "subTotal"              => round((float)($totales["subTotal"] + $totales["totalIva"]), 2),
+            "ivaRete1"              => (float)$totales["ivaRete1"],
+            "reteRenta"             => (float)$totales["reteRenta"],
+            "totalPagar"            =>  round((float)($totales["totalPagar"]),2),
+            "totalLetras"           => $totales["totalLetras"],
+            //"saldoFavor"            => (float)$totales["saldoFavor"],
+            "condicionOperacion"    => (float)$totales["condicionOperacion"],
             "pagos"                 => $pagos,
             "observaciones"    => ""
         ];
 
 
+        $apendice[] = [
+            "campo"         => "vendedor",
+            "etiqueta"      => "Vendedor",
+            "valor"         => "".$encabezado->hechopor
+        ];
+        $apendice[] = [
+            "campo"         => "cliente",
+            "etiqueta"      => "Cliente",
+            "valor"         => "".$cliente[0]->idcliente
+        ];
 
 
+        //$comprobante["documentoRelacionado"]     = $documentoRelacionado;
         $comprobante["emisor"]                   = $emisor;
         $comprobante["sujetoExcluido"]           = $sujetoExcluido;
         $comprobante["cuerpoDocumento"]          = $cuerpoDocumento;
         $comprobante["resumen"]                  = $resumen;
-        $comprobante["apendice"]                 = null;
-
+        $comprobante["apendice"]                 = $apendice;
+        //$comprobante2 = [];
         //dd($comprobante);
         return ($comprobante);
     }

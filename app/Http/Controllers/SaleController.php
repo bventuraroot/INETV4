@@ -25,22 +25,23 @@ class SaleController extends Controller
     public function index()
     {
         $sales = Sale::join('typedocuments', 'typedocuments.id', '=', 'sales.typedocument_id')
-            ->join('clients', 'clients.id', '=', 'sales.client_id')
-            ->join('companies', 'companies.id', '=', 'sales.company_id')
-            ->leftjoin('dte', 'dte.sale_id', '=', 'sales.id')
-            ->select(
-                'sales.*',
-                'typedocuments.description AS document_name',
-                'clients.firstname',
-                'clients.firstlastname',
-                'clients.name_contribuyente as nameClient',
-                'clients.tpersona',
-                'companies.name AS company_name',
-                'dte.tipoDte',
-                'dte.estadoHacienda',
-                'dte.id_doc'
-            )
-            ->get();
+    ->join('clients', 'clients.id', '=', 'sales.client_id')
+    ->join('companies', 'companies.id', '=', 'sales.company_id')
+    ->leftjoin('dte', 'dte.sale_id', '=', 'sales.id')
+    ->select(
+        'sales.*',
+        'typedocuments.description AS document_name',
+        'clients.firstname',
+        'clients.firstlastname',
+        'clients.name_contribuyente as nameClient',
+        'clients.tpersona',
+        'companies.name AS company_name',
+        'dte.tipoDte',
+        'dte.estadoHacienda',
+        'dte.id_doc',
+        \DB::raw('(SELECT dee.descriptionMessage FROM dte dee WHERE dee.id_doc_Ref2=sales.id) AS relatedSale')
+    )
+    ->get();
         return view('sales.index', array(
             "sales" => $sales
         ));
@@ -51,7 +52,7 @@ class SaleController extends Controller
         return view('sales.impdoc', array("corr" => $corr));
     }
 
-    public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $ivarete, $acuenta, $fpago)
+    public function savefactemp($idsale, $clientid, $productid, $cantidad, $price, $pricenosujeta, $priceexenta, $pricegravada, $ivarete13, $renta, $ivarete, $acuenta, $fpago)
     {
         $sale = Sale::find($idsale);
         $sale->client_id = $clientid;
@@ -68,20 +69,28 @@ class SaleController extends Controller
         }else{
             $priceunitariofac = round($price,3);
         }
+        if($sale->typedocument_id=='8'){
+        $priceunitariofac = $price;
+        $pricegravadafac = $pricegravada;
+        }
         $ivarete13 = round($pricegravada*0.13,2);
         $ivafac = round($pricegravada-($pricegravada/1.13),2);
+        if($sale->typedocument_id=='8'){
+            $ivafac = 0.00;
+            }
         $saledetails = new Salesdetail();
         $saledetails->sale_id = $idsale;
         $saledetails->product_id = $productid;
         $saledetails->amountp = $cantidad;
         //$saledetails->priceunit = ($sale->typedocument_id==6) ? round($iva_calculado,2) : $price;
-        $saledetails->priceunit = ($sale->typedocument_id==6) ? round($priceunitariofac,2) : $price;
+        $saledetails->priceunit = ($sale->typedocument_id=='6' || $sale->typedocument_id=='8') ? round($priceunitariofac,2) : $price;
         //$saledetails->pricesale = ($sale->typedocument_id==6) ? round($preciogravado,2) : $pricegravada;
-        $saledetails->pricesale = ($sale->typedocument_id==6) ? round($pricegravadafac,2) : $pricegravada;
+        $saledetails->pricesale = ($sale->typedocument_id=='6' || $sale->typedocument_id=='8') ? round($pricegravadafac,2) : $pricegravada;
         $saledetails->nosujeta = $pricenosujeta;
         $saledetails->exempt = $priceexenta;
-        $saledetails->detained13 = ($sale->typedocument_id==6) ? round($ivafac,2) : $ivarete13;
+        $saledetails->detained13 = ($sale->typedocument_id=='6' || $sale->typedocument_id=='8') ? round($ivafac,2) : $ivarete13;
         $saledetails->detained = $ivarete;
+        $saledetails->renta = ($sale->typedocument_id != '8' ) ? round(0.00,2) : round($renta*$cantidad,2);
         $saledetails->save();
         return response()->json(array(
             "res" => "1",
@@ -194,13 +203,13 @@ class SaleController extends Controller
             SUM(nosujeta+exempt+pricesale) subtotal,
             SUM(detained) ivarete,
             0 ivarete,
-            0 rentarete,
+            SUM(renta) rentarete,
             NULL pagos,
             SUM(detained13) iva')
         )
         ->get();
         //detalle de montos de la factura
-        $totalPagar = ($detailsbd[0]->nosujeta+$detailsbd[0]->exentas+$detailsbd[0]->gravadas+$detailsbd[0]->iva-$detailsbd[0]->ivarete);
+        $totalPagar = ($detailsbd[0]->nosujeta+$detailsbd[0]->exentas+$detailsbd[0]->gravadas+$detailsbd[0]->iva-($detailsbd[0]->rentarete+$detailsbd[0]->ivarete));
         $totales = [
             "totalNoSuj" => (float)$detailsbd[0]->nosujeta,
             "totalExenta" => (float)$detailsbd[0]->exentas,
@@ -274,7 +283,7 @@ class SaleController extends Controller
         b.detained13 iva,
         0 porcentaje_descuento,
         b.detained13 iva_calculado,
-        0 renta_retenida,
+        b.renta renta_retenida,
         1 tipo_item,
         59 uniMedida
         FROM sales a
@@ -768,6 +777,7 @@ class SaleController extends Controller
                     "cliente" => $cliente
                 ];
                 //dd();
+                //dd($factura);
                 $respuesta = $this->Enviar_Hacienda($comprobante, "05");
                 if ($respuesta["codEstado"] == "03") {
                     return json_encode($respuesta);
@@ -786,13 +796,15 @@ class SaleController extends Controller
                 $descripcionMsg = $respuesta["descripcionMsg"];
                 $observacionesMsg = $respuesta["observacionesMsg"];
 
+                //dd($factura);
+
                 $nfactura = new Sale();
                 $nfactura->acuenta = $factura[0]->anombrede;
-                $nfactura->state =  $factura[0]->state;
+                $nfactura->state =  1;
                 $nfactura->state_credit = $factura[0]->state_credit;
                 $nfactura->totalamount = $factura[0]->totalamount;
                 $nfactura->waytopay = $factura[0]->waytopay;
-                $nfactura->typesale = $factura[0]->typesale;
+                $nfactura->typesale = 1;
                 $nfactura->date = $factura[0]->date;
                 $nfactura->user_id = $factura[0]->user_id;
                 $nfactura->typedocument_id = 9;
@@ -814,12 +826,12 @@ class SaleController extends Controller
                     $n->detained13=$d->detained13;
                     $n->save();
                 }
-
+                //dd($respuesta);
                 $dtecreate = new Dte();
-                $dtecreate->versionJson = $documento[0]->versionJson;
-                $dtecreate->ambiente_id = $documento[0]->ambiente;
-                $dtecreate->tipoDte = $documento[0]->tipodocumento;
-                $dtecreate->tipoModelo = $documento[0]->tipogeneracion;
+                $dtecreate->versionJson = $documento[0]["versionjson"];
+                $dtecreate->ambiente_id = $documento[0]["ambiente"];
+                $dtecreate->tipoDte = $documento[0]["tipodocumento"];
+                $dtecreate->tipoModelo = 2;
                 $dtecreate->tipoTransmision = 1;
                 $dtecreate->tipoContingencia = "null";
                 $dtecreate->idContingencia = "null";
@@ -829,7 +841,7 @@ class SaleController extends Controller
                 $dtecreate->id_doc = $respuesta["identificacion"]["numeroControl"];
                 $dtecreate->codTransaction = "01";
                 $dtecreate->desTransaction = "Emision";
-                $dtecreate->type_document = $documento[0]->tipodocumento;
+                $dtecreate->type_document = $documento[0]["tipodocumento"];
                 $dtecreate->id_doc_Ref1 = "null";
                 $dtecreate->id_doc_Ref2 = $factura[0]->id_factura;
                 $dtecreate->type_invalidacion = "null";
@@ -846,7 +858,7 @@ class SaleController extends Controller
                 $dtecreate->descriptionMessage = $respuesta["descripcionMsg"];
                 $dtecreate->detailsMessage = $respuesta["observacionesMsg"];
                 $dtecreate->sale_id = $nfactura["id"];
-                $dtecreate->created_by = $documento[0]->NombreUsuario;
+                $dtecreate->created_by = $documento[0]["NombreUsuario"];
                 $dtecreate->save();
 
         if($dtecreate) $exit = 1; else $exit = 0;
@@ -1258,8 +1270,13 @@ class SaleController extends Controller
 
                     ];
                     $comprobante_electronico["selloRecibido"] = $objEnviado->selloRecibido;
-                    if($codTransaccion == '01'){
-                        $respuesta["receptor"] = $comprobante_electronico["receptor"];
+                    if($codTransaccion == '01' || $codTransaccion == '05'){
+                        if($tipo_documento=='14'){
+                            $respuesta["receptor"] = $comprobante_electronico["sujetoExcluido"];
+                        }else{
+                            $respuesta["receptor"] = $comprobante_electronico["receptor"];
+                        }
+
                         $respuesta["identificacion"]    = $comprobante_electronico["identificacion"];
                         $respuesta["json_enviado"]      = $comprobante_electronico;
                     }

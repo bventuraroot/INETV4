@@ -138,7 +138,7 @@
                                             <div class="m-0 dropdown-menu dropdown-menu-end">
                                                 <a href="javascript:cancelsale({{ $sale->id }});" class="dropdown-item"><i
                                                         class="ti ti-eraser ti-sm me-2"></i>Anular</a>
-                                                        @if ($sale->tipoDte=="03" && $sale->estadoHacienda=='PROCESADO')
+                                                        @if ($sale->tipoDte=="03"  && $sale->estadoHacienda=='PROCESADO' && $sale->tipoDte!="05" && $sale->relatedSale=="")
                                                         <a href="javascript:ncr({{ $sale->id }});" class="dropdown-item"><i
                                                             class="ti ti-pencil ti-sm me-2"></i>Crear Nota de Credito</a>
                                                         @endif
@@ -211,7 +211,7 @@
                                                     <path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5"></path>
                                                  </svg>
 
-                                                <span class="custom-option-title">Factura</span>
+                                                <span class="custom-option-title">FACTURA</span>
                                                 <small>Creación de factura para personas naturales contribuyentes o no contribuyentes</small>
                                               </span>
                                               <input name="typedocument" class="form-check-input" type="radio" value="6" id="factura" checked />
@@ -227,7 +227,7 @@
                                                     <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2m4 -14h6m-6 4h6m-2 4h2"></path>
                                                  </svg>
 
-                                                <span class="custom-option-title">Credito Fiscal</span>
+                                                <span class="custom-option-title">COMPROBANTE DE CREDITO FISCAL</span>
                                                 <small>Creación de documentos donde necesitas una persona natural o jurídica que declare IVA</small>
                                               </span>
                                               <input name="typedocument" class="form-check-input" type="radio" value="3" id="fiscal" />
@@ -243,10 +243,10 @@
                                                     <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2"></path>
                                                     <path d="M15 14v-2a2 2 0 0 0 -2 -2h-4l2 -2m0 4l-2 -2"></path>
                                                  </svg>
-                                                <span class="custom-option-title">Nota de crédito</span>
-                                                <small>Creación de documento para modificar un crédito fiscal, requisitos como un crédito fiscal</small>
+                                                <span class="custom-option-title">FACTURAS DE SUJETO EXCLUIDO</span>
+                                                <small>Creación de documento para que el impuesto no es aplicable a la operación que se realiza.</small>
                                               </span>
-                                              <input name="typedocument" class="form-check-input" type="radio" value="9" id="nota" />
+                                              <input name="typedocument" class="form-check-input" type="radio" value="8" id="nota" />
                                             </label>
                                           </div>
                                         </div>
