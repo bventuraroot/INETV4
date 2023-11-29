@@ -129,28 +129,13 @@
             "badge": ["primary", "5"],
             "submenu": [
                 {
-                    "url": "/factmh/show_queue",
-                    "name": "Muestra Cola",
-                    "slug": "factmh.show_queue"
-                },
-                {
-                    "url": "/factmh/run_queue",
-                    "name": "Procesar Cola",
-                    "slug": "factmh.run_queue"
-                },
-                {
-                    "url": "/factmh/show_sends",
-                    "name": "Muestra Enviados",
-                    "slug": "factmh.show_sends"
-                },
-                {
-                    "url": "/factmh/show_rejected",
-                    "name": "Muestra Rechazados",
-                    "slug": "factmh.show_rejected"
+                    "url": "/factmh/contingencias",
+                    "name": "Contingencias",
+                    "slug": "factmh.contingencias"
                 },
                 {
                     "url": "/factmh/test_crt",
-                    "name": "Prueba Certificado",
+                    "name": "Muestra Enviados",
                     "slug": "factmh.test_crt"
                 },
                 {

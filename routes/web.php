@@ -4,6 +4,7 @@ use App\Http\Controllers\EconomicactivityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\ContingenciasController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\CountryController;
@@ -197,6 +198,18 @@ Route::group(['prefix' => 'config', 'as' => 'config.'], function(){
 
     Route::get('index', [ConfigController::class, 'index'])->name('index');
     Route::post('store', [ConfigController::class, 'store'])->name('store');
+    Route::get('update', [ConfigController::class, 'update'])->name('update');
+    Route::get('getconfigid/{id}', [ConfigController::class, 'getconfigid'])->name('getconfigid');
+    Route::get('destroy/{id}', [ConfigController::class, 'destroy'])->name('destroy');
+});
+
+Route::group(['prefix' => 'factmh', 'as' => 'factmh.'], function(){
+
+    Route::get('contingencias', [ContingenciasController::class, 'contingencias'])->name('contingencias');
+    Route::post('store', [ContingenciasController::class, 'store'])->name('store');
+    Route::get('autoriza_contingencia/{empresa}/{id}', [ContingenciasController::class, 'autoriza_contingencia'])->name('autoriza_contingencia');
+    Route::get('procesa_contingencia/{id}', [ContingenciasController::class, 'procesa_contingencia'])->name('procesa_contingencia');
+    Route::get('muestra_lote/{id}', [ContingenciasController::class, 'muestra_lote'])->name('muestra_lote');
     Route::get('update', [ConfigController::class, 'update'])->name('update');
     Route::get('getconfigid/{id}', [ConfigController::class, 'getconfigid'])->name('getconfigid');
     Route::get('destroy/{id}', [ConfigController::class, 'destroy'])->name('destroy');
