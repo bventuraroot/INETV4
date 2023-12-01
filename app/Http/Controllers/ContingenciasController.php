@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contingencia;
+use App\Models\Dte;
 use App\Models\Sale;
 use Carbon\Carbon;
 use DateTime;
 use Session;
+use Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -71,11 +73,13 @@ class ContingenciasController extends Controller
         //validar que facturas estan con fallo de entregar
         $countfacturas = Sale::leftJoin('dte', 'dte.sale_id', '=', 'sales.id')
         ->whereNull('dte.sale_id')
+        ->whereNull('sales.codigoGeneracion')
+        //->where('dte.descriptionMessage', '=', 'RECIBIDO CON OBSERVACIONES')
         ->where(function ($query) {
             $query->where('typedocument_id', '=', 6)
                   ->orWhere('typedocument_id', '=', 3);
         })
-        ->select('sales.id')
+        ->select('sales.id', 'dte.id as DTEID')
         ->take(3)
         ->get();
          //dd($countfacturas);
@@ -85,8 +89,17 @@ class ContingenciasController extends Controller
 
             if ($updatefac) {
                 $updatefac->id_contingencia = $contingencia->id;
+                $uuid_generado = strtoupper(Str::uuid()->toString());
+                $updatefac->codigoGeneracion = $uuid_generado;
                 $updatefac->save();
             }
+
+            //$quitcola = Dte::find( $fac->DTEID);
+            //if($quitcola){
+            //$quitcola->type_invalidacion = 1;
+            //$quitcola->save();
+            //}
+
         }
 
         return redirect()->route('factmh.contingencias')
@@ -160,12 +173,13 @@ class ContingenciasController extends Controller
         WHERE a.idEmpresa = $id_empresa AND a.id = $id";
         $encabezado = DB::select(DB::raw($queryEncabezado));
 
-        $queryDetalle = "SELECT
+        echo $queryDetalle = "SELECT
         'Detalle' AS NmTabla,
         1 NuItems,
         c.codemh tipoDte,
-        NULL as codigoGeneracion
+        a.codigoGeneracion codigoGeneracion
         FROM sales a
+        LEFT JOIN dte ON dte.sale_id = a.id
         INNER JOIN contingencias b ON a.id_contingencia = b.id
         INNER JOIN typedocuments c ON a.typedocument_id = c.id
         WHERE b.id = $id AND a.company_id = $id_empresa";
@@ -217,13 +231,15 @@ class ContingenciasController extends Controller
         ];
 
         $detalleDte = [];
+        $ban = 1;
         foreach ($detalle as $d) {
             $detalleDTE[] = [
-                "noItem"    => intval($d->NuItems),
+                "noItem"    => intval($ban),
                 "codigoGeneracion" => $d->codigoGeneracion,
                 "tipoDoc"   => $d->tipoDte
 
             ];
+            $ban++;
         }
 
         $motivo = [
@@ -346,7 +362,8 @@ class ContingenciasController extends Controller
                         $tipo_resultado = "success";
                         $mensaje_resultado = "Procesado con Exito";
                     } else {
-                        //dd($objEnviado);
+                        dd($objEnviado);
+                        var_dump($objEnviado);
                         $cola->codEstado = "03";
                         $cola->estado = "Rechazado";
                         $cola->observacionesMsg = $observaciones;
