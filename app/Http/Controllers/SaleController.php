@@ -1244,7 +1244,7 @@ class SaleController extends Controller
 
             //return json_encode($comprobante);
             //dd($response_enviado);
-            $objEnviado = json_decode($response_enviado);
+            $objEnviado = json_decode($response_enviado); 
            //dd($objEnviado);
             if (isset($objEnviado->estado)) {
                 $estado_envio = $objEnviado->estado;
