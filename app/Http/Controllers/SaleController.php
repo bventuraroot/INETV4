@@ -13,6 +13,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 class SaleController extends Controller
@@ -42,7 +43,7 @@ class SaleController extends Controller
         \DB::raw('(SELECT dee.descriptionMessage FROM dte dee WHERE dee.id_doc_Ref2=sales.id) AS relatedSale')
     )
     ->get();
-        return view('sales.index', array(
+        return view('sales.index', array( 
             "sales" => $sales
         ));
     }
@@ -1244,7 +1245,7 @@ class SaleController extends Controller
 
             //return json_encode($comprobante);
             //dd($response_enviado);
-            $objEnviado = json_decode($response_enviado); 
+            $objEnviado = json_decode($response_enviado);
            //dd($objEnviado);
             if (isset($objEnviado->estado)) {
                 $estado_envio = $objEnviado->estado;
@@ -1349,5 +1350,34 @@ class SaleController extends Controller
             Session::put($id_empresa . '_fecha', $fecha_expira);
             return 'OK';
         }
+    }
+
+    public function envia_correo(Request $request){
+        //dd("aqui");
+        $id_factura = $request->id_factura;
+        $nombre = $request->nombre;
+        $numero = $request->numero;
+        $comprobante = Factura::where('id_factura', $id_factura)->first();
+        //dd($comprobante);
+        $email = $request->email;
+
+        $pdf = $this->genera_pdf($id_factura);
+        $json_root = json_decode($comprobante->json);
+        $json_enviado = $json_root->json->json_enviado;
+        $json = json_encode($json_enviado,JSON_PRETTY_PRINT);
+        //dd($json);
+        $archivos = [
+            $comprobante->codigoGeneracion.'.pdf' => $pdf->output(),
+            $comprobante->codigoGeneracion.'.json' => $json
+        ];
+        $data = ["nombre" =>$nombre, "numero" => $numero,  "json" => $json_enviado];
+        $asunto = "Comprobante de Venta No." . $data["json"]->identificacion->numeroControl. ' de Proveedor: '.$data["json"]->emisor->nombre;
+        $correo = new EnviarCorreo($data);
+        $correo->subject($asunto);
+        foreach ($archivos as $nombreArchivo => $rutaArchivo) {
+            $correo->attachData($rutaArchivo, $nombreArchivo);
+        }
+
+        Mail::to($email)->send($correo);
     }
 }

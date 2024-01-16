@@ -374,6 +374,43 @@ function retomarsale(corr, document){
         });
 }
 
+function EnviarCorreo(id_factura,correo,numero,nombre) {
+    (async () => {
+        _token = '{{csrf_token()}}';
+        //alert(_token);
+        const { value: email } = await Swal.fire({
+            title: 'Mandar comprobante por Correo',
+            input: 'email',
+            inputLabel: 'Correo a Enviar',
+            inputPlaceholder: 'Introduzca el Correo',
+            inputValue: correo
+        });
+        url = "{{ route('envia_correo') }}";
+        if (email) {
+            $.ajax({
+            url: url,
+            type:'GET',
+            data: {
+            id_factura : id_factura,
+            email: email,
+            numero: numero,
+            nombre: nombre,
+            _token : _token
+
+            },
+            success: function(data,status)
+            {
+                Swal.fire(`Comprobante Enviado a: ${email}`)
+
+            },
+            error: function(){
+            mensaje("Creación de Factura", "No se pudo Actualizar", "error")
+            },
+            });
+        }
+    })()
+}
+
   function printsale(corr){
     var url = 'impdoc/'+corr;
     window.open(url, '_blank');
