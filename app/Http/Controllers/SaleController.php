@@ -13,6 +13,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Session;
 
 class SaleController extends Controller
@@ -1246,7 +1247,7 @@ class SaleController extends Controller
 
             //return json_encode($comprobante);
             //dd($response_enviado);
-            $objEnviado = json_decode($response_enviado); 
+            $objEnviado = json_decode($response_enviado);
            //dd($objEnviado);
             if (isset($objEnviado->estado)) {
                 $estado_envio = $objEnviado->estado;
@@ -1351,5 +1352,83 @@ class SaleController extends Controller
             Session::put($id_empresa . '_fecha', $fecha_expira);
             return 'OK';
         }
+    }
+
+    public function envia_correo(Request $request){
+        //dd("aqui");
+        $id_factura = $request->id_factura;
+        $nombre = $request->nombre;
+        $numero = $request->numero;
+        $comprobante = Factura::where('id_factura', $id_factura)->first();
+        //dd($comprobante);
+        $email = $request->email;
+
+        $pdf = $this->genera_pdf($id_factura);
+        $json_root = json_decode($comprobante->json);
+        $json_enviado = $json_root->json->json_enviado;
+        $json = json_encode($json_enviado,JSON_PRETTY_PRINT);
+        //dd($json);
+        $archivos = [
+            $comprobante->codigoGeneracion.'.pdf' => $pdf->output(),
+            $comprobante->codigoGeneracion.'.json' => $json
+        ];
+        $data = ["nombre" =>$nombre, "numero" => $numero,  "json" => $json_enviado];
+        $asunto = "Comprobante de Venta No." . $data["json"]->identificacion->numeroControl. ' de Proveedor: '.$data["json"]->emisor->nombre;
+        $correo = new EnviarCorreo($data);
+        $correo->subject($asunto);
+        foreach ($archivos as $nombreArchivo => $rutaArchivo) {
+            $correo->attachData($rutaArchivo, $nombreArchivo);
+        }
+
+        Mail::to($email)->send($correo);
+    }
+
+    public function genera_pdf($id){
+        $factura = Factura::where('id_factura',$id)->select('json')->get();
+        $comprobante = json_decode($factura,true);
+        //dd(json_decode($comprobante[0]["json"]));
+        $data = json_decode($comprobante[0]["json"],true);
+        //print_r($data);
+        //dd($data);
+        $tipo_comprobante = $data["documento"][0]["tipodocumento"];
+        //dd($tipo_comprobante);
+        switch ($tipo_comprobante) {
+            case '03': //CRF
+                $rptComprobante = 'pdf.crf';
+                break;
+            case '01': //FAC
+                $rptComprobante = 'pdf.fac';
+                break;
+            case '11':  //FEX
+                $rptComprobante = 'pdf.fex';
+                break;
+            case '05':
+                $rptComprobante = 'pdf.ncr';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $fecha = $data["json"]["fhRecibido"];
+
+        $qr = base64_encode(codigoQR($data["documento"][0]["ambiente"], $data["json"]["codigoGeneracion"], $fecha));
+        //return  '<img src="data:image/png;base64,'.$qr .'">';
+        $data["codTransaccion"] = "01";
+        $data["qr"] = $qr;
+        $tamaño = "Letter";
+        $orientacion = "Portrait";
+        $pdf = app('dompdf.wrapper');
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->set_option('isRemoteEnabled', true);
+        //dd(asset('/temp'));
+       // $pdf->set_option('tempDir', asset('/temp'));
+        $pdf->loadHtml(ob_get_clean());
+        $pdf->setPaper($tamaño, $orientacion);
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView($rptComprobante, $data);
+        //dd($pdf);
+        return $pdf;
+
     }
 }
