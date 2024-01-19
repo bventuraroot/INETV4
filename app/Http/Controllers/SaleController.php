@@ -43,7 +43,7 @@ class SaleController extends Controller
         \DB::raw('(SELECT dee.descriptionMessage FROM dte dee WHERE dee.id_doc_Ref2=sales.id) AS relatedSale')
     )
     ->get();
-        return view('sales.index', array( 
+        return view('sales.index', array(
             "sales" => $sales
         ));
     }
@@ -1379,5 +1379,54 @@ class SaleController extends Controller
         }
 
         Mail::to($email)->send($correo);
+    }
+
+    public function genera_pdf($id){
+        $factura = Factura::where('id_factura',$id)->select('json')->get();
+        $comprobante = json_decode($factura,true);
+        //dd(json_decode($comprobante[0]["json"]));
+        $data = json_decode($comprobante[0]["json"],true);
+        //print_r($data);
+        //dd($data);
+        $tipo_comprobante = $data["documento"][0]["tipodocumento"];
+        //dd($tipo_comprobante);
+        switch ($tipo_comprobante) {
+            case '03': //CRF
+                $rptComprobante = 'pdf.crf';
+                break;
+            case '01': //FAC
+                $rptComprobante = 'pdf.fac';
+                break;
+            case '11':  //FEX
+                $rptComprobante = 'pdf.fex';
+                break;
+            case '05':
+                $rptComprobante = 'pdf.ncr';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $fecha = $data["json"]["fhRecibido"];
+
+        $qr = base64_encode(codigoQR($data["documento"][0]["ambiente"], $data["json"]["codigoGeneracion"], $fecha));
+        //return  '<img src="data:image/png;base64,'.$qr .'">';
+        $data["codTransaccion"] = "01";
+        $data["qr"] = $qr;
+        $tamaño = "Letter";
+        $orientacion = "Portrait";
+        $pdf = app('dompdf.wrapper');
+        $pdf->set_option('isHtml5ParserEnabled', true);
+        $pdf->set_option('isRemoteEnabled', true);
+        //dd(asset('/temp'));
+       // $pdf->set_option('tempDir', asset('/temp'));
+        $pdf->loadHtml(ob_get_clean());
+        $pdf->setPaper($tamaño, $orientacion);
+        $pdf->getDomPDF()->set_option("enable_php", true);
+        $pdf->loadView($rptComprobante, $data);
+        //dd($pdf);
+        return $pdf;
+
     }
 }
