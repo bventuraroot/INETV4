@@ -1191,6 +1191,7 @@ class SaleController extends Controller
         //return "aqui llego";
         //return $response;
         $objResponse = json_decode($response, true);
+        //dd($objResponse);
         //return json_last_error_msg();
         $objResponse = (array)$objResponse;
         $comprobante_encriptado = $objResponse["body"];
@@ -1207,6 +1208,7 @@ class SaleController extends Controller
             //$ambiente = $comprobante["documento"][0]->ambiente;
             //dd($documento[0]);
             //return ["token" => $token];
+            //dd($codTransaccion);
             if ($codTransaccion == "01" || $codTransaccion=="05") {
                 $comprobante_enviar = [
                     "ambiente"      => $ambiente,
