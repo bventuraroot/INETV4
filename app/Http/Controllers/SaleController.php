@@ -1355,7 +1355,7 @@ class SaleController extends Controller
     }
 
     public function envia_correo(Request $request){
-        //dd("aqui");
+        dd("aqui");
         $id_factura = $request->id_factura;
         $nombre = $request->nombre;
         $numero = $request->numero;
