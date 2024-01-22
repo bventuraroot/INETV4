@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Session;
+use App\Mail\EnviarCorreo;
 
 class SaleController extends Controller
 {
@@ -36,10 +37,12 @@ class SaleController extends Controller
         'clients.firstlastname',
         'clients.name_contribuyente as nameClient',
         'clients.tpersona',
+        'clients.email as mailClient',
         'companies.name AS company_name',
         'dte.tipoDte',
         'dte.estadoHacienda',
         'dte.id_doc',
+        'dte.company_name',
         \DB::raw('(SELECT dee.descriptionMessage FROM dte dee WHERE dee.id_doc_Ref2=sales.id) AS relatedSale')
     )
     ->get();
@@ -1355,24 +1358,43 @@ class SaleController extends Controller
     }
 
     public function envia_correo(Request $request){
-        dd("aqui");
         $id_factura = $request->id_factura;
         $nombre = $request->nombre;
         $numero = $request->numero;
-        $comprobante = Factura::where('id_factura', $id_factura)->first();
+        $comprobante = Sale::join('dte', 'dte.sale_id', '=', 'sales.id')
+        ->join('companies', 'companies.id', '=', 'sales.company_id')
+        ->join('addresses', 'addresses.id', '=', 'companies.address_id')
+        ->join('countries', 'countries.id', '=', 'addresses.country_id')
+        ->join('departments', 'departments.id', '=', 'addresses.department_id')
+        ->join('municipalities', 'municipalities.id', '=', 'addresses.municipality_id')
+        ->join('clients as cli', 'cli.id','=', 'sales.client_id')
+        ->join('addresses as add', 'add.id', '=', 'cli.address_id')
+        ->join('countries as cou', 'cou.id', '=', 'add.country_id')
+        ->join('departments as dep', 'dep.id', '=', 'add.department_id')
+        ->join('municipalities as muni', 'muni.id', '=', 'add.municipality_id')
+        ->select('sales.*',
+                'dte.json as JsonDTE',
+                'dte.codigoGeneracion',
+                'countries.name as PaisE',
+                'departments.name as DepartamentoE',
+                'municipalities.name as MunicipioE',
+                'cou.name as PaisR',
+                'dep.name as DepartamentoR',
+                'muni.name as MunicipioR')
+        ->where('sales.id', '=', $id_factura)
+        ->get();
         //dd($comprobante);
         $email = $request->email;
-
+        //$email ="briandagoberto20@hotmail.com";
         $pdf = $this->genera_pdf($id_factura);
-        $json_root = json_decode($comprobante->json);
+        $json_root = json_decode($comprobante[0]->JsonDTE);
         $json_enviado = $json_root->json->json_enviado;
         $json = json_encode($json_enviado,JSON_PRETTY_PRINT);
-        //dd($json);
         $archivos = [
-            $comprobante->codigoGeneracion.'.pdf' => $pdf->output(),
-            $comprobante->codigoGeneracion.'.json' => $json
+            $comprobante[0]->codigoGeneracion.'.pdf' => $pdf->output(),
+            $comprobante[0]->codigoGeneracion.'.json' => $json
         ];
-        $data = ["nombre" =>$nombre, "numero" => $numero,  "json" => $json_enviado];
+        $data = ["nombre" =>$json_enviado->receptor->nombre, "numero" => $numero,  "json" => $json_enviado];
         $asunto = "Comprobante de Venta No." . $data["json"]->identificacion->numeroControl. ' de Proveedor: '.$data["json"]->emisor->nombre;
         $correo = new EnviarCorreo($data);
         $correo->subject($asunto);
@@ -1384,7 +1406,27 @@ class SaleController extends Controller
     }
 
     public function genera_pdf($id){
-        $factura = Factura::where('id_factura',$id)->select('json')->get();
+        $factura = Sale::join('dte', 'dte.sale_id', '=', 'sales.id')
+        ->join('companies', 'companies.id', '=', 'sales.company_id')
+        ->join('addresses', 'addresses.id', '=', 'companies.address_id')
+        ->join('countries', 'countries.id', '=', 'addresses.country_id')
+        ->join('departments', 'departments.id', '=', 'addresses.department_id')
+        ->join('municipalities', 'municipalities.id', '=', 'addresses.municipality_id')
+        ->join('clients as cli', 'cli.id','=', 'sales.client_id')
+        ->join('addresses as add', 'add.id', '=', 'cli.address_id')
+        ->join('countries as cou', 'cou.id', '=', 'add.country_id')
+        ->join('departments as dep', 'dep.id', '=', 'add.department_id')
+        ->join('municipalities as muni', 'muni.id', '=', 'add.municipality_id')
+        ->select('dte.json',
+                'countries.name as PaisE',
+                'departments.name as DepartamentoE',
+                'municipalities.name as MunicipioE',
+                'cou.name as PaisR',
+                'dep.name as DepartamentoR',
+                'muni.name as MunicipioR')
+        ->where('sales.id', '=', $id)
+        ->get();
+        //dd($factura);
         $comprobante = json_decode($factura,true);
         //dd(json_decode($comprobante[0]["json"]));
         $data = json_decode($comprobante[0]["json"],true);
@@ -1411,10 +1453,15 @@ class SaleController extends Controller
                 break;
         }
         $fecha = $data["json"]["fhRecibido"];
-
         $qr = base64_encode(codigoQR($data["documento"][0]["ambiente"], $data["json"]["codigoGeneracion"], $fecha));
         //return  '<img src="data:image/png;base64,'.$qr .'">';
         $data["codTransaccion"] = "01";
+        $data["PaisE"] = $factura[0]['PaisE'];
+        $data["DepartamentoE"] = $factura[0]['DepartamentoE'];
+        $data["MunicipioE"] = $factura[0]['MunicipioE'];
+        $data["PaisR"] = $factura[0]['PaisR'];
+        $data["DepartamentoR"] = $factura[0]['DepartamentoR'];
+        $data["MunicipioR"] = $factura[0]['MunicipioR'];
         $data["qr"] = $qr;
         $tamaño = "Letter";
         $orientacion = "Portrait";
@@ -1423,6 +1470,7 @@ class SaleController extends Controller
         $pdf->set_option('isRemoteEnabled', true);
         //dd(asset('/temp'));
        // $pdf->set_option('tempDir', asset('/temp'));
+        //dd($data);
         $pdf->loadHtml(ob_get_clean());
         $pdf->setPaper($tamaño, $orientacion);
         $pdf->getDomPDF()->set_option("enable_php", true);
@@ -1430,5 +1478,9 @@ class SaleController extends Controller
         //dd($pdf);
         return $pdf;
 
+    }
+    public function print($id){
+        $pdf = $this->genera_pdf($id);
+        return $pdf->stream('comprobante.pdf');
     }
 }

@@ -37,6 +37,45 @@
 
 @section('page-script')
     <script src="{{ asset('assets/js/app-sale-list.js') }}"></script>
+    <script>
+        function EnviarCorreo(id_factura,correo,numero) {
+            (async () => {
+              //const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+                _token = '{{ csrf_token() }}';
+                //alert(_token);
+                const { value: email } = await Swal.fire({
+                    title: 'Mandar comprobante por Correo',
+                    input: 'email',
+                    inputLabel: 'Correo a Enviar',
+                    inputPlaceholder: 'Introduzca el Correo',
+                    inputValue: correo
+                });
+                url = "{{ route('sale.envia_correo') }}";
+                if (email) {
+                    $.ajax({
+                    url: url,
+                    type:'GET',
+                    data: {
+                    id_factura : id_factura,
+                    email: email,
+                    numero: numero,
+                    _token : _token
+        
+                    },
+                    success: function(data,status)
+                    {
+                        Swal.fire(`Comprobante Enviado a: ${email}`)
+        
+                    },
+                    error: function(){
+                    mensaje("Creación de Factura", "No se pudo Actualizar", "error")
+                    },
+                    });
+                }
+            })()
+        }
+        
+            </script>
 @endsection
 
 @section('title', 'Ventas')
@@ -75,7 +114,7 @@
                                 <td>{{ $sale->id }}</td>
                                 @endif
 
-                                <td>{{ $sale->date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($sale->date)->format('d/m/Y') }}</td>
                                 <td>{{ $sale->document_name }}</td>
                                 <td>
                                     @switch($sale->tpersona)
@@ -90,7 +129,7 @@
 
                                     @endswitch
                                 </td>
-                                <td>$ {{ $sale->totalamount }}</td>
+                                <td>$ {{ number_format($sale->totalamount, 2, '.', ',') }}</td>
                                 <td>
                                     @switch($sale->state)
                                         @case(0)
@@ -131,8 +170,16 @@
                                     @switch($sale->typesale)
                                         @case(1)
                                         <div class="d-flex align-items-center">
+                                            <!--
                                             <a href="javascript: printsale({{ $sale->id }});" class="dropdown-item"><i
-                                                class="ti ti-edit ti-sm me-2"></i>imprimir</a>
+                                                class="ti ti-edit ti-sm me-2"></i>imprimir</a>-->
+                                            <a href="{{route('sale.print', $sale->id)}}"
+                                                    class="btn btn-icon btn-secondary btn-xm" target="_blank"><i
+                                                        class="fas fa-print"></i></a>
+                                            <a href="#"
+                                                    onclick="EnviarCorreo({{$sale->id}} ,'{{ $sale->mailClient}}','{{$sale->id_doc }}')"
+                                                    class="btn btn-icon btn-success btn-xm"><i
+                                                        class="fas fa-paper-plane"></i></a>
                                             <a href="javascript:;" class="text-body dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown"><i class="mx-1 ti ti-dots-vertical ti-sm"></i></a>
                                             <div class="m-0 dropdown-menu dropdown-menu-end">

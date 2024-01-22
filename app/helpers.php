@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use PhpParser\Node\Stmt\Foreach_;
 
 if (!function_exists('get_multi_result_set')) {
@@ -2360,4 +2361,24 @@ if (! function_exists('numtoletras')) {
         } // ENDFOR ($xz)
         return trim($xcadena);
     }
+    }
+
+    if (!function_exists('descrproduct')) {
+        function descrproduct($productId)
+        {
+            $product = Product::find($productId);
+    
+            if ($product) {
+                $description = $product->description;
+    
+                // Verificar si la descripción es N/A, NULL o vacía
+                if ($description === 'N/A' || $description === null || trim($description) === '') {
+                    return $product->name; // Reemplaza 'name' con el nombre real del campo en tu tabla
+                }
+    
+                return $description;
+            }
+    
+            return 'Producto no encontrado';
+        }
     }
