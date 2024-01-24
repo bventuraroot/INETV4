@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Session;
 use App\Mail\EnviarCorreo;
+use App\Models\Correlativo;
 
 class SaleController extends Controller
 {
@@ -185,6 +186,14 @@ class SaleController extends Controller
         $salesave->totalamount = $amount;
         $salesave->typesale = 1;
         //dd($amount);
+        //buscar el correlativo actual
+        $newCorr = Correlativo::join('typedocuments as tdoc', 'tdoc.type', '=', 'docs.id_tipo_doc')
+        ->where('tdoc.id', '=', $salesave->typedocument_id)
+        ->where('docs.id_empresa', '=', $salesave->company_id)
+        ->select('docs.actual',
+                'docs.id')
+        ->get();
+        $salesave->nu_doc = $newCorr[0]->actual;
         $salesave->save();
 
         $idempresa = $salesave->company_id;
@@ -243,11 +252,11 @@ class SaleController extends Controller
         $querydocumento = "SELECT
         a.id id_doc,
         b.`type` id_tipo_doc,
-        0 serie,
-        1 inicial,
-        1 final,
-        a.id actual,
-        1 estado,
+        docs.serie serie,
+        docs.inicial inicial,
+        docs.final final,
+        docs.actual actual,
+        docs.estado estado,
         a.company_id id_empresa,
         a.user_id hechopor,
         a.created_at fechacreacion,
@@ -266,10 +275,11 @@ class SaleController extends Controller
         a.updated_at,
         1 aparece_ventas
         FROM sales a
-        INNER JOIN typedocuments b ON a.typedocument_id=b.id
-        INNER JOIN users c ON a.user_id=c.id
-        INNER JOIN config d ON a.company_id=d.company_id
-        INNER JOIN ambientes e ON d.ambiente=e.id
+        INNER JOIN typedocuments b ON a.typedocument_id = b.id
+        INNER JOIN docs ON b.id = (SELECT t.id FROM typedocuments t WHERE t.type = docs.id_tipo_doc)
+        INNER JOIN users c ON a.user_id = c.id
+        INNER JOIN config d ON a.company_id = d.company_id
+        INNER JOIN ambientes e ON d.ambiente = e.id
         WHERE a.id = ".base64_decode($corr)."";
         $documento = DB::select(DB::raw($querydocumento));
 
@@ -425,6 +435,10 @@ class SaleController extends Controller
         $dtecreate->created_by = $documento[0]->NombreUsuario;
         $dtecreate->save();
 
+        //update correlativo
+        $updateCorr = Correlativo::find($newCorr[0]->id);
+        $updateCorr->actual=($updateCorr->actual+1);
+        $updateCorr->save();
         if($dtecreate) $exit = 1;
 
         return response()->json(array(
@@ -580,35 +594,36 @@ class SaleController extends Controller
                         INNER JOIN economicactivities econo ON clie.economicactivity_id=econo.id
                         WHERE s.id = $id_sale";
             $factura = DB::select(DB::raw($qfactura));
-        $qdoc = "SELECT
-                        a.id id_doc,
-                        a.`type` id_tipo_doc,
-                        0 serie,
-                        1 inicial,
-                        1 final,
-                        (SELECT MAX(sales.id) + 1 FROM sales) actual,
-                        1 estado,
-                        a.company_id id_empresa,
-                        NULL hechopor,
-                        a.created_at fechacreacion,
-                        a.description NombreDocumento,
-                        NULL NombreUsuario,
-                        NULL docUser,
-                        a.codemh tipodocumento,
-                        a.versionjson versionJson,
-                        e.url_credencial,
-                        e.url_envio,
-                        e.url_invalidacion,
-                        e.url_contingencia,
-                        e.url_firmador,
-                        d.typeTransmission tipogeneracion,
-                        e.cod ambiente,
-                        a.updated_at,
-                        1 aparece_ventas
-                        FROM typedocuments a
-                        INNER JOIN config d ON a.company_id=d.company_id
-                        INNER JOIN ambientes e ON d.ambiente=e.id
-                        WHERE a.`type`= 'NCR'";
+                $qdoc = "SELECT
+                a.id id_doc,
+                a.`type` id_tipo_doc,
+                docs.serie serie,
+                docs.inicial inicial,
+                docs.final final,
+                docs.actual actual,
+                docs.estado estado,
+                a.company_id id_empresa,
+                NULL hechopor,
+                a.created_at fechacreacion,
+                a.description NombreDocumento,
+                NULL NombreUsuario,
+                NULL docUser,
+                a.codemh tipodocumento,
+                a.versionjson versionJson,
+                e.url_credencial,
+                e.url_envio,
+                e.url_invalidacion,
+                e.url_contingencia,
+                e.url_firmador,
+                d.typeTransmission tipogeneracion,
+                e.cod ambiente,
+                a.updated_at,
+                1 aparece_ventas
+                FROM typedocuments a
+                INNER JOIN docs ON a.id = (SELECT t.id FROM typedocuments t WHERE t.type = docs.id_tipo_doc)
+                INNER JOIN config d ON a.company_id=d.company_id
+                INNER JOIN ambientes e ON d.ambiente=e.id
+                WHERE a.`type`= 'NCR'";
                 $doc = DB::select(DB::raw($qdoc));
         $qfacturadet = "SELECT
                         *,
@@ -801,9 +816,15 @@ class SaleController extends Controller
                 $observacionesMsg = $respuesta["observacionesMsg"];
 
                 //dd($factura);
-
+                $newCorr = Correlativo::join('typedocuments as tdoc', 'tdoc.type', '=', 'docs.id_tipo_doc')
+                ->where('tdoc.id', '=', '9')
+                ->where('docs.id_empresa', '=', $factura[0]->company_id)
+                ->select('docs.actual',
+                        'docs.id')
+                ->get();
                 $nfactura = new Sale();
                 $nfactura->acuenta = $factura[0]->anombrede;
+                $nfactura->nu_doc = $newCorr[0]->actual;
                 $nfactura->state =  1;
                 $nfactura->state_credit = $factura[0]->state_credit;
                 $nfactura->totalamount = $factura[0]->totalamount;
@@ -864,6 +885,10 @@ class SaleController extends Controller
                 $dtecreate->sale_id = $nfactura["id"];
                 $dtecreate->created_by = $documento[0]["NombreUsuario"];
                 $dtecreate->save();
+
+                $updateCorr = Correlativo::find($newCorr[0]->id);
+                $updateCorr->actual=($updateCorr->actual+1);
+                $updateCorr->save();
 
         if($dtecreate) $exit = 1; else $exit = 0;
 
