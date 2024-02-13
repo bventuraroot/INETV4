@@ -134,7 +134,7 @@
                     <tr style="background-color: lightgray;">
                         <td colspan="3" align="center" style="font-size: x-small;">
                             <strong>DOCUMENTO TRIBUTARIO ELECTRÓNICO</strong><br>
-                            <strong>COMPROBANTE DE CRÉDITO FISCAL</strong>
+                            <strong>COMPROBANTE DE FACTURAS DE SUJETO EXCLUIDO</strong>
                         </td>
                     </tr>
                     <tr>
@@ -190,7 +190,7 @@
                         <td colspan="2" >{{$json["receptor"]["nombre"]}}  </td>
                     </tr>
                     <tr>
-                        <td align="right"><strong>Actividad económica:</strong></td> 
+                        <td align="right"><strong>Actividad económica:</strong></td>
                         <td width="60%">{{$json["receptor"]["descActividad"]}}</td>
                         <td><strong>NIT:</strong> {{$json["receptor"]["nit"]}}</td>
                     </tr>

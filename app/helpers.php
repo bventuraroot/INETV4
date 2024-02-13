@@ -2367,18 +2367,35 @@ if (! function_exists('numtoletras')) {
         function descrproduct($productId)
         {
             $product = Product::find($productId);
-    
+
             if ($product) {
                 $description = $product->description;
-    
+
                 // Verificar si la descripción es N/A, NULL o vacía
                 if ($description === 'N/A' || $description === null || trim($description) === '') {
                     return $product->name; // Reemplaza 'name' con el nombre real del campo en tu tabla
                 }
-    
+
                 return $description;
             }
-    
+
             return 'Producto no encontrado';
+        }
+    }
+
+    if (!function_exists('tipoDocumento')) {
+        function tipoDocumento($tipo)
+        {
+            $documento = "";
+            switch ($tipo) {
+                case '36':
+                    $documento = "NIT";
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
+            return $documento;
         }
     }
